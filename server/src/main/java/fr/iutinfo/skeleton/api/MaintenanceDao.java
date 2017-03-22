@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 import java.util.List;
 
 public interface MaintenanceDao {
-	@SqlUpdate("create table Maintenance(idM integer primry key autoincrement,idUser integer,"
+/*	@SqlUpdate("create table Maintenance(idM integer primry key autoincrement,idUser integer,"
 			+ "idPro integer, date date,type text,effectue boolean , rapport text, Constraint fk_Maintenance1 foreign key(idUser) references User(id), Constraint fk_Maintenance2 foreign key(idPro) references Produits(idp))")
 	void createMaintenanceTable();
 	
@@ -39,5 +39,5 @@ public interface MaintenanceDao {
     List<Maintenance> all();
 
    
-	
+	*/
 }

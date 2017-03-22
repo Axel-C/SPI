@@ -7,10 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -18,7 +20,6 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
-
 
 @Path("/produits")
 @Produces(MediaType.APPLICATION_JSON)
@@ -60,6 +61,17 @@ public class ProduitsRessource {
 
 	}
 
+	/**
+	 * Méthode de création d'un produit. Prend en charge les requètes HTTP POST
+	 * 
+	 * @param libelle
+	 * @param reference
+	 * @param prix
+	 * @param description
+	 * @param categorie
+	 * @return Response le corps de réponse est vide, le code de retour HTTP est
+	 *         fixé à 201 si la création est faite. URI de la ressource est renvoyé en cas de succès.
+	 */
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	public Response createTask(@FormParam("libelle") String libelle, @FormParam("reference") String reference,
@@ -85,7 +97,8 @@ public class ProduitsRessource {
 	 * Méthode qui prend en charge les requètes HTTP GET sur /produits/{id}
 	 * 
 	 * @param id
-	 * @return
+	 * @return le produit demandé
+	 * 
 	 */
 	@GET
 	@Path("/{id}")
@@ -100,5 +113,42 @@ public class ProduitsRessource {
 
 	private int getCpt() {
 		return cpt++;
+	}
+	
+	/**
+	 * 
+	 * Méthode prenant en charge les requètes HTTP PUT sur /produits/{id}
+	 * 
+	 * @param id
+	 * @param prod
+	 * @return un code de retour HTTP, pas de contenu cependant. Si l'id n'existe pas on renvoie 404
+	 */
+	@PUT
+	@Path("/{id}")
+	public Response modifyProduits(@PathParam("id") Integer id, Produits prod){
+		if(!products.containsKey(id)){
+			throw new NotFoundException();
+		}else{
+			products.put(id, prod);
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}
+	}
+	
+	/**
+	 * 
+	 * Méthode prenant en charge les requètes HTTP DELETE sur /produits/{id}
+	 * 
+	 * @param id
+	 * @return 
+	 */
+	@DELETE
+	@Path("/{id}")
+	public Response deleteProduits(@PathParam("id") Integer id){
+		if(!products.containsKey(id)){
+			throw new NotFoundException();
+		}else{
+			products.remove(id);
+			return Response.status(Response.Status.NO_CONTENT).build();
+		}			
 	}
 }
