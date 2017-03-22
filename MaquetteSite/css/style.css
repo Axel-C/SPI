@@ -1,0 +1,26 @@
+body, p, h1, ul, li{
+    margin : 0;
+    padding : 0;
+    
+}
+#page {
+    margin: 0 !important ;
+    margin-top: 75px !important ;
+}
+.item{
+    max-height: 300px ;
+    margin: auto ;
+}
+.item img{
+    height: 300px ;
+    margin: auto ;
+   
+}
+#catalogue{
+    margin-top: 25px ;
+    border : 1px solid grey ;
+    border-radius: 2px ;
+    padding: 20px ;
+    text-align: center;
+}
+
