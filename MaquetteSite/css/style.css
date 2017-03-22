@@ -24,3 +24,31 @@ body, p, h1, ul, li{
     text-align: center;
 }
 
+#categorie{
+    position: fixed;    
+}
+#contenu{
+    margin-left: 20%;
+}
+#categorieNav{
+    display: none;
+}
+#categorieNav h2{
+    color: white;
+}
+@media (max-width: 990px) {
+    #categorie {
+    position: inherit;
+    }
+    #contenu{
+        margin-left: auto;
+    }
+}
+@media (max-width: 767px) {
+    #categorieNav {
+        display: block;
+    }
+    #categorie{
+        display: none;
+    }
+}
