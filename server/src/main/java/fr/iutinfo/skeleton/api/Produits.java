@@ -1,5 +1,8 @@
 package fr.iutinfo.skeleton.api;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Produits {
 
 	private String libelle;

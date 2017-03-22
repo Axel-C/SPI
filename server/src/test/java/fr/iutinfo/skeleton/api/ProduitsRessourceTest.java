@@ -36,8 +36,8 @@ public class ProduitsRessourceTest {
 	@Test
 	public void testCreateProduits() {
 		Produits prod = new Produits("Ecrou",0,"E54POI", 2.53f, "Ecrou d'une certaine taille et d'un certain poids", "Ecrou");
-		// Conversion en JSON
-		Entity<Produits> prodEntity = Entity.entity(prod, MediaType.APPLICATION_JSON);
+		// Conversion en JSON		
+		//Entity<Produits> prodEntity = Entity.entity(prod, MediaType.APPLICATION_JSON);
 		
 	}
 }
