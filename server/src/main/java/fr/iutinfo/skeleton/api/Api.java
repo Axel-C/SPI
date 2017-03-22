@@ -14,6 +14,7 @@ public class Api extends ResourceConfig {
         //register(LoggingFilter.class);
         register(AuthFilter.class);
         register(RolesAllowedDynamicFeature.class);
+        
     }
 
 }

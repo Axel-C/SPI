@@ -53,4 +53,11 @@ public class UserDto implements Principal {
         this.alias = alias;
     }
 
+	@Override
+	public String toString() {
+		return "UserDto [name=" + name + ", alias=" + alias + ", id=" + id + ", email=" + email + ", password="
+				+ password + "]";
+	}
+
+    
 }
