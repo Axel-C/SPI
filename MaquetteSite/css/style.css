@@ -24,3 +24,64 @@ body, p, h1, ul, li{
     text-align: center;
 }
 
+#categorie{
+    position: fixed;    
+}
+#categorie>ul{
+    margin-top: 10px;
+}
+#contenu{
+    margin-left: 20%;
+}
+#categorieNav{
+    display: none;
+}
+#categorieNav h2{
+    color: white;
+}
+#logoNav{
+    width: 75px;
+    margin-top: -9px;
+}
+#btnConnection{
+    color: white;
+    line-height: 34px;
+    font-size: 1.5em;
+}
+@media (max-width: 990px) {
+    #categorie {
+    position: inherit;
+    }
+    #contenu{
+        margin-left: auto;
+    }
+}
+@media (max-width: 767px) {
+    #categorieNav {
+        display: block;
+    }
+    #categorie{
+        display: none;
+    }
+}
+
+#login{
+    margin: auto ;
+    
+    
+}
+#login h1{
+    text-align: center ;
+}
+#login form{
+    
+    margin: auto ;
+}
+#login label{
+   
+}
+#validation{
+    
+    margin-top: 25px ;
+}
+

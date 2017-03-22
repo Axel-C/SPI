@@ -9,12 +9,12 @@ import java.util.List;
 public interface UtilisateurDao {
 	/*
 	@SqlUpdate("create table utilisateurs(id integer primry key autoincrement,"
-			+ "nom text, prenom text, login text, mdp text, email text,"
+			+ "nom text, prenom text, mdp text, email text,adresse text"
 			+ "validation boolean, telephone text,entreprise text,numSiret text not null,role text)")
 	void createUtilisateursTable();
 	
-    @SqlUpdate("insert into utilisateurs (nom,prenom,login,mdp,email,telephone,entreprise,numSiret,) values"
-    		+ " (:nom, :prenom, :login, :mdp, :email , :telephone, :entreprise, :numSiret)")
+    @SqlUpdate("insert into utilisateurs (nom,prenom,mdp,email,adresse,telephone,entreprise,numSiret,) values"
+    		+ " (:nom, :prenom, :mdp, :email , :adresse, :telephone, :entreprise, :numSiret)")
     @GetGeneratedKeys
     int insert(@BindBean() Utilisateurs utilisateur);
 
