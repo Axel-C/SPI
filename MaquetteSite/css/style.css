@@ -52,3 +52,24 @@ body, p, h1, ul, li{
         display: none;
     }
 }
+
+#login{
+    margin: auto ;
+    
+    
+}
+#login h1{
+    text-align: center ;
+}
+#login form{
+    
+    margin: auto ;
+}
+#login label{
+   
+}
+#validation{
+    
+    margin-top: 25px ;
+}
+
