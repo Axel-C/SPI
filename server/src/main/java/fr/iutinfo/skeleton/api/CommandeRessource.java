@@ -32,7 +32,7 @@ public class CommandeRessource {
 	public UriInfo uriInfo;
 
 	// Hashmap pour stocker les différentes Commandes
-	private static Map<Integer, Commandes> products = new HashMap<>();
+	private static Map<Integer, Commandes> command = new HashMap<>();
 
 	/**
 	 * Une ressource doit avoir un constructeur vide (sans argument... du coup)
@@ -51,10 +51,10 @@ public class CommandeRessource {
 	@POST
 	public Response createCommandes(Commandes Commandes) {
 		Commandes.setIdc(getCpt());
-		if (products.containsKey(Commandes.getIdc())) {
+		if (command.containsKey(Commandes.getIdc())) {
 			return Response.status(Response.Status.CONFLICT).build();
 		} else {
-			products.put(Commandes.getIdc(), Commandes);
+			command.put(Commandes.getIdc(), Commandes);
 			URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + Commandes.getIdc()).build();
 			return Response.created(instanceURI).build();
 		}
@@ -74,9 +74,11 @@ public class CommandeRessource {
 	@Consumes("application/x-www-form-urlencoded")
 	public Response createTask(@FormParam("id") int id, @FormParam("idp") int idp,
 			@FormParam("prixTotal") float prixTotal) {
-		
+		if(!UtilisateursRessource.users.containsKey(id) || !ProduitsRessource.products.containsKey(idp)){
+			throw new NotFoundException();
+		}
 		Commandes com = new Commandes(getCpt(),id,idp,prixTotal);
-		products.put(com.getIdc(), com);
+		command.put(com.getIdc(), com);
 		URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + com.getIdc()).build();
 		return Response.created(instanceURI).build();
 	}
@@ -88,7 +90,7 @@ public class CommandeRessource {
 	 */
 	@GET
 	public List<Commandes> getCommandes() {
-		return new ArrayList<Commandes>(products.values());
+		return new ArrayList<Commandes>(command.values());
 	}
 
 	/**
@@ -102,10 +104,10 @@ public class CommandeRessource {
 	@Path("/{idc}")
 	@Produces({ "application/json", "application/xml" })
 	public Commandes getProduit(@PathParam("idc") Integer idc) {
-		if (!products.containsKey(idc)) {
+		if (!command.containsKey(idc)) {
 			throw new NotFoundException();
 		} else {
-			return products.get(idc);
+			return command.get(idc);
 		}
 	}
 
@@ -124,10 +126,10 @@ public class CommandeRessource {
 	@PUT
 	@Path("/{idc}")
 	public Response modifyCommandes(@PathParam("idc") Integer idc, Commandes com){
-		if(!products.containsKey(idc)){
+		if(!command.containsKey(idc)){
 			throw new NotFoundException();
 		}else{
-			products.put(idc, com);
+			command.put(idc, com);
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}
 	}
@@ -142,10 +144,10 @@ public class CommandeRessource {
 	@DELETE
 	@Path("/{idc}")
 	public Response deleteCommandes(@PathParam("idc") Integer idc){
-		if(!products.containsKey(idc)){
+		if(!command.containsKey(idc)){
 			throw new NotFoundException();
 		}else{
-			products.remove(idc);
+			command.remove(idc);
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}			
 	}
