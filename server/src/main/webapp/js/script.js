@@ -6,13 +6,16 @@ $(document).ready(function(){
         afficherContenu('#contenu');
     });
    $('.categorie').click(function(event){
-        console.log($(this).attr('id'));
+        var categorie = $(this).attr('id') ;
+        var txt = $(this).text();
         $.ajax({
-            url : "v1/produits/categorie/" + $(this).attr('id') ,
+            url : "v1/produits/categorie/" + categorie ,
             type : "GET" ,
             dataType : "json" ,
             success : function(json){
                 $('#catalogue').empty() ;
+                console.log($(this).attr('id'));
+                $('#catalogue').append($('<h1>'+ txt +'</h1>'));
                 var articles = JSON.parse(JSON.stringify(json));
                 afficherArticles(articles);
                  $('nav li .active').removeClass('active');
@@ -54,7 +57,7 @@ $(document).ready(function(){
         
         var catalogue = $('#catalogue');
         var row = $('<div class="row">');
-        for(var i=1; i<articles.length; i++){
+        for(var i=1; i<=articles.length; i++){
             row.append(creerArticle(articles[i-1].id, articles[i-1].libelle, articles[i-1].description, articles[i-1].urlImage));
             if(i%3 == 0){
                 catalogue.append(row);
@@ -78,7 +81,9 @@ $(document).ready(function(){
       dataType : "json",
       success: function( json ) {
         $('#catalogue').empty();
+        $('#catalogue').append($('<h1>Les indispensables</h1>'));
         var articles = JSON.parse(JSON.stringify(json));  
+        console.log(articles);
         afficherArticles(articles);
       },
       error: function( xhr, status, errorThrown ) {
