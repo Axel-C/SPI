@@ -38,6 +38,10 @@ public interface ProduitsDao {
     @SqlQuery("select * from produits where idp = :idp")
     @RegisterMapperFactory(BeanMapperFactory.class)
     Produits findByIdp(@Bind("idp") int idp);
+    
+    @SqlQuery("select * from produits where categorie = :categorie")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    Produits findByCategorie(@Bind("categorie") String categorie);
 
     void close();
 }
