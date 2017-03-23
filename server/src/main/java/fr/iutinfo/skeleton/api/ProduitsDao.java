@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ProduitsDao {
 	
-	@SqlUpdate("create table produits(idp integer primry key autoincrement,"
+	@SqlUpdate("create table produits(idp integer primary key,"
 			+ "libelle text, reference text,prix float,description text, categorie text,urlImage text)")
 	void createProduitsTable();
 	
