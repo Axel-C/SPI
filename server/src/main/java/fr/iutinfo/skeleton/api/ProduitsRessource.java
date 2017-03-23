@@ -19,11 +19,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Path("/produits")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProduitsRessource {
-
+	final static Logger logger = LoggerFactory.getLogger(ProduitsRessource.class);
 	private static int cpt = 0;
 
 	@Context
@@ -36,6 +39,8 @@ public class ProduitsRessource {
 	 * Une ressource doit avoir un constructeur vide (sans argument... du coup)
 	 */
 	public ProduitsRessource() throws SQLException {
+	//	dao.dropProduitsTable();
+		logger.debug("TABLE PLUS DROPPED");
 		if (!BDDFactory.tableExist("produits"))
 			dao.createProduitsTable();
 	}
@@ -50,11 +55,11 @@ public class ProduitsRessource {
 	 */
 	@POST
 	public Response createProduits(Produits produits) {
-		produits.setId(getCpt());
 		if (dao.all().contains(produits))
 			return Response.status(Response.Status.CONFLICT).build();
 		else {
-			dao.insert(produits);
+			int id = dao.insert(produits);
+			produits.setId(id);
 			URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + produits.getId()).build();
 			return Response.created(instanceURI).build();
 		}

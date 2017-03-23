@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface ProduitsDao {
 	
-	@SqlUpdate("create table produits(idp integer primary key,"
+	@SqlUpdate("create table produits(idp integer primary key autoincrement,"
 			+ "libelle text, reference text,prix float,description text, categorie text,urlImage text)")
 	void createProduitsTable();
 	
     @SqlUpdate("insert into produits (libelle, reference, prix, description, categorie, urlImage) values"
-    		+ " (:libelle, :reference, :prix, :description, :categorie :urlImage)")
+    		+ " (:libelle, :reference, :prix, :description, :categorie, :urlImage)")
     @GetGeneratedKeys
     int insert(@BindBean() Produits produits);
 
