@@ -1,4 +1,34 @@
 $(document).ready(function(){
+    $('nav li').click(function(){
+        $('nav li .active').removeClass('active');
+        $(this).addClass('active');
+    })
+    
+    
+   /* $('.categorie').click(function(event){
+        console.log($(this).attr('id'));
+        $.ajax({
+            url : "v1/produits/" + $(this).attr('id') ,
+            type : "GET" ,
+            dataType : "json" ,
+            success : function(json){
+                $('#catalogue').empty() ;
+                var articles = JSON.parse(JSON.stringify(json));
+                afficherArticles(articles);
+                 $('nav li .active').removeClass('active');
+        $(this).addClass('active');
+            } ,
+            error :  function( xhr, status, errorThrown  ){
+                alert( "Sorry, there was a problem!" );
+        console.log( "Error: " + errorThrown );
+        console.log( "Status: " + status );
+        console.dir( xhr );
+            }
+            
+            
+        })
+        
+    })*/
         
     var creerArticle = function( id , name , description  , img){
          return $(" <article class='thumbnail col-md-4'>"+
