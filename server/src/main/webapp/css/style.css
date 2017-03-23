@@ -58,7 +58,6 @@ body{
 }
 
 #ContenuLogin, #contenuContact{
-    margin: auto ;
     display: none;
 }
 #ContenuLogin h1{

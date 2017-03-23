@@ -1,17 +1,14 @@
 $(document).ready(function(){
-    $('nav li').click(function(){
-        $('nav li .active').removeClass('active');
-        $(this).addClass('active');
-    })
     
     $('.nav li').click(function(){
         $('.nav .active').removeClass('active');
         $(this).addClass('active');
-    })
-   /* $('.categorie').click(function(event){
+        afficherContenu('#contenu');
+    });
+   $('.categorie').click(function(event){
         console.log($(this).attr('id'));
         $.ajax({
-            url : "v1/produits/" + $(this).attr('id') ,
+            url : "v1/produits/categorie/" + $(this).attr('id') ,
             type : "GET" ,
             dataType : "json" ,
             success : function(json){
@@ -31,18 +28,19 @@ $(document).ready(function(){
             
         })
         
-    })*/
+    })
         
     $('#btnConnection').click(function(){
-        $('#contenu div').hide();
-        $('#ContenuLogin').show(); 
-        
+        afficherContenu('#ContenuLogin');        
     });
     $('#nousContacter').click(function(){
-        $('#contenu div').hide();
-        $('#contenuContact').show(); 
-        
+        afficherContenu('#contenuContact');
     });
+    
+    var afficherContenu = function(div){
+        $('section.col-md-9:visible').hide(300);
+        $(div).show(300); 
+    }
     var creerArticle = function( id , name , description  , img){
          return $(" <article class='thumbnail col-md-4'>"+
                   "<img src='"+ img + "' class='img-thumbnail img-responsive' alt='"+ name + "'>"+
