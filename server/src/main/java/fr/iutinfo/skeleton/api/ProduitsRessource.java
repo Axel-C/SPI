@@ -40,7 +40,7 @@ public class ProduitsRessource {
 	 */
 	public ProduitsRessource() throws SQLException {
 	//	dao.dropProduitsTable();
-		logger.debug("TABLE PLUS DROPPED");
+		logger.debug("TABLE produits PAS DROPPED");
 		if (!BDDFactory.tableExist("produits"))
 			dao.createProduitsTable();
 	}
@@ -59,33 +59,12 @@ public class ProduitsRessource {
 			return Response.status(Response.Status.CONFLICT).build();
 		else {
 			int id = dao.insert(produits);
-			produits.setId(id);
-			URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + produits.getId()).build();
+			logger.debug("ID: " + id);
+			produits.setIdp(id);
+			logger.debug("ID APRES SET-> "+produits.getIdp());
+			URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + produits.getIdp()).build();
 			return Response.created(instanceURI).build();
 		}
-	}
-
-	/**
-	 * Méthode de création d'un produit. Prend en charge les requètes HTTP POST
-	 * 
-	 * @param libelle
-	 * @param reference
-	 * @param prix
-	 * @param description
-	 * @param categorie
-	 * @return Response le corps de réponse est vide, le code de retour HTTP est
-	 *         fixé à 201 si la création est faite. URI de la ressource est
-	 *         renvoyé en cas de succès.
-	 */
-	@POST
-	@Consumes("application/x-www-form-urlencoded")
-	public Response createTask(@FormParam("libelle") String libelle, @FormParam("reference") String reference,
-			@FormParam("prix") float prix, @FormParam("description") String description,
-			@FormParam("categorie") String categorie, @FormParam("urlImage") String urlImage) {
-		Produits prod = new Produits(libelle, getCpt(), reference, prix, description, categorie, urlImage);
-		dao.insert(prod);
-		URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + prod.getId()).build();
-		return Response.created(instanceURI).build();
 	}
 
 	/**
@@ -95,7 +74,12 @@ public class ProduitsRessource {
 	 */
 	@GET
 	public List<Produits> getProduits() {
-		return new ArrayList<Produits>(dao.all());
+		
+		List<Produits> jack = new ArrayList<Produits>(dao.all());
+		jack.forEach(item->{
+			logger.debug("lambda ID = "+item.getIdp());
+		});
+		return jack;
 	}
 
 	/**
@@ -109,7 +93,7 @@ public class ProduitsRessource {
 	@Path("/{id}")
 	@Produces({ "application/json", "application/xml" })
 	public Produits getProduit(@PathParam("id") Integer id) {
-		if (dao.findByIdp(id) != null) {
+		if (dao.findByIdp(id) == null) {
 			throw new NotFoundException();
 		} else {
 			return dao.findByIdp(id);

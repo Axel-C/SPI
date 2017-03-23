@@ -111,6 +111,8 @@ public class CommandeRessource {
 		}
 	}
 
+	
+	
 	private int getCpt() {
 		return cpt++;
 	}

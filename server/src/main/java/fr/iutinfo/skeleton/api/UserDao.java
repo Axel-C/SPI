@@ -9,7 +9,7 @@ import java.util.List;
 public interface UserDao {
     @SqlUpdate("create table users (id integer primary key autoincrement, name varchar(100),"
     		+ " alias varchar(100), email varchar(100), passwdHash varchar(64), salt varchar(64),"
-    		+ " search varchar(1024),adresse text"
+    		+ " search varchar(1024),adresse text,"
 			+ "validation boolean, telephone text,entreprise text,numSiret text not null,role text)")
     void createUserTable();
 

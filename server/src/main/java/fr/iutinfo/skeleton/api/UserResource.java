@@ -41,6 +41,8 @@ public class UserResource {
 	@GET
 	@Path("/{name}")
 	public UserDto getUser(@PathParam("name") String name) {
+		dao.dropUserTable();
+		logger.debug("TABLE user DROPPED");
 		User user = dao.findByName(name);
 		if (user == null) {
 			throw new WebApplicationException(404);

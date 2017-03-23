@@ -41,11 +41,11 @@ public class Produits {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-	public int getId() {
+	public int getIdp() {
 		return idp;
 	}
-	public void setId(int id) {
-		this.idp = id;
+	public void setIdp(int idp) {
+		this.idp = idp;
 	}
 	public String getReference() {
 		return reference;
