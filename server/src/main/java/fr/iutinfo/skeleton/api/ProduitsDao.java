@@ -42,6 +42,13 @@ public interface ProduitsDao {
     @SqlQuery("select * from produits where categorie = :categorie")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Produits> findByCategorie(@Bind("categorie") String categorie);
+    
+    @SqlQuery("update produits set "
+    		+ " libelle =:libelle,reerence= :reference,prix= :prix,description :description,"
+    		+ "categorie= :categorie,urlImage= :urlImage"
+    		+ " where idp = :idp")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    Produits updateProduits(@Bind("idp") int idp);
 
     void close();
 }
