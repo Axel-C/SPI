@@ -1,7 +1,5 @@
 package fr.iutinfo.skeleton.api;
 
-import java.util.Date;
-
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement

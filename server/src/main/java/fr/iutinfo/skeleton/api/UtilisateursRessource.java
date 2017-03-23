@@ -75,6 +75,7 @@ public class UtilisateursRessource {
 
 	@GET
 	public List<Utilisateurs> getUsers() {
+		
 		return new ArrayList<Utilisateurs>(dao.all());
 	}
 
