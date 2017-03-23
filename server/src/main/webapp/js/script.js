@@ -9,7 +9,19 @@ $(document).ready(function(){
                 "</div>"+
                    " </article>");
     }        
+    var afficherArticles = function(articles){
         
+        var catalogue = $('#catalogue');
+        var row = $('<div class="row">');
+        for(var i=1; i<articles.length; i++){
+            row.append(creerArticle(articles[i-1].id, articles[i-1].libelle, articles[i-1].description, articles[i-1].urlImage));
+            if(i%3 == 0){
+                catalogue.append(row);
+                var row = $('<div class="row">');
+            }
+        }
+        catalogue.append(row);
+    }  
     var ajouterArticle = function(regex){
         $('#catalogue .row').append(regex);
     }
@@ -18,30 +30,23 @@ $(document).ready(function(){
     
     article.appendTo('#catalogue .row');
     
-    $('.categorie1').click(function(){
-        console.info('within list books !');
-        $.ajax({
-          url: "http://localhost:8080/v1/produits",
-          type: "GET",
-          dataType : "json",
-          success: function( json ) {
-              console.info('within list books !');
-            $('#catalogue .row').empty();
-            console.log(JSON.stringify(json));
-            var articles = JSON.stringify(json);  
-            ajouterArticle(creerArticle(articles.id, articles.libelle, articles.description, articles.urlImage));
-          },
-          error: function( xhr, status, errorThrown ) {
-            alert( "Sorry, there was a problem!" );
-            console.log( "Error: " + errorThrown );
-            console.log( "Status: " + status );
-            console.dir( xhr );
-          },
-          complete: function( xhr, status ) {
-            console.log('ajax request completed !');
-          }
-        }); // end ajax
-    });
+    
+    $.ajax({
+      url: "v1/produits",
+      type: "GET",
+      dataType : "json",
+      success: function( json ) {
+        $('#catalogue').empty();
+        var articles = JSON.parse(JSON.stringify(json));  
+        afficherArticles(articles);
+      },
+      error: function( xhr, status, errorThrown ) {
+        alert( "Sorry, there was a problem!" );
+        console.log( "Error: " + errorThrown );
+        console.log( "Status: " + status );
+        console.dir( xhr );
+      }
+    }); // end ajax
 });
 
 
