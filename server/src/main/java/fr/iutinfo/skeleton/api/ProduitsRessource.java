@@ -111,7 +111,14 @@ public class ProduitsRessource {
 			return dao.findByIdp(id);
 		}
 	}
-
+	
+	@GET
+	@Path("/categorie")
+	@Produces({"application/json", "application/xml"})
+	public List<Produits> getProduitByCategorie(@PathParam("categorie") String categorie){
+		return dao.findByCategorie(categorie);
+	}
+	
 	private int getCpt() {
 		return cpt++;
 	}

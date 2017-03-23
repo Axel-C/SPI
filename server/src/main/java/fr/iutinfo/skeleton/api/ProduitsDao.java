@@ -41,7 +41,7 @@ public interface ProduitsDao {
     
     @SqlQuery("select * from produits where categorie = :categorie")
     @RegisterMapperFactory(BeanMapperFactory.class)
-    Produits findByCategorie(@Bind("categorie") String categorie);
+    List<Produits> findByCategorie(@Bind("categorie") String categorie);
 
     void close();
 }
