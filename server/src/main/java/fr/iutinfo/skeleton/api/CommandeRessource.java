@@ -1,10 +1,9 @@
 package fr.iutinfo.skeleton.api;
 
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -31,13 +30,14 @@ public class CommandeRessource {
 	@Context
 	public UriInfo uriInfo;
 
-	// Hashmap pour stocker les différentes Commandes
-	private static Map<Integer, Commandes> command = new HashMap<>();
-
+	private static CommandeDao dao = BDDFactory.getDbi().open(CommandeDao.class);
+	
 	/**
 	 * Une ressource doit avoir un constructeur vide (sans argument... du coup)
 	 */
-	public CommandeRessource() {
+	public CommandeRessource() throws SQLException{
+		if(!BDDFactory.tableExist("commandes"))
+			dao.createCommandeTable();
 	}
 
 	/**
@@ -50,15 +50,11 @@ public class CommandeRessource {
 	 */
 	@POST
 	public Response createCommandes(Commandes Commandes) {
-		Commandes.setIdc(getCpt());
-		if (command.containsKey(Commandes.getIdc())) {
+		if(dao.all().contains(produits))
 			return Response.status(Response.Status.CONFLICT).build();
-		} else {
-			command.put(Commandes.getIdc(), Commandes);
-			URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + Commandes.getIdc()).build();
-			return Response.created(instanceURI).build();
+		else{
+			int id;
 		}
-
 	}
 
 	/**

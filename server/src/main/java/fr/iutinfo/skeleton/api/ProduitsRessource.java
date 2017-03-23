@@ -59,9 +59,7 @@ public class ProduitsRessource {
 			return Response.status(Response.Status.CONFLICT).build();
 		else {
 			int id = dao.insert(produits);
-			logger.debug("ID: " + id);
 			produits.setIdp(id);
-			logger.debug("ID APRES SET-> "+produits.getIdp());
 			URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + produits.getIdp()).build();
 			return Response.created(instanceURI).build();
 		}
@@ -141,7 +139,7 @@ public class ProduitsRessource {
 	@DELETE
 	@Path("/{id}")
 	public Response deleteProduits(@PathParam("id") Integer id) {
-		if (dao.findByIdp(id) != null) {
+		if (dao.findByIdp(id) == null) {
 			throw new NotFoundException();
 		} else {
 			dao.delete(id);

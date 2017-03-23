@@ -29,7 +29,7 @@ public interface ProduitsDao {
     void dropProduitsTable();
 
     @SqlUpdate("delete from produits where idp = :idp")
-    void delete(@Bind("id") int id);
+    void delete(@Bind("idp") int idp);
 
     @SqlQuery("select * from produits order by idp")
     @RegisterMapperFactory(BeanMapperFactory.class)
