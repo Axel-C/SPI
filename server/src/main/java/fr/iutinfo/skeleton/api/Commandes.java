@@ -19,7 +19,7 @@ public class Commandes {
 	 */
 	private int idp;
 	
-	private float prixtoltal;
+	private float prixTotal;
 	
 	public Commandes(){
 		
@@ -27,17 +27,17 @@ public class Commandes {
 	
 	
 
-	public Commandes(int idc, int id, int idp, float prixtoltal) {
+	public Commandes(int idc, int id, int idp, float prixTotal) {
 		super();
 		this.idc = idc;
 		this.id = id;
 		this.idp = idp;
-		this.prixtoltal = prixtoltal;
+		this.prixTotal = prixTotal;
 	}
 
 	@Override
 	public String toString() {
-		return "Commandes [idc=" + idc + ", id=" + id + ", idp=" + idp + ", prixtoltal=" + prixtoltal + "]";
+		return "Commandes [idc=" + idc + ", id=" + id + ", idp=" + idp + ", prixTotal=" + prixTotal + "]";
 	}
 
 
@@ -57,7 +57,7 @@ public class Commandes {
 			return false;
 		if (idp != other.idp)
 			return false;
-		if (Float.floatToIntBits(prixtoltal) != Float.floatToIntBits(other.prixtoltal))
+		if (Float.floatToIntBits(prixTotal) != Float.floatToIntBits(other.prixTotal))
 			return false;
 		return true;
 	}
@@ -88,12 +88,12 @@ public class Commandes {
 		this.idp = idp;
 	}
 
-	public float getPrixtoltal() {
-		return prixtoltal;
+	public float getPrixTotal() {
+		return prixTotal;
 	}
 
-	public void setPrixtoltal(float prixtoltal) {
-		this.prixtoltal = prixtoltal;
+	public void setPrixTotal(float prixTotal) {
+		this.prixTotal = prixTotal;
 	}
 	
 	
