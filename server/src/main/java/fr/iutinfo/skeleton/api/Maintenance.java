@@ -12,13 +12,13 @@ public class Maintenance {
 	private int idPro; // Id du produit
 	private int idUser; // Id de l'utilisateur
 	private String rapport;
-	private Date date;
+	private String date;
 
 	public Maintenance() {
 
 	}
 
-	public Maintenance(String type, int idM, int idPro, int idUser, String rapport, Date date) {
+	public Maintenance(String type, int idM, int idPro, int idUser, String rapport, String date) {
 		this.type = type;
 		this.idM = idM;
 		this.idPro = idPro;
@@ -67,11 +67,11 @@ public class Maintenance {
 		this.rapport = rapport;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

@@ -74,9 +74,9 @@ public class CommandeRessource {
 	@Consumes("application/x-www-form-urlencoded")
 	public Response createTask(@FormParam("id") int id, @FormParam("idp") int idp,
 			@FormParam("prixTotal") float prixTotal) {
-		if(!UtilisateursRessource.users.containsKey(id) || !ProduitsRessource.products.containsKey(idp)){
+		if(!UtilisateursRessource.users.containsKey(id) && !ProduitsRessource.products.containsKey(idp))
 			throw new NotFoundException();
-		}
+		
 		Commandes com = new Commandes(getCpt(),id,idp,prixTotal);
 		command.put(com.getIdc(), com);
 		URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + com.getIdc()).build();
