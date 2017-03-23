@@ -40,7 +40,7 @@ public interface MaintenanceDao {
     
     @SqlQuery("update Maintenance set "
     		+ "idPro=:idPro ,date=:date, type=:type, effectue=:effectue,rapport=:rapport"
-    		+ "where idM = :idM")
+    		+ " where idM = :idM")
     @RegisterMapperFactory(BeanMapperFactory.class)
     Maintenance updateMaintenance(@Bind("idM") int idM);
     
