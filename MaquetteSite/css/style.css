@@ -3,6 +3,9 @@ body, p, h1, ul, li{
     padding : 0;
     
 }
+body{
+    background-image: url('/res/texture.png')
+}
 #page {
     margin: 0 !important ;
     margin-top: 75px !important ;
