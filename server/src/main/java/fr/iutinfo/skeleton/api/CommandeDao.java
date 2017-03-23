@@ -44,6 +44,10 @@ public interface CommandeDao {
     @SqlQuery("select * from commandes where idp = :idp")
     @RegisterMapperFactory(BeanMapperFactory.class)
     Commandes findByIdp(@Bind("idp") int idp);
+    
+    @SqlQuery("update commandes set id =:id , idp =:idp, prixTotal = :prixTotal where idp = :idp")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    Commandes updateCommandes(@Bind("idc") int idc);
 
     void close();
 }

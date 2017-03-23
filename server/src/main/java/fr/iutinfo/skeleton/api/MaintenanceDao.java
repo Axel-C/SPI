@@ -26,7 +26,7 @@ public interface MaintenanceDao {
 
     @SqlQuery("select * from Maintenance where idPro = :idPro")
     @RegisterMapperFactory(BeanMapperFactory.class)
-    Maintenance findByIdPro(@Bind("idp") int idp);
+    Maintenance findByIdPro(@Bind("idPro") int idPro);
     
     @SqlUpdate("drop table if exists Maintenance")
     void dropMaintenanceTable();
@@ -37,5 +37,12 @@ public interface MaintenanceDao {
     @SqlQuery("select * from Maintenance order by date")
     @RegisterMapperFactory(BeanMapperFactory.class)
     List<Maintenance> all();
+    
+    @SqlQuery("update Maintenance set "
+    		+ "idPro=:idPro ,date=:date, type=:type, effectue=:effectue,rapport=:rapport"
+    		+ " where idM = :idM")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    Maintenance updateMaintenance(@Bind("idM") int idM);
+    
 
 }
