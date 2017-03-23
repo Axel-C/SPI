@@ -39,6 +39,11 @@ public interface UtilisateurDao {
     @SqlQuery("select * from utilisateurs where id = :id")
     @RegisterMapperFactory(BeanMapperFactory.class)
     Utilisateurs findById(@Bind("id") int id);
+    
+    @SqlQuery("update utilisateurs set nom = :nom , prenom = :prenom, mdp = :mdp, email= :email , "
+    		+ "adresse = :adresse,telephone = :telephone,entreprise = :entreprise, numSiret = :numSiret")
+    @RegisterMapperFactory(BeanMapperFactory.class)
+    Utilisateurs updateUtilisateur(@Bind("id") int id);
 
     void close();
 }
