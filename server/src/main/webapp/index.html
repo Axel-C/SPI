@@ -36,7 +36,7 @@
         <div id="navbar" class="navbar-collapse collapse">
             <form class="navbar-form navbar-right">
                 <div>
-                    <a href="login.html" id="btnConnection">Se connecter</a>
+                    <a href="#" id="btnConnection">Se connecter</a>
                 </div>
                 <section id="categorieNav" >
                     <hr>
@@ -164,11 +164,44 @@
                     </article>
                 </div>
             </div>
+            <div id="ContenuLogin">
+                <h1>Connexion</h1>
+                <form action="" method="GET" class="input-group" > 
+                    <label for="login" >Adresse E-mail</label><br>
+                    <input type="text" class="form-control"  placeholder="exemple@votresociete.com" aria-describedby="basic-addon3" name="login"><br>
+                    <label for="password" >Mots de passe</label><br>
+                    <input type="password" class="form-control" placeholder="******" aria-describedby="basic-addon3" name="login">
+                    <input class=" btn btn-primary btn-lg" type="submit" value="Se connecter" id="validation">
+                </form>
+            </div>
+            <div id="contenuContact">
+                <section class="col-md-2">
+                    <p>Numero phone</p>
+                    <p>Nom</p>
+                    <p>Mail</p>
+              </section>
+              <section class="col-md-9" id="login">
+                    <h1>Contact</h1>
+                    <form class="input-group" action="" method="post">
+                        <label for="nom">Nom</label>
+                        <input type="text" class="form-control"  placeholder="Mon entreprise" aria-describedby="basic-addon3" name="nom"><br>
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control"  placeholder="monentrepise@gmail.com" aria-describedby="basic-addon3" name="email"><br>
+                        <label for="objet">Objet</label>
+                        <input type="text" class="form-control"  placeholder="Commande" aria-describedby="basic-addon3" name="objet"><br>
+                        <label for="text">Message</label><br>
+                        <textarea name="text" cols=60 rows="8">
+
+                        </textarea><br>
+                        <input type="submit" class="btn btn-primary btn-lg" value="Envoyer">
+                    </form>
+              </section>
+            </div>
          </section> 
       
       </div>
       <footer>
-        <p>&copy; SPI 2017, mention legal etc..<a href="contact.html">Nous contacter</a></p>
+        <p>&copy; SPI 2017, mention legal etc..<a href="#" id="nousContacter">Nous contacter</a></p>
       </footer>
     <!-- Bootstrap core JavaScript
     ================================================== -->

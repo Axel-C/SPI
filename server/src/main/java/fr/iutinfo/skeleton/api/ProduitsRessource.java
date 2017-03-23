@@ -1,10 +1,9 @@
 package fr.iutinfo.skeleton.api;
 
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -32,12 +31,14 @@ public class ProduitsRessource {
 	public UriInfo uriInfo;
 
 	// Hashmap pour stocker les différents produits
-	protected static Map<Integer, Produits> products = new HashMap<>();
+	private static ProduitsDao dao = BDDFactory.getDbi().open(ProduitsDao.class);
 
 	/**
 	 * Une ressource doit avoir un constructeur vide (sans argument... du coup)
 	 */
-	public ProduitsRessource() {
+	public ProduitsRessource() throws SQLException {
+		if (!BDDFactory.tableExist("produits"))
+			dao.createProduitsTable();
 	}
 
 	/**
@@ -51,14 +52,13 @@ public class ProduitsRessource {
 	@POST
 	public Response createProduits(Produits produits) {
 		produits.setId(getCpt());
-		if (products.containsKey(produits.getId())) {
+		if (dao.all().contains(produits))
 			return Response.status(Response.Status.CONFLICT).build();
-		} else {
-			products.put(produits.getId(), produits);
+		else {
+			dao.insert(produits);
 			URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + produits.getId()).build();
 			return Response.created(instanceURI).build();
 		}
-
 	}
 
 	/**
@@ -70,7 +70,8 @@ public class ProduitsRessource {
 	 * @param description
 	 * @param categorie
 	 * @return Response le corps de réponse est vide, le code de retour HTTP est
-	 *         fixé à 201 si la création est faite. URI de la ressource est renvoyé en cas de succès.
+	 *         fixé à 201 si la création est faite. URI de la ressource est
+	 *         renvoyé en cas de succès.
 	 */
 	@POST
 	@Consumes("application/x-www-form-urlencoded")
@@ -78,7 +79,7 @@ public class ProduitsRessource {
 			@FormParam("prix") float prix, @FormParam("description") String description,
 			@FormParam("categorie") String categorie, @FormParam("urlImage") String urlImage) {
 		Produits prod = new Produits(libelle, getCpt(), reference, prix, description, categorie, urlImage);
-		products.put(prod.getId(), prod);
+		dao.insert(prod);
 		URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + prod.getId()).build();
 		return Response.created(instanceURI).build();
 	}
@@ -90,7 +91,7 @@ public class ProduitsRessource {
 	 */
 	@GET
 	public List<Produits> getProduits() {
-		return new ArrayList<Produits>(products.values());
+		return new ArrayList<Produits>(dao.all());
 	}
 
 	/**
@@ -104,51 +105,52 @@ public class ProduitsRessource {
 	@Path("/{id}")
 	@Produces({ "application/json", "application/xml" })
 	public Produits getProduit(@PathParam("id") Integer id) {
-		if (!products.containsKey(id)) {
+		if (dao.findByIdp(id) != null) {
 			throw new NotFoundException();
 		} else {
-			return products.get(id);
+			return dao.findByIdp(id);
 		}
 	}
 
 	private int getCpt() {
 		return cpt++;
 	}
-	
+
 	/**
 	 * 
 	 * Méthode prenant en charge les requètes HTTP PUT sur /produits/{id}
 	 * 
 	 * @param id
 	 * @param prod
-	 * @return un code de retour HTTP, pas de contenu cependant. Si l'id n'existe pas on renvoie 404
+	 * @return un code de retour HTTP, pas de contenu cependant. Si l'id
+	 *         n'existe pas on renvoie 404
 	 */
-	@PUT
+/*	@PUT
 	@Path("/{id}")
-	public Response modifyProduits(@PathParam("id") Integer id, Produits prod){
-		if(!products.containsKey(id)){
+	public Response modifyProduits(@PathParam("id") Integer id, Produits prod) {
+		if () {
 			throw new NotFoundException();
-		}else{
+		} else {
 			products.put(id, prod);
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}
-	}
-	
+	}*/
+
 	/**
 	 * 
 	 * Méthode prenant en charge les requètes HTTP DELETE sur /produits/{id}
 	 * 
 	 * @param id
-	 * @return 
+	 * @return
 	 */
 	@DELETE
 	@Path("/{id}")
-	public Response deleteProduits(@PathParam("id") Integer id){
-		if(!products.containsKey(id)){
+	public Response deleteProduits(@PathParam("id") Integer id) {
+		if (dao.findByIdp(id) != null) {
 			throw new NotFoundException();
-		}else{
-			products.remove(id);
+		} else {
+			dao.delete(id);
 			return Response.status(Response.Status.NO_CONTENT).build();
-		}			
+		}
 	}
 }
