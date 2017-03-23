@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
-@Path("/Commandes")
+@Path("/commandes")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class CommandeRessource {
@@ -64,8 +64,8 @@ public class CommandeRessource {
 	/**
 	 * Méthode de création d'une commande. Prend en charge les requètes HTTP POST
 	 * 
-	 * @param id
-	 * @param idp
+	 * @param id (id de l'utilisateur)
+	 * @param idp (id du produit)
 	 * @param prixTotal
 	 * @return Response le corps de réponse est vide, le code de retour HTTP est
 	 *         fixé à 201 si la création est faite. URI de la ressource est renvoyé en cas de succès.
