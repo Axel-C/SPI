@@ -3,12 +3,11 @@ package fr.iutinfo.skeleton.api;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-
 public class Utilisateurs {
 	
 	private int id;
 	private String nom;
-	private String premon;
+	private String prenom;
 	private String mdp;
 	private String email;
 	private String adresse;
@@ -20,12 +19,12 @@ public class Utilisateurs {
 	public Utilisateurs() {
 	}
 
-	public Utilisateurs(int id, String nom, String premon, String mdp, String email
+	public Utilisateurs(int id, String nom, String prenom, String mdp, String email
 			, String adresse, boolean validation,String role, String numSiret, String telephone) {
 		super();
 		this.id = id;
 		this.nom = nom;
-		this.premon = premon;
+		this.prenom = prenom;
 		this.mdp = mdp;
 		this.email = email;
 		this.adresse = adresse;
@@ -38,7 +37,7 @@ public class Utilisateurs {
 
 	@Override
 	public String toString() {
-		return "Utilisateurs [id=" + id + ", nom=" + nom + ", premon=" + premon + ", mdp=" + mdp + ", email=" + email
+		return "Utilisateurs [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mdp=" + mdp + ", email=" + email
 				+ ", adresse=" + adresse + ", validation=" + validation + ", role=" + role + ", numSiret=" + numSiret
 				+ ", telephone=" + telephone + "]";
 	}
@@ -81,10 +80,10 @@ public class Utilisateurs {
 				return false;
 		} else if (!numSiret.equals(other.numSiret))
 			return false;
-		if (premon == null) {
-			if (other.premon != null)
+		if (prenom == null) {
+			if (other.prenom != null)
 				return false;
-		} else if (!premon.equals(other.premon))
+		} else if (!prenom.equals(other.prenom))
 			return false;
 		if (role == null) {
 			if (other.role != null)
@@ -168,12 +167,12 @@ public class Utilisateurs {
 		this.nom = nom;
 	}
 
-	public String getPremon() {
-		return premon;
+	public String getPrenom() {
+		return prenom;
 	}
 
-	public void setPremon(String premon) {
-		this.premon = premon;
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
 	}
 
 	public String getMdp() {

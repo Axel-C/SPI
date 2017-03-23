@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 import java.util.List;
 
 public interface UtilisateurDao {
-	
+	/*
 	@SqlUpdate("create table utilisateurs(id integer primry key autoincrement,"
 			+ "nom text, prenom text, mdp text, email text,adresse text"
 			+ "validation boolean, telephone text,entreprise text,numSiret text not null,role text)")
@@ -41,5 +41,5 @@ public interface UtilisateurDao {
     Utilisateurs findById(@Bind("id") int id);
 
     void close();
-
+*/
 }
