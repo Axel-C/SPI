@@ -35,7 +35,7 @@ public class ProduitsRessourceTest {
 	 */
 	@Test
 	public void testCreateProduits() {
-		Produits prod = new Produits("Ecrou",0,"E54POI", 2.53f, "Ecrou d'une certaine taille et d'un certain poids", "Ecrou");
+		Produits prod = new Produits("Ecrou",0,"E54POI", 2.53f, "Ecrou d'une certaine taille et d'un certain poids", "Ecrou", "http://aws-cf.caradisiac.com/prod/mesimages/257879/PAC_ecrou_FHC_TH.jpg");
 		// Conversion en JSON		
 		//Entity<Produits> prodEntity = Entity.entity(prod, MediaType.APPLICATION_JSON);
 		

@@ -11,18 +11,20 @@ public class Produits {
 	private float prix;
 	private String description;
 	private String categorie;
+	private String urlImage;
 	
 	public Produits(){
 		
 	}
 	
-	public Produits(String libelle, int id, String reference, float prix, String description, String categorie){
+	public Produits(String libelle, int id, String reference, float prix, String description, String categorie, String urlImage){
 		this.libelle = libelle;
 		this.idp = id;
 		this.reference = reference;
 		this.prix = prix;
 		this.description = description;
 		this.categorie = categorie;
+		this.urlImage = urlImage;
 	}
 	
 	public String getLibelle() {

@@ -34,7 +34,7 @@ public class UtilisateursRessource {
 	}
 
 	// Hashmap pour stocker les différents utilisateurs
-	private static Map<Integer, Utilisateurs> users = new HashMap<>();
+	protected static Map<Integer, Utilisateurs> users = new HashMap<>();
 
 	/**
 	 * Méthode gérant les requètes POST/

@@ -32,7 +32,7 @@ public class ProduitsRessource {
 	public UriInfo uriInfo;
 
 	// Hashmap pour stocker les différents produits
-	private static Map<Integer, Produits> products = new HashMap<>();
+	protected static Map<Integer, Produits> products = new HashMap<>();
 
 	/**
 	 * Une ressource doit avoir un constructeur vide (sans argument... du coup)
@@ -76,8 +76,8 @@ public class ProduitsRessource {
 	@Consumes("application/x-www-form-urlencoded")
 	public Response createTask(@FormParam("libelle") String libelle, @FormParam("reference") String reference,
 			@FormParam("prix") float prix, @FormParam("description") String description,
-			@FormParam("categorie") String categorie) {
-		Produits prod = new Produits(libelle, getCpt(), reference, prix, description, categorie);
+			@FormParam("categorie") String categorie, @FormParam("urlImage") String urlImage) {
+		Produits prod = new Produits(libelle, getCpt(), reference, prix, description, categorie, urlImage);
 		products.put(prod.getId(), prod);
 		URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + prod.getId()).build();
 		return Response.created(instanceURI).build();

@@ -9,19 +9,16 @@ public class Maintenance {
 
 	private String type;
 	private int idM;
-	private int idPro;
-
-	
-	private int idUser;
+	private int idPro; // Id du produit
+	private int idUser; // Id de l'utilisateur
 	private String rapport;
 	private Date date;
-	
-	
-	public Maintenance(){
-		
+
+	public Maintenance() {
+
 	}
-	
-	public Maintenance(String type, int idM, int idPro, int idUser, String rapport, Date date){
+
+	public Maintenance(String type, int idM, int idPro, int idUser, String rapport, Date date) {
 		this.type = type;
 		this.idM = idM;
 		this.idPro = idPro;
@@ -29,9 +26,6 @@ public class Maintenance {
 		this.rapport = rapport;
 		this.date = date;
 	}
-	
-	
-
 
 	public String getType() {
 		return type;
@@ -120,7 +114,4 @@ public class Maintenance {
 		return true;
 	}
 
-	
-	
-	
 }
