@@ -32,7 +32,8 @@ body{
 }
 
 #categorie{
-    position: fixed;    
+    position: fixed;  
+    padding-left: 15px;
 }
 #categorie>ul{
     margin-top: 10px;
@@ -56,20 +57,18 @@ body{
     font-size: 1.5em;
 }
 
-
-#login{
+#ContenuLogin, #contenuContact{
     margin: auto ;
-    
-    
+    display: none;
 }
-#login h1{
+#ContenuLogin h1{
     text-align: center ;
 }
-#login form{
+#ContenuLogin form{
     
     margin: auto ;
 }
-#login label{
+#ContenuLogin label{
    
 }
 #validation{
