@@ -79,10 +79,10 @@ public class MaintenanceRessource {
 			@FormParam("idUser") int idUser, @FormParam("rapport") String rapport, @FormParam("date") String date) {
 
 		// On vérifie que l'utilisateur et le produit existe bien.
-		if (!UtilisateursRessource.users.containsKey(idUser))
-			throw new NotFoundException();
-		if (!ProduitsRessource.products.containsKey(idPro))
-			throw new NotFoundException();
+//		if (!UtilisateursRessource.users.containsKey(idUser))
+//			throw new NotFoundException();
+//		if (!ProduitsRessource.products.containsKey(idPro))
+//			throw new NotFoundException();
 
 		Maintenance mnt = new Maintenance(type, getCpt(), idPro, idUser, rapport, date);
 		maintenances.put(mnt.getIdM(), mnt);

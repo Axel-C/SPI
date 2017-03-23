@@ -1,10 +1,12 @@
 package fr.iutinfo.skeleton.api;
 
+import java.security.Principal;
+
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Utilisateurs {
-	
+public class Utilisateurs implements Principal{
+
 	private int id;
 	private String nom;
 	private String prenom;
@@ -12,15 +14,15 @@ public class Utilisateurs {
 	private String email;
 	private String adresse;
 	private boolean validation;
-	private String  role;
+	private String role;
 	private String numSiret;
 	private String telephone;
-	
+
 	public Utilisateurs() {
 	}
 
-	public Utilisateurs(int id, String nom, String prenom, String mdp, String email
-			, String adresse, boolean validation,String role, String numSiret, String telephone) {
+	public Utilisateurs(int id, String nom, String prenom, String mdp, String email, String adresse, boolean validation,
+			String role, String numSiret, String telephone) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -34,15 +36,12 @@ public class Utilisateurs {
 		this.telephone = telephone;
 	}
 
-
 	@Override
 	public String toString() {
 		return "Utilisateurs [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", mdp=" + mdp + ", email=" + email
 				+ ", adresse=" + adresse + ", validation=" + validation + ", role=" + role + ", numSiret=" + numSiret
 				+ ", telephone=" + telephone + "]";
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -100,7 +99,6 @@ public class Utilisateurs {
 		return true;
 	}
 
-	
 	public String getEmail() {
 		return email;
 	}
@@ -149,8 +147,6 @@ public class Utilisateurs {
 		this.telephone = telephone;
 	}
 
-	
-
 	public int getId() {
 		return id;
 	}
@@ -182,6 +178,11 @@ public class Utilisateurs {
 	public void setMdp(String mdp) {
 		this.mdp = mdp;
 	}
-	
+
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return nom;
+	}
 
 }

@@ -1,10 +1,10 @@
 package fr.iutinfo.skeleton.api;
 
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -29,12 +29,17 @@ public class UtilisateursRessource {
 
 	@Context
 	public UriInfo uriInfo;
+	
+	@Context
+	public Context context;
 
-	public UtilisateursRessource() {
+	private static UtilisateurDao dao = BDDFactory.getDbi().open(UtilisateurDao.class);
+
+	public UtilisateursRessource() throws SQLException {
+		if (!BDDFactory.tableExist("utilisateurs")) {
+			dao.createUtilisateursTable();
+		}
 	}
-
-	// Hashmap pour stocker les différents utilisateurs
-	protected static Map<Integer, Utilisateurs> users = new HashMap<>();
 
 	/**
 	 * Méthode gérant les requètes POST/
@@ -45,10 +50,10 @@ public class UtilisateursRessource {
 	@POST
 	public Response createUtilisateurs(Utilisateurs user) {
 		user.setId(getCpt());
-		if (users.containsKey(user.getId())) {
+		if (dao.all().contains(user)) {
 			return Response.status(Response.Status.CONFLICT).build();
 		} else {
-			users.put(user.getId(), user);
+			dao.insert(user);
 			URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + user.getId()).build();
 			return Response.created(instanceURI).build();
 		}
@@ -61,50 +66,53 @@ public class UtilisateursRessource {
 			@FormParam("mdp") String mdp, @FormParam("email") String email, @FormParam("adresse") String adresse,
 			@FormParam("validation") boolean validation, @FormParam("role") String role,
 			@FormParam("numSiret") String numSiret, @FormParam("telephone") String telephone) {
-		Utilisateurs util = new Utilisateurs(getCpt(), nom, prenom, mdp, email, adresse, validation, role, numSiret, telephone);
-		users.put(util.getId(), util);
-		URI instanceURI = uriInfo.getAbsolutePathBuilder().path(""+util.getId()).build();
+		Utilisateurs util = new Utilisateurs(getCpt(), nom, prenom, mdp, email, adresse, validation, role, numSiret,
+				telephone);
+		dao.insert(util);
+		URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + util.getId()).build();
 		return Response.created(instanceURI).build();
 	}
-	
+
 	@GET
-	public List<Utilisateurs> getUsers(){
-		return new ArrayList<Utilisateurs>(users.values());
+	public List<Utilisateurs> getUsers() {
+		return new ArrayList<Utilisateurs>(dao.all());
 	}
-	
+
 	@GET
 	@Path("/{id}")
-	@Produces({"application/json","application/xml"})
-	public Utilisateurs getUser(@PathParam("id") Integer id){
-		if(!users.containsKey(id)){
+	@Produces({ "application/json", "application/xml" })
+	public Utilisateurs getUser(@PathParam("id") Integer id) {
+		// dao.all().stream().filter((u->{return u.getId() ==
+		// id;})).collect(Collectors.toList());
+		if (dao.findById(id) != null)
+			return dao.findById(id);
+		else
 			throw new NotFoundException();
-		}else{
-			return users.get(id);
-		}
+
 	}
 	
 	@PUT
 	@Path("/{id}")
-	public Response modifyUtilisateurs(@PathParam("id") Integer id, Utilisateurs prod){
-		if(!users.containsKey(id)){
-			throw new NotFoundException();
+	public Response modifyUtilisateurs(@PathParam("id") Integer id, Utilisateurs prod) {
+		if (dao.findById(id) == null) {
+			dao.updateUtilisateur(id);
+			return Response.noContent().build();
 		}else{
-			users.put(id, prod);
-			return Response.status(Response.Status.NO_CONTENT).build();
+			throw new NotFoundException();
 		}
 	}
-	
+
 	@DELETE
 	@Path("/{id}")
-	public Response deleteUtilisateurs(@PathParam("id") Integer id){
-		if(!users.containsKey(id)){
+	public Response deleteUtilisateurs(@PathParam("id") Integer id) {
+		if (dao.findById(id) != null) {
+			dao.delete(id);
+			return Response.noContent().build();
+		} else {
 			throw new NotFoundException();
-		}else{
-			users.remove(id);
-			return Response.status(Response.Status.NO_CONTENT).build();
-		}			
+		}
 	}
-	
+
 	private int getCpt() {
 		return cpt++;
 	}
