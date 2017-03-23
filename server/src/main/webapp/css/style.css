@@ -38,7 +38,7 @@ body{
 #categorie>ul{
     margin-top: 10px;
 }
-#contenu{
+#contenu, #ContenuLogin, #contenuContact{
     margin-left: 20%;
 }
 #categorieNav{
