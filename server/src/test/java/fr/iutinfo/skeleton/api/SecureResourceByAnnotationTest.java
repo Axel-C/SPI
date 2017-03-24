@@ -1,16 +1,17 @@
 package fr.iutinfo.skeleton.api;
 
+import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
+import static javax.ws.rs.core.Response.Status.FORBIDDEN;
+import static org.junit.Assert.assertEquals;
+
+import javax.ws.rs.core.Application;
+import javax.ws.rs.core.Response;
+
 import org.glassfish.jersey.internal.util.Base64;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.Response;
-
-import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
-import static javax.ws.rs.core.Response.Status.FORBIDDEN;
-import static org.junit.Assert.assertEquals;
 
 public class SecureResourceByAnnotationTest extends JerseyTest {
     private Helper h;

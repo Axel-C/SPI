@@ -1,14 +1,15 @@
 package fr.iutinfo.skeleton.api;
 
+import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
+import static org.junit.Assert.assertEquals;
+
+import javax.ws.rs.core.Application;
+
 import org.glassfish.jersey.internal.util.Base64;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.ws.rs.core.Application;
-
-import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
-import static org.junit.Assert.assertEquals;
 
 public class SecureResourceWhoAmITest extends JerseyTest {
     private String url = "/secure/who";

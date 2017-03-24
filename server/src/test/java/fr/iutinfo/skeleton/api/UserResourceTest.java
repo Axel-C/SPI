@@ -1,20 +1,30 @@
 package fr.iutinfo.skeleton.api;
 
-import fr.iutinfo.skeleton.common.dto.UserDto;
-import org.glassfish.jersey.test.JerseyTest;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import static fr.iutinfo.skeleton.api.Helper.createIan;
+import static fr.iutinfo.skeleton.api.Helper.createLinus;
+import static fr.iutinfo.skeleton.api.Helper.createRms;
+import static fr.iutinfo.skeleton.api.Helper.createRob;
+import static fr.iutinfo.skeleton.api.Helper.createUserWithName;
+import static fr.iutinfo.skeleton.api.Helper.createUserWithPassword;
+import static fr.iutinfo.skeleton.api.Helper.listUserResponseType;
+import static org.junit.Assert.assertEquals;
+
+import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
-import static fr.iutinfo.skeleton.api.Helper.*;
-import static org.junit.Assert.assertEquals;
+import org.glassfish.jersey.test.JerseyTest;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
 
+import fr.iutinfo.skeleton.common.dto.UserDto;
+
+@Ignore
 public class UserResourceTest extends JerseyTest {
     private static final String PATH = "/user";
     private UserDao dao = BDDFactory.getDbi().open(UserDao.class);

@@ -33,7 +33,6 @@ public class UserResource {
 		User user = new User();
 		user.initFromDto(dto);
 		user.resetPasswordHash();
-		user.setValidation(false);
 		int id = dao.insert(user);
 		dto.setId(id);
 		return dto;

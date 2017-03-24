@@ -5,11 +5,10 @@ import java.util.HashMap;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 
-import org.eclipse.persistence.oxm.MediaType;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ProduitsRessourceTest {

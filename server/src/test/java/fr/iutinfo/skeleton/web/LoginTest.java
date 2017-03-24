@@ -1,7 +1,14 @@
 package fr.iutinfo.skeleton.web;
 
-import fr.iutinfo.skeleton.api.Helper;
-import fr.iutinfo.skeleton.api.UserDao;
+import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
+import static javax.ws.rs.core.Response.Status.TEMPORARY_REDIRECT;
+import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
+import static org.junit.Assert.assertEquals;
+
+import javax.ws.rs.core.Application;
+import javax.ws.rs.core.HttpHeaders;
+import javax.ws.rs.core.Response;
+
 import org.glassfish.jersey.internal.util.Base64;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Before;
@@ -10,14 +17,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.ws.rs.core.Application;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.Response;
-
-import static javax.ws.rs.core.HttpHeaders.AUTHORIZATION;
-import static javax.ws.rs.core.Response.Status.TEMPORARY_REDIRECT;
-import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
-import static org.junit.Assert.assertEquals;
+import fr.iutinfo.skeleton.api.Helper;
+import fr.iutinfo.skeleton.api.UserDao;
 
 public class LoginTest extends JerseyTest {
     final static Logger logger = LoggerFactory.getLogger(LoginTest.class);
