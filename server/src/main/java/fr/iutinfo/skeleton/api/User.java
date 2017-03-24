@@ -23,6 +23,15 @@ public class User implements Principal {
     private String search;
     private String numSiret;
     private String telephone;
+    private String role;
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 	public String getNumSiret() {
 		return numSiret;
@@ -183,6 +192,7 @@ public class User implements Principal {
         this.setPassword(dto.getPassword());
         this.setNumSiret(dto.getNumSiret());
         this.setTelephone(dto.getTelephone());
+        this.setRole(dto.getRole());
     }
 
     public UserDto convertToDto() {
@@ -194,6 +204,7 @@ public class User implements Principal {
         dto.setPassword(this.getPassword());
         dto.setNumSiret(this.getNumSiret());
         dto.setTelephone(this.getTelephone());
+        dto.setRole(this.getRole());
         return dto;
     }
 }

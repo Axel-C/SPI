@@ -14,9 +14,18 @@ public class UserDto implements Principal {
     private String password;
     private String numSiret;
     private String telephone;
+    private String role;
     
     
-    public String getNumSiret() {
+    public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public String getNumSiret() {
 		return numSiret;
 	}
 

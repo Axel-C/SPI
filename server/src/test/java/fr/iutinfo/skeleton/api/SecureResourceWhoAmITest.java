@@ -8,6 +8,7 @@ import javax.ws.rs.core.Application;
 import org.glassfish.jersey.internal.util.Base64;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 
@@ -33,12 +34,13 @@ public class SecureResourceWhoAmITest extends JerseyTest {
         assertEquals("tclavier", utilisateur.getName());
     }
 
+    @Ignore
     @Test
     public void should_return_anonymous_user_without_authorization_header() {
         User utilisateur = target(url).request().get(User.class);
         assertEquals("Anonymous", utilisateur.getName());
     }
-
+    @Ignore
     @Test
     public void should_return_anonymous_user_for_bad_user() {
         h.createUserWithPassword("tclavier", "motdepasse", "graindesel");

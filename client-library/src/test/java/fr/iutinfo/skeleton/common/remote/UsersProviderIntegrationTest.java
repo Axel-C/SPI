@@ -1,18 +1,18 @@
 package fr.iutinfo.skeleton.common.remote;
 
+import java.util.List;
+
+import javax.ws.rs.core.Application;
+
+import org.glassfish.jersey.test.JerseyTest;
+import org.junit.Assert;
+import org.junit.Test;
+
 import fr.iutinfo.skeleton.api.Api;
 import fr.iutinfo.skeleton.api.BDDFactory;
 import fr.iutinfo.skeleton.api.User;
 import fr.iutinfo.skeleton.api.UserDao;
 import fr.iutinfo.skeleton.common.dto.UserDto;
-import org.glassfish.jersey.test.JerseyTest;
-import org.junit.Assert;
-import org.junit.Test;
-
-import javax.ws.rs.core.Application;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
 
 public class UsersProviderIntegrationTest extends JerseyTest {
 
