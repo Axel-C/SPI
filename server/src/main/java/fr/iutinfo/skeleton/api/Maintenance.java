@@ -2,6 +2,10 @@ package fr.iutinfo.skeleton.api;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import fr.iutinfo.skeleton.common.dto.CommandeDto;
+import fr.iutinfo.skeleton.common.dto.MaintenanceDto;
+import fr.iutinfo.skeleton.common.dto.UserDto;
+
 @XmlRootElement
 public class Maintenance {
 
@@ -111,5 +115,25 @@ public class Maintenance {
 			return false;
 		return true;
 	}
+	
+    public void initFromDto(Maintenance dto) {
+      this.setIdM(dto.getIdM());
+      this.setDate(dto.getDate());
+      this.setIdPro(dto.getIdPro());
+      this.setIdUser(dto.getIdUser());
+      this.setRapport(dto.getRapport());
+      this.setType(dto.getType());
+    }
+
+    public MaintenanceDto convertToDto() {
+        MaintenanceDto dto = new MaintenanceDto();
+        dto.setDate(this.getDate());
+        dto.setIdM(dto.getIdM());
+        dto.setIdPro(this.getIdPro());
+        dto.setIdUser(this.getIdUser());
+        dto.setRapport(this.getRapport());
+        dto.setType(this.getType());
+        return dto;
+    }
 
 }
