@@ -25,8 +25,9 @@ $(document).ready(function(){
                    mettreContenueLogin($("#login").val(), $("#password").val());
                },
                error : function(jqXHR, textStatus, errorThrown) {
+                    $('#ContenuLogin .panel-warning').show();
                     $('#ContenuLogin .error').empty();    
-                    $('#ContenuLogin .error').append("<p>Mauvais login ou mot de passe</p>");    
+                    $('#ContenuLogin .error').append("<h3 class='panel-title'>Mauvais login ou mot de passe</h3>");    
                }
              });
     });
