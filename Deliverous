@@ -1,6 +1,6 @@
 java:
-  image: tclavier/jersey-skeleton
+  image: adrien1251/spi
   ports:
-  - ip: A.X.Y.Z
+  - ip: 51.255.131.194
     container_port: 8080
     host_port: 80
