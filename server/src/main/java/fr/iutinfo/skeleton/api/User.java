@@ -25,9 +25,30 @@ public class User implements Principal {
 	private boolean validation;
 	private String  role;
 	private String numSiret;
+	private String entreprise;
 	private String telephone;
 
-    public String getAdresse() {
+    public User(String name, String alias, int id, String email, String password, String passwdHash, String salt,
+			String search, String adresse, boolean validation, String role, String numSiret, String entreprise,
+			String telephone) {
+		super();
+		this.name = name;
+		this.alias = alias;
+		this.id = id;
+		this.email = email;
+		this.password = password;
+		this.passwdHash = passwdHash;
+		this.salt = salt;
+		this.search = search;
+		this.adresse = adresse;
+		this.validation = validation;
+		this.role = role;
+		this.numSiret = numSiret;
+		this.entreprise = entreprise;
+		this.telephone = telephone;
+	}
+
+	public String getAdresse() {
 		return adresse;
 	}
 
@@ -219,4 +240,12 @@ public class User implements Principal {
         dto.setPassword(this.getPassword());
         return dto;
     }
+
+	public String getEntreprise() {
+		return entreprise;
+	}
+
+	public void setEntreprise(String entreprise) {
+		this.entreprise = entreprise;
+	}
 }
