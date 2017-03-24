@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import fr.iutinfo.skeleton.common.dto.CommandeDto;
+
 @XmlRootElement
 public class Commandes {
 	/**
@@ -95,6 +97,29 @@ public class Commandes {
 	public void setPrixTotal(float prixTotal) {
 		this.prixTotal = prixTotal;
 	}
+	
+	public void initFromDto(CommandeDto dto){
+		this.setId(dto.getId());
+		this.setIdc(dto.getIdc());
+		this.setIdp(dto.getIdp());
+		this.setPrixTotal(dto.getPrixTotal());
+	}
+	
+	public CommandeDto convertToDto(){
+		CommandeDto dto =new CommandeDto();
+		dto.setId(this.getId());
+		dto.setIdc(this.getIdc());
+		dto.setIdp(dto.getIdp());
+		dto.setPrixTotal(this.getPrixTotal());
+		return dto;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

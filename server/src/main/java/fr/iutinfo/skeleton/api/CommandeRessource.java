@@ -2,6 +2,7 @@ package fr.iutinfo.skeleton.api;
 
 import java.net.URI;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +39,7 @@ public class CommandeRessource {
 	public CommandeRessource() throws SQLException{
 		if(!BDDFactory.tableExist("commandes"))
 			dao.createCommandeTable();
+			dao.insert(new Commandes(0,0,0,0));
 	}
 
 	/**
@@ -48,14 +50,12 @@ public class CommandeRessource {
 	 * @return Response, code de retour 201 si création est faite et 409 si il
 	 *         existe déjà
 	 */
-/*	@POST
-	public Response createCommandes(Commandes Commandes) {
-		if(dao.all().contains(produits))
-			return Response.status(Response.Status.CONFLICT).build();
-		else{
-			int id;
-		}
-	}*/
+	@POST
+	public Response createCommandes(Commandes commandes) throws SQLIntegrityConstraintViolationException {
+		dao.insert(commandes);
+		return Response.status(Response.Status.CONFLICT).build();
+		
+	}
 
 	/**
 	 * Méthode de création d'une commande. Prend en charge les requètes HTTP POST
@@ -66,7 +66,7 @@ public class CommandeRessource {
 	 * @return Response le corps de réponse est vide, le code de retour HTTP est
 	 *         fixé à 201 si la création est faite. URI de la ressource est renvoyé en cas de succès.
 	 */
-/*	@POST
+	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	public Response createTask(@FormParam("id") int id, @FormParam("idp") int idp,
 			@FormParam("prixTotal") float prixTotal) {
@@ -74,40 +74,41 @@ public class CommandeRessource {
 //			throw new NotFoundException();
 		
 		Commandes com = new Commandes(getCpt(),id,idp,prixTotal);
-		command.put(com.getIdc(), com);
+		//command.put(com.getIdc(), com);
 		URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + com.getIdc()).build();
 		return Response.created(instanceURI).build();
 	}
-*/
+
 	/**
 	 * Récupération de tous les Commandes créés.
 	 * 
 	 * @return une ArrayList contenant tous les Commandes
 	 */
 	@GET
-/*	public List<Commandes> getCommandes() {
-		return new ArrayList<Commandes>(command.values());
+	public List<Commandes> getCommandes() {
+		return new ArrayList<Commandes>(dao.all());
 	}
-*/
+
 	/**
 	 * Méthode qui prend en charge les requètes HTTP GET sur /Commandes/{idc}
 	 * 
 	 * @param idc
-	 * @return le produit demandé
+	 * @return la commande demandé
 	 * 
 	 */
-/*	@GET
+	@GET
 	@Path("/{idc}")
 	@Produces({ "application/json", "application/xml" })
 	public Commandes getProduit(@PathParam("idc") Integer idc) {
-		if (!command.containsKey(idc)) {
+		
+		if (dao.findByIdc(idc)==null) {
 			throw new NotFoundException();
 		} else {
-			return command.get(idc);
+			return dao.findByIdc(idc);
 		}
 	}
 
-	*/
+	
 	
 	private int getCpt() {
 		return cpt++;
@@ -124,6 +125,7 @@ public class CommandeRessource {
 /*	@PUT
 	@Path("/{idc}")
 	public Response modifyCommandes(@PathParam("idc") Integer idc, Commandes com){
+		
 		if(!command.containsKey(idc)){
 			throw new NotFoundException();
 		}else{
@@ -138,16 +140,18 @@ public class CommandeRessource {
 	 * 
 	 * @param idc
 	 * @return 
+	 * @return 
 	 */
-/*	@DELETE
+	@DELETE
 	@Path("/{idc}")
 	public Response deleteCommandes(@PathParam("idc") Integer idc){
-		if(!command.containsKey(idc)){
+		if(dao.findByIdc(idc)==null){
 			throw new NotFoundException();
-		}else{
-			command.remove(idc);
-			return Response.status(Response.Status.NO_CONTENT).build();
-		}			
+		}
+		dao.delete(idc);	
+		return Response.status(Response.Status.NO_CONTENT).build();
+		
+		
 	}
-	*/
+	
 }
