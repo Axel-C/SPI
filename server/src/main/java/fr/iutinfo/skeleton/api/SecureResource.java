@@ -18,12 +18,9 @@ public class SecureResource {
 
     @GET
     @Path("/who")
+    @RolesAllowed({"user"})
     public User secureWhoAmI(@Context SecurityContext context) {
-        if(context.getUserPrincipal().equals(User.anonymous))
     	return (User) context.getUserPrincipal();
-        else{
-        	throw new NotAuthorizedException(Response.status(Response.Status.UNAUTHORIZED).build());
-        }
     }
 
     @GET
