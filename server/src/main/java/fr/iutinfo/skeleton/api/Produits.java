@@ -2,6 +2,9 @@ package fr.iutinfo.skeleton.api;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+
+import fr.iutinfo.skeleton.common.dto.ProduitsDto;
+
 @XmlRootElement
 public class Produits {
 
@@ -113,6 +116,28 @@ public class Produits {
 	public String toString() {
 		return "Produits [libelle=" + libelle + ", id=" + idp + ", reference=" + reference + ", prix=" + prix
 				+ ", description=" + description + ", categorie=" + categorie + "]";
+	}
+	
+	public void initFromDto(Produits dto){
+		this.setCategorie(dto.getCategorie());
+		this.setDescription(dto.getDescription());
+		this.setIdp(dto.getIdp());
+		this.setLibelle(dto.getLibelle());
+		this.setPrix(dto.getPrix());
+		this.setReference(dto.getReference());
+		this.setUrlImage(dto.getUrlImage());
+	}
+	
+	public ProduitsDto convertToDto(){
+		ProduitsDto dto =new ProduitsDto();
+		dto.setCategorie(this.getCategorie());
+		dto.setDescription(this.getDescription());
+		dto.setIdp(this.getIdp());
+		dto.setLibelle(this.getLibelle());
+		dto.setPrix(this.getPrix());
+		dto.setReference(this.getReference());
+		dto.setUrlImage(this.getUrlImage());
+		return dto;
 	}
 	
 	
