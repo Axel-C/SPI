@@ -7,7 +7,7 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 import java.util.List;
 
 public interface CommandeDao {
-	@SqlUpdate("create table commandes(idc integer primry key autoincrement,"
+	@SqlUpdate("create table commandes(idc integer primary key autoincrement,"
 			+ "idp integer,id integer,"
 			+ "prixTotal float,"
 			+ "Constraint fk_produits foreign key(idp) references produits(idp),"
