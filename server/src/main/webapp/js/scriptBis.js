@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    var login = undefined, mdp = undefined;
     $('#btnConnection').click(function(){
         afficherContenu('#ContenuLogin');        
     });
@@ -6,6 +7,34 @@ $(document).ready(function(){
         afficherContenu('#contenuContact');
     });
     
+    $('.ajouterArticle').click(function(){
+       afficherContenu('#contenuAjout');
+   });
+    $('#validation').click(function(){
+             $.ajax({
+               type: "GET",
+               url: "v1/secure/who",
+               dataType: 'json',
+               beforeSend : function(req) {
+                   const s =  btoa($("#login").val() + ":" + $("#password").val());
+                   req.setRequestHeader("Authorization", "Basic " + s);
+                   console.log(s+", "+$("#login").val()+" : "+$("#password").val());
+               },
+               success: function (data) {
+                   login = $("#login").val();
+                   mdp = $("#password").val();
+                   afficherContenu('#contenu');   
+                   mettreContenueLogin($("#login").val(), $("#password").val());
+               },
+               error : function(jqXHR, textStatus, errorThrown) {
+                    $('#ContenuLogin .error').empty();    
+                    $('#ContenuLogin .error').append("<p>Mauvais login ou mot de passe</p>");    
+               }
+             });
+    });
+    var mettreContenueLogin = function(login, mdp){
+        $('#navProfil #btnConnection').text(login);
+    }
     var afficherContenu = function(div){
         $('section.col-md-9:visible').hide(300);
         $(div).show(300); 
@@ -175,6 +204,44 @@ $(document).ready(function(){
         console.log( "Status: " + status );
         console.dir( xhr );
       }
+    });
+    
+    $('#btnNouvelArticle').click(function(){
+        if($('#contenuAjout input[name=nom]').val() == ""){
+            alert('Aucun nom pour l\' article ');
+        }else{
+            var prix = parseFloat($('#contenuAjout input[name=prix]').val()) ;
+            $.ajax({
+                url : "v1/produits",
+                type : "POST" ,
+               dataType : "json" ,
+               headers: { 
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json' 
+                    },
+                data : JSON.stringify({
+                          "categorie": $('#contenuAjout input[name=categorie]').val() ,
+                        "description": $('#contenuAjout input[name=description]').val() ,
+                        "libelle": $('#contenuAjout input[name=nom]').val() ,
+                        "prix": prix ,
+                        "reference": $('#contenuAjout input[name=reference]').val() ,
+                        "urlImage": $('#contenuAjout input[name=image]').val() 
+                }),
+                 
+                success : function(json){
+                    alert('ça marche');
+                    
+                } ,
+               /*error: function( xhr, status, errorThrown ) {
+                   alert( "Sorry, there was a problem!" );
+                   console.log( "Error: " + errorThrown );
+                   console.log( "Status: " + status );
+                   console.dir(xhr);
+               } */
+            });
+            window.location.replace("index.html");
+            
+        }
     });
     
 });

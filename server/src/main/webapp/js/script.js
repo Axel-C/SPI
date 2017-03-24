@@ -1,8 +1,5 @@
 $(document).ready(function(){
-    
-  
- 
-        
+    var login = undefined, mdp = undefined;
     $('#btnConnection').click(function(){
         afficherContenu('#ContenuLogin');        
     });
@@ -10,29 +7,62 @@ $(document).ready(function(){
         afficherContenu('#contenuContact');
     });
     
-     $('.ajouterArticle').click(function(){
+    $('.ajouterArticle').click(function(){
        afficherContenu('#contenuAjout');
-   })
-    
+   });
+    $('#validation').click(function(){
+             $.ajax({
+               type: "GET",
+               url: "v1/secure/who",
+               dataType: 'json',
+               beforeSend : function(req) {
+                   const s =  btoa($("#login").val() + ":" + $("#password").val());
+                   req.setRequestHeader("Authorization", "Basic " + s);
+                   console.log(s+", "+$("#login").val()+" : "+$("#password").val());
+               },
+               success: function (data) {
+                   login = $("#login").val();
+                   mdp = $("#password").val();
+                   afficherContenu('#contenu');   
+                   mettreContenueLogin($("#login").val(), $("#password").val());
+               },
+               error : function(jqXHR, textStatus, errorThrown) {
+                    $('#ContenuLogin .error').empty();    
+                    $('#ContenuLogin .error').append("<p>Mauvais login ou mot de passe</p>");    
+               }
+             });
+    });
+    var mettreContenueLogin = function(login, mdp){
+        $('#navProfil #btnConnection').text(login);
+    }
     var afficherContenu = function(div){
         $('section.col-md-9:visible').hide(300);
         $(div).show(300); 
     }
     var creerArticle = function( id , name , description  , img){
-         return $(" <article class='thumbnail col-md-4'>"+
+         return $(" <article class='thumbnail col-md-4' >"+
                   "<img src='"+ img + "' class='img-thumbnail img-responsive' alt='"+ name + "'>"+
                   "<div class='caption' >"+
                     "<h3>"+ name +"</h3>"+
-                 "<a href='"+id+"' class='btn btn-info' >En savoir plus</a>"+
+                 "<a href='#' class='btn btn-info enSavoirPlus' id='id"+id+"'>En savoir plus</a>"+
                 "</div>"+
                    " </article>");
-    }        
+    }   
+    var creerArticleDescription = function( id , name , description  , img){
+         return $(" <article class='thumbnail col-md-5' id='descriptionArticle' >"+
+                  "<img src='"+ img + "' class='img-thumbnail img-responsive' alt='"+ name + "'>"+
+                  "<div class='caption' >"+
+                    "<h3>"+ name +"</h3>"+
+                    "<p>"+description+"</p>"+
+                "</div>"+
+                   " </article>");
+    }  
     var afficherArticles = function(articles){
         
         var catalogue = $('#catalogue');
         var row = $('<div class="row">');
         for(var i=1; i<=articles.length; i++){
-            row.append(creerArticle(articles[i-1].id, articles[i-1].libelle, articles[i-1].description, articles[i-1].urlImage));
+            row.append(creerArticle(articles[i-1].idp, articles[i-1].libelle, articles[i-1].description, articles[i-1].urlImage));
             if(i%3 == 0){
                 catalogue.append(row);
                 var row = $('<div class="row">');
@@ -40,12 +70,18 @@ $(document).ready(function(){
         }
         catalogue.append(row);
     }  
+    var afficherArticle = function(articles){
+        var catalogue = $('#catalogue');
+        var row = $('<div class="row">');
+        row.append(creerArticleDescription(articles.idp, articles.libelle, articles.description, articles.urlImage));
+        catalogue.append(row);
+    }
     var afficherArticlesDepart = function(articles){
         var categorie = [];
         var catalogue = $('#catalogue');
         var row = $('<div class="row">');
         for(var i=1; i<=articles.length; i++){
-            row.append(creerArticle(articles[i-1].id, articles[i-1].libelle, articles[i-1].description, articles[i-1].urlImage));
+            row.append(creerArticle(articles[i-1].idp, articles[i-1].libelle, articles[i-1].description, articles[i-1].urlImage));
             if(categorie.indexOf(articles[i-1].categorie) == -1){
                 categorie.push(articles[i-1].categorie);   
             }
@@ -86,13 +122,38 @@ $(document).ready(function(){
                 var articles = JSON.parse(JSON.stringify(json));
                 afficherArticles(articles);
                  $('nav li .active').removeClass('active');
-        $(this).addClass('active');
+                 $(this).addClass('active');
+                
+                $('.enSavoirPlus').click(function(){
+            var num = $(this).attr('id').charAt('2');
+            $.ajax({
+                url : "v1/produits/"+num,
+                type : "GET" ,
+                dataType : "json" ,
+                success : function(json){
+                    $('#catalogue').empty() ;
+                    var articles = JSON.parse(JSON.stringify(json));
+                    $('#catalogue').append($('<h1>'+ articles.libelle +'</h1>'));
+                    afficherArticle(articles);
+                    $('nav li .active').removeClass('active');
+                    $('nav li #'+articles.categorie).addClass('active');
+                } ,
+                error :  function( xhr, status, errorThrown  ){
+                    alert( "Sorry, there was a problem!" );
+                    console.log( "Error: " + errorThrown );
+                    console.log( "Status: " + status );
+                    console.dir( xhr );
+                }
+
+
+            })
+        });
             } ,
             error :  function( xhr, status, errorThrown  ){
                 alert( "Sorry, there was a problem!" );
-        console.log( "Error: " + errorThrown );
-        console.log( "Status: " + status );
-        console.dir( xhr );
+            console.log( "Error: " + errorThrown );
+            console.log( "Status: " + status );
+            console.dir( xhr );
             }
             
             
@@ -110,6 +171,32 @@ $(document).ready(function(){
         console.log(articles);
         afficherArticlesDepart(articles);
         $('.nav li').on('click' , trierCategorie) ;
+       
+          
+        $('.enSavoirPlus').click(function(){
+            var num = $(this).attr('id').charAt('2');
+            $.ajax({
+                url : "v1/produits/"+num,
+                type : "GET" ,
+                dataType : "json" ,
+                success : function(json){
+                    $('#catalogue').empty() ;
+                    var articles = JSON.parse(JSON.stringify(json));
+                    $('#catalogue').append($('<h1>'+ articles.libelle +'</h1>'));
+                    afficherArticle(articles);
+                    $('nav li .active').removeClass('active');
+                    $('nav li #'+articles.categorie).addClass('active');
+                } ,
+                error :  function( xhr, status, errorThrown  ){
+                    alert( "Sorry, there was a problem!" );
+                    console.log( "Error: " + errorThrown );
+                    console.log( "Status: " + status );
+                    console.dir( xhr );
+                }
+
+
+            })
+        });
       },
       error: function( xhr, status, errorThrown ) {
         alert( "Sorry, there was a problem!" );
@@ -155,7 +242,7 @@ $(document).ready(function(){
             window.location.replace("index.html");
             
         }
-    })
+    });
     
 });
 

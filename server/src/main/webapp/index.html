@@ -14,7 +14,7 @@
       <link rel="stylesheet" href="css/animate.css">
     
     <script src="js/jquery-3.2.0.min.js"></script>
-      <script src="js/script.js"></script>
+    <script src="js/script.js"></script>
    
 
     <title>SPI</title>
@@ -36,7 +36,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <form class="navbar-form navbar-right">
-                <div>
+                <div id="navProfil">
                     <a href="#" id="btnConnection">Se connecter</a>
                 </div>
                 <section id="categorieNav" >
@@ -48,17 +48,14 @@
                         </span>
                     </div>
                     <hr>
-                      <h2 >Catégories</h2>
+                      <h2 >Catégories  </h2>
                       <ul class="nav nav-pills nav-stacked">
                           <li  class="active" role="presentation"><a   class="" href="index.html" id="tout">Tout</a></li>
-                             
-                    <a class="btn btn-info ajouterArticle" >Ajouter un article</a>
                       </ul>
-                     
-                
+                    <a class="btn btn-info ajouterArticle" >Ajouter un article</a>
                 </section>
           </form>
-          </div>
+        </div><!--/.navbar-collapse -->
       </div>
     </nav>
     <div id="page" class="row" style="margin-top:100px;">
@@ -73,11 +70,8 @@
             <h2 >Catégories  </h2>
             <ul class="nav nav-pills nav-stacked">
               <li  class="active" role="presentation"><a   class="" href="index.html" id="tout">Tout</a></li>
-              <!--<li role="presentation"  ><a href="#" class="categorie" id="porte">Porte</a></li>
-              <li role="presentation"><a   class="categorie" href="#" id="moteur">Moteur</a></li>
-              <li role="presentation"><a  class="categorie" href="#" id="ressort">Ressort</a></li>-->
             </ul>
-            <a class="btn btn-info ajouterArticle" >Ajouter un article</a>
+                    <a class="btn btn-info ajouterArticle" >Ajouter un article</a>
         </section>
         <section class="col-md-9" id="contenu" >
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -128,13 +122,16 @@
         </section>
         <section class="col-md-9" id="ContenuLogin">
                 <h1>Connexion</h1>
-                <form action="" method="GET" class="input-group" > 
-                    <label for="login" >Adresse E-mail</label><br>
-                    <input type="text" class="form-control"  placeholder="exemple@votresociete.com" aria-describedby="basic-addon3" name="login"><br>
+                <div class="error">
+                    
+                </div>
+                <div class="input-group" > 
+                    <label for="login" >Login</label><br>
+                    <input id="login" type="text" class="form-control"  placeholder="exemple@votresociete.com" aria-describedby="basic-addon3" name="login"><br>
                     <label for="password" >Mots de passe</label><br>
-                    <input type="password" class="form-control" placeholder="******" aria-describedby="basic-addon3" name="login">
+                    <input id="password" type="password" class="form-control" placeholder="******" aria-describedby="basic-addon3" name="password">
                     <input class=" btn btn-primary btn-lg" type="submit" value="Se connecter" id="validation">
-                </form>
+                </div>
         </section>
         <section class="col-md-9" id="contenuContact">
               <div  id="login">
@@ -154,7 +151,6 @@
                     </form>
               </div>
          </section> 
-       <!-- -------------------------------------------------- -->
         <section class="col-md-9" id="contenuAjout" >
             <div>
                 <h1>Nouvel Article</h1>
@@ -171,7 +167,7 @@
                 </div>
             </div>
         </section>
-     <!-- --------------------------->
+      
       </div>
       <footer>
         <p>&copy; SPI 2017, mention legal etc..<a href="#" id="nousContacter">Nous contacter</a></p>
