@@ -48,14 +48,14 @@ public class CommandeRessource {
 	 * @return Response, code de retour 201 si création est faite et 409 si il
 	 *         existe déjà
 	 */
-	@POST
+/*	@POST
 	public Response createCommandes(Commandes Commandes) {
 		if(dao.all().contains(produits))
 			return Response.status(Response.Status.CONFLICT).build();
 		else{
 			int id;
 		}
-	}
+	}*/
 
 	/**
 	 * Méthode de création d'une commande. Prend en charge les requètes HTTP POST
@@ -66,7 +66,7 @@ public class CommandeRessource {
 	 * @return Response le corps de réponse est vide, le code de retour HTTP est
 	 *         fixé à 201 si la création est faite. URI de la ressource est renvoyé en cas de succès.
 	 */
-	@POST
+/*	@POST
 	@Consumes("application/x-www-form-urlencoded")
 	public Response createTask(@FormParam("id") int id, @FormParam("idp") int idp,
 			@FormParam("prixTotal") float prixTotal) {
@@ -78,17 +78,17 @@ public class CommandeRessource {
 		URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + com.getIdc()).build();
 		return Response.created(instanceURI).build();
 	}
-
+*/
 	/**
 	 * Récupération de tous les Commandes créés.
 	 * 
 	 * @return une ArrayList contenant tous les Commandes
 	 */
 	@GET
-	public List<Commandes> getCommandes() {
+/*	public List<Commandes> getCommandes() {
 		return new ArrayList<Commandes>(command.values());
 	}
-
+*/
 	/**
 	 * Méthode qui prend en charge les requètes HTTP GET sur /Commandes/{idc}
 	 * 
@@ -96,7 +96,7 @@ public class CommandeRessource {
 	 * @return le produit demandé
 	 * 
 	 */
-	@GET
+/*	@GET
 	@Path("/{idc}")
 	@Produces({ "application/json", "application/xml" })
 	public Commandes getProduit(@PathParam("idc") Integer idc) {
@@ -107,7 +107,7 @@ public class CommandeRessource {
 		}
 	}
 
-	
+	*/
 	
 	private int getCpt() {
 		return cpt++;
@@ -121,7 +121,7 @@ public class CommandeRessource {
 	 * @param prod
 	 * @return un code de retour HTTP, pas de contenu cependant. Si l'id n'existe pas on renvoie 404
 	 */
-	@PUT
+/*	@PUT
 	@Path("/{idc}")
 	public Response modifyCommandes(@PathParam("idc") Integer idc, Commandes com){
 		if(!command.containsKey(idc)){
@@ -131,7 +131,7 @@ public class CommandeRessource {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}
 	}
-	
+*/	
 	/**
 	 * 
 	 * Méthode prenant en charge les requètes HTTP DELETE sur /Commandes/{idc}
@@ -139,7 +139,7 @@ public class CommandeRessource {
 	 * @param idc
 	 * @return 
 	 */
-	@DELETE
+/*	@DELETE
 	@Path("/{idc}")
 	public Response deleteCommandes(@PathParam("idc") Integer idc){
 		if(!command.containsKey(idc)){
@@ -149,5 +149,5 @@ public class CommandeRessource {
 			return Response.status(Response.Status.NO_CONTENT).build();
 		}			
 	}
-	
+	*/
 }
