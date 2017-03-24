@@ -1,4 +1,4 @@
-                                                                                                                                             package fr.iutinfo.skeleton.api;
+package fr.iutinfo.skeleton.api;
 
 import org.skife.jdbi.v2.sqlobject.*;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
@@ -7,14 +7,10 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 import java.util.List;
 
 public interface UserDao {
-    @SqlUpdate("create table users (id integer primary key autoincrement, name varchar(100),"
-    		+ " alias varchar(100), email varchar(100), passwdHash varchar(64), salt varchar(64),"
-    		+ " search varchar(1024))")
+    @SqlUpdate("create table users (id integer primary key autoincrement, name varchar(100), alias varchar(100), email varchar(100), passwdHash varchar(64), salt varchar(64), search varchar(1024))")
     void createUserTable();
 
-    @SqlUpdate("insert into users (name,alias,email, passwdHash, salt, search, "
-    		+ "adresse,telephone,entreprise,numSiret)"
-    		+ " values (:name, :alias, :email, :passwdHash, :salt, :search)")
+    @SqlUpdate("insert into users (name,alias,email, passwdHash, salt, search) values (:name, :alias, :email, :passwdHash, :salt, :search)")
     @GetGeneratedKeys
     int insert(@BindBean() User user);
 
@@ -39,11 +35,6 @@ public interface UserDao {
     @SqlQuery("select * from users where id = :id")
     @RegisterMapperFactory(BeanMapperFactory.class)
     User findById(@Bind("id") int id);
-    
-    @SqlQuery("update users set name = :name, alias = :alias, email= :email,passwdHash = :passwdHash,"
-    		+ "salt = :salt,searh = :search  where id =:id")
-    @RegisterMapperFactory(BeanMapperFactory.class)
-    Utilisateurs updateUser(@Bind("id") int id);
 
     void close();
 }
