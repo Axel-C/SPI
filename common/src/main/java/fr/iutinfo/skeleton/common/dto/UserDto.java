@@ -13,7 +13,9 @@ public class UserDto implements Principal {
     private String email;
     private String password;
     private String numSiret;
-
+    private String telephone;
+    
+    
     public String getNumSiret() {
 		return numSiret;
 	}
@@ -67,5 +69,14 @@ public class UserDto implements Principal {
 		return "UserDto [name=" + name + ", alias=" + alias + ", id=" + id + ", email=" + email + ", password="
 				+ password + "]";
 	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
+	
     
 }
