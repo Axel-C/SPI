@@ -16,9 +16,7 @@ $(document).ready(function(){
                url: "v1/secure/who",
                dataType: 'json',
                beforeSend : function(req) {
-                   const s =  btoa($("#login").val() + ":" + $("#password").val());
                    req.setRequestHeader("Authorization", "Basic " + s);
-                   console.log(s+", "+$("#login").val()+" : "+$("#password").val());
                },
                success: function (data) {
                    login = $("#login").val();
@@ -124,12 +122,15 @@ $(document).ready(function(){
                  $('nav li .active').removeClass('active');
                  $(this).addClass('active');
                 
-                $('.enSavoirPlus').click(function(){
+            $('.enSavoirPlus').click(function(){
             var num = $(this).attr('id').charAt('2');
             $.ajax({
                 url : "v1/produits/"+num,
                 type : "GET" ,
                 dataType : "json" ,
+                beforeSend : function(req) {
+                    req.setRequestHeader("Authorization", "Basic " + s);
+                },
                 success : function(json){
                     $('#catalogue').empty() ;
                     var articles = JSON.parse(JSON.stringify(json));
@@ -179,6 +180,9 @@ $(document).ready(function(){
                 url : "v1/produits/"+num,
                 type : "GET" ,
                 dataType : "json" ,
+                beforeSend : function(req) {
+                    req.setRequestHeader("Authorization", "Basic " + s);
+                },
                 success : function(json){
                     $('#catalogue').empty() ;
                     var articles = JSON.parse(JSON.stringify(json));
@@ -215,6 +219,9 @@ $(document).ready(function(){
                 url : "v1/produits",
                 type : "POST" ,
                dataType : "json" ,
+               beforeSend : function(req) {
+                   req.setRequestHeader("Authorization", "Basic " + s);
+               },
                headers: { 
                         'Accept': 'application/json',
                         'Content-Type': 'application/json' 
