@@ -16,6 +16,7 @@ public class SecureResource {
 
     @GET
     @Path("/who")
+    @RolesAllowed({"user"})
     public User secureWhoAmI(@Context SecurityContext context) {
         return (User) context.getUserPrincipal();
     }
