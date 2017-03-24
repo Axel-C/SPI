@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var login = undefined, mdp = undefined;
+    var login = "", mdp ="";
     $('#btnConnection').click(function(){
         afficherContenu('#ContenuLogin');        
     });
@@ -16,23 +16,28 @@ $(document).ready(function(){
                url: "v1/secure/who",
                dataType: 'json',
                beforeSend : function(req) {
+                   const s =  btoa($("#login").val() + ":" + $("#password").val());
                    req.setRequestHeader("Authorization", "Basic " + s);
+                   console.log(s+", "+$("#login").val()+" : "+$("#password").val());
                },
                success: function (data) {
-                   login = $("#login").val();
-                   mdp = $("#password").val();
-                   afficherContenu('#contenu');   
-                   mettreContenueLogin($("#login").val(), $("#password").val());
+                    login = $("#login").val();
+                    mdp = $("#password").val();
+                    afficherContenu('#contenu');   
+                    mettreContenueLogin($("#login").val(), $("#password").val());
                },
                error : function(jqXHR, textStatus, errorThrown) {
                     $('#ContenuLogin .panel-warning').show();
                     $('#ContenuLogin .error').empty();    
-                    $('#ContenuLogin .error').append("<h3 class='panel-title'>Mauvais login ou mot de passe</h3>");    
+                    $('#ContenuLogin .error').append("<h3 class='panel-title' id='"+btnProfil+"'>Mauvais login ou mot de passe</h3>");    
                }
              });
     });
     var mettreContenueLogin = function(login, mdp){
-        $('#navProfil #btnConnection').text(login);
+        $('#navProfil').empty();
+        $('#navProfil').append('<a id="btnProfil" href="#">'+login+"</a>y");
+        localStorage.setItem('login', login);
+        localStorage.getItem('mdp', mdp);
     }
     var afficherContenu = function(div){
         $('section.col-md-9:visible').hide(300);
@@ -182,7 +187,7 @@ $(document).ready(function(){
                 type : "GET" ,
                 dataType : "json" ,
                 beforeSend : function(req) {
-                    req.setRequestHeader("Authorization", "Basic " + s);
+                   req.setRequestHeader("Authorization", "Basic " + login + ":" + mdp);
                 },
                 success : function(json){
                     $('#catalogue').empty() ;
@@ -221,7 +226,7 @@ $(document).ready(function(){
                 type : "POST" ,
                dataType : "json" ,
                beforeSend : function(req) {
-                   req.setRequestHeader("Authorization", "Basic " + s);
+                   req.setRequestHeader("Authorization", "Basic " + login + ":" + mdp);
                },
                headers: { 
                         'Accept': 'application/json',
