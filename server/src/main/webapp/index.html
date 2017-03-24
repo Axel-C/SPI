@@ -48,16 +48,17 @@
                         </span>
                     </div>
                     <hr>
-                      <h2 >Catégories  </h2>
+                      <h2 >Catégories</h2>
                       <ul class="nav nav-pills nav-stacked">
                           <li  class="active" role="presentation"><a   class="" href="index.html" id="tout">Tout</a></li>
-                          <!--<li role="presentation"  ><a href="#" class="categorie" id="porte">Porte</a></li>
-                          <li role="presentation"><a   class="categorie" href="#" id="moteur">Moteur</a></li>
-                          <li role="presentation"><a  class="categorie" href="#" id="ressort">Ressort</a></li>
+                             
+                    <a class="btn btn-info ajouterArticle" >Ajouter un article</a>
                       </ul>
+                     
+                
                 </section>
           </form>
-        </div><!--/.navbar-collapse -->
+          </div>
       </div>
     </nav>
     <div id="page" class="row" style="margin-top:100px;">
@@ -76,6 +77,7 @@
               <li role="presentation"><a   class="categorie" href="#" id="moteur">Moteur</a></li>
               <li role="presentation"><a  class="categorie" href="#" id="ressort">Ressort</a></li>-->
             </ul>
+            <a class="btn btn-info ajouterArticle" >Ajouter un article</a>
         </section>
         <section class="col-md-9" id="contenu" >
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -152,7 +154,24 @@
                     </form>
               </div>
          </section> 
-      
+       <!-- -------------------------------------------------- -->
+        <section class="col-md-9" id="contenuAjout" >
+            <div>
+                <h1>Nouvel Article</h1>
+                <div>
+                    <label for="nom">Nom :</label> <input class="input-group" type="text" name="nom" ><br>
+                    <label for="desciption" >Description :</label><br><textarea cols="35" rows="15" name ="description" ></textarea><br>
+                    <label for="categorie" >Categorie :</label><input  class="input-group"  type="text" name ="categorie"><br>
+                    <label for="reference" >Référence :</label><input class="input-group"  type="text" name ="reference"><br>
+                     <label for="prix" >Prix :</label><input  class="input-group"  type="text" name ="prix"><br>
+                    <label for="image" >Image :</label><input class="input-group"  type="text" name ="image"><br>
+                    <input type="submit"  value="Ajouter" class="btn btn-primary" id="btnNouvelArticle">
+                    
+                    
+                </div>
+            </div>
+        </section>
+     <!-- --------------------------->
       </div>
       <footer>
         <p>&copy; SPI 2017, mention legal etc..<a href="#" id="nousContacter">Nous contacter</a></p>
