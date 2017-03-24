@@ -208,6 +208,8 @@ public class User implements Principal {
         this.setId(dto.getId());
         this.setName(dto.getName());
         this.setPassword(dto.getPassword());
+        logger.debug("NUMSIRET DE MORT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        this.setNumSiret(dto.getNumSiret());
     }
 
     public UserDto convertToDto() {
@@ -217,6 +219,7 @@ public class User implements Principal {
         dto.setId(this.getId());
         dto.setName(this.getName());
         dto.setPassword(this.getPassword());
+        dto.setNumSiret(this.getNumSiret());
         return dto;
     }
 }
