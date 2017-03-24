@@ -21,6 +21,24 @@ public class User implements Principal {
     private String passwdHash;
     private String salt;
     private String search;
+    private String numSiret;
+    private String telephone;
+
+	public String getNumSiret() {
+		return numSiret;
+	}
+
+	public void setNumSiret(String numSiret) {
+		this.numSiret = numSiret;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
+	}
 
 	public User(int id, String name) {
         this.id = id;
@@ -163,6 +181,8 @@ public class User implements Principal {
         this.setId(dto.getId());
         this.setName(dto.getName());
         this.setPassword(dto.getPassword());
+        this.setNumSiret(dto.getNumSiret());
+        this.setTelephone(dto.getTelephone());
     }
 
     public UserDto convertToDto() {
@@ -172,6 +192,8 @@ public class User implements Principal {
         dto.setId(this.getId());
         dto.setName(this.getName());
         dto.setPassword(this.getPassword());
+        dto.setNumSiret(this.getNumSiret());
+        dto.setTelephone(this.getTelephone());
         return dto;
     }
 }

@@ -22,7 +22,7 @@ public class UserResource {
 
     public UserResource() throws SQLException {
         if (!tableExist("users")) {
-            logger.debug("Crate table users");
+            logger.debug("Create table users");
             dao.createUserTable();
             dao.insert(new User(0, "Margaret Thatcher", "la Dame de fer"));
         }
