@@ -12,8 +12,17 @@ public class UserDto implements Principal {
     private int id = 0;
     private String email;
     private String password;
+    private String numSiret;
 
-    public String getEmail() {
+    public String getNumSiret() {
+		return numSiret;
+	}
+
+	public void setNumSiret(String numSiret) {
+		this.numSiret = numSiret;
+	}
+
+	public String getEmail() {
         return email;
     }
 
@@ -28,7 +37,7 @@ public class UserDto implements Principal {
     public void setId(int id) {
         this.id = id;
     }
-
+    
     public String getName() {
         return name;
     }
@@ -58,6 +67,5 @@ public class UserDto implements Principal {
 		return "UserDto [name=" + name + ", alias=" + alias + ", id=" + id + ", email=" + email + ", password="
 				+ password + "]";
 	}
-
     
 }

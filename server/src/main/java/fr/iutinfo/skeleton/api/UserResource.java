@@ -24,7 +24,7 @@ public class UserResource {
 		if (!tableExist("users")) {
 			logger.debug("Create table users");
 			dao.createUserTable();
-			dao.insert(new User(0, "Margaret Thatcher", "la Dame de fer"));
+		//	dao.insert(new User(0, "Margaret Thatcher", "la Dame de fer"));
 		}
 	}
 
@@ -33,6 +33,7 @@ public class UserResource {
 		User user = new User();
 		user.initFromDto(dto);
 		user.resetPasswordHash();
+		user.setValidation(false);
 		int id = dao.insert(user);
 		dto.setId(id);
 		return dto;
