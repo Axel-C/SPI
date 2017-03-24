@@ -1,0 +1,110 @@
+body, p, h1, ul, li{
+    margin : 0;
+    padding : 0;
+    
+}
+body{
+    background-image: url(../res/texture.png) ;
+}
+#carousel-example-generic{
+    background-color: white ;
+}
+#page {
+    margin: 0 !important ;
+    margin-top: 75px !important ;
+}
+.item{
+    max-height: 300px ;
+    margin: auto ;
+}
+.item img{
+    height: 300px ;
+    margin: auto ;
+   
+}
+#catalogue{
+    margin-top: 25px ;
+    border : 1px solid grey ;
+    border-radius: 5px ;
+    padding: 20px ;
+    text-align: center;
+    background-color: aliceblue;
+}
+
+#categorie{
+    position: fixed;  
+    padding-left: 15px;
+}
+#categorie>ul{
+    margin-top: 10px;
+}
+#contenu, #ContenuLogin, #contenuContact ,  #contenuAjout {
+    margin-left: 20%;
+}
+#categorieNav{
+    display: none;
+}
+#categorieNav h2{
+    color: white;
+}
+#logoNav{
+    width: 75px;
+    margin-top: -9px;
+}
+#btnConnection{
+    color: white;
+    line-height: 34px;
+    font-size: 1.5em;
+}
+
+#ContenuLogin, #contenuContact , #contenuAjout{
+    display: none;
+}
+#ContenuLogin h1{
+    text-align: center ;
+}
+#ContenuLogin form{
+    
+    margin: auto ;
+}
+#ContenuLogin label{
+   
+}section{
+    min-height: 500px  !important ;
+}
+
+
+#validation{
+    
+    margin-top: 25px ;
+}
+@media (max-width: 990px) {
+    #categorie {
+    position: inherit;
+    }
+    #contenu{
+        margin-left: auto;
+    }
+}
+@media (max-width: 767px) {
+    #categorieNav {
+        display: block;
+    }
+    #categorie{
+        display: none;
+    }
+}article{
+    height: 33em ;
+}
+
+article img{
+    min-width: 95% ;
+    min-height: 75%;
+    width: 95% ;
+    height:  75% ;
+    max-width:95% ;
+    max-height: 75% ;
+    
+}
+
+

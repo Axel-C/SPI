@@ -1,6 +1,6 @@
 $(document).ready(function(){
     
-   
+  
  
         
     $('#btnConnection').click(function(){
@@ -9,6 +9,10 @@ $(document).ready(function(){
     $('#nousContacter').click(function(){
         afficherContenu('#contenuContact');
     });
+    
+     $('.ajouterArticle').click(function(){
+       afficherContenu('#contenuAjout');
+   })
     
     var afficherContenu = function(div){
         $('section.col-md-9:visible').hide(300);
@@ -114,6 +118,44 @@ $(document).ready(function(){
         console.dir( xhr );
       }
     });
+    
+    $('#btnNouvelArticle').click(function(){
+        if($('#contenuAjout input[name=nom]').val() == ""){
+            alert('Aucun nom pour l\' article ');
+        }else{
+            var prix = parseFloat($('#contenuAjout input[name=prix]').val()) ;
+            $.ajax({
+                url : "v1/produits",
+                type : "POST" ,
+               dataType : "json" ,
+               headers: { 
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json' 
+                    },
+                data : JSON.stringify({
+                          "categorie": $('#contenuAjout input[name=categorie]').val() ,
+                        "description": $('#contenuAjout input[name=description]').val() ,
+                        "libelle": $('#contenuAjout input[name=nom]').val() ,
+                        "prix": prix ,
+                        "reference": $('#contenuAjout input[name=reference]').val() ,
+                        "urlImage": $('#contenuAjout input[name=image]').val() 
+                }),
+                 
+                success : function(json){
+                    alert('ça marche');
+                    
+                } ,
+               /*error: function( xhr, status, errorThrown ) {
+                   alert( "Sorry, there was a problem!" );
+                   console.log( "Error: " + errorThrown );
+                   console.log( "Status: " + status );
+                   console.dir(xhr);
+               } */
+            });
+            window.location.replace("index.html");
+            
+        }
+    })
     
 });
 
