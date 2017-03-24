@@ -38,7 +38,7 @@ body{
 #categorie>ul{
     margin-top: 10px;
 }
-#contenu, #ContenuLogin, #contenuContact{
+#contenu, #ContenuLogin, #contenuContact, #contenuAjout{
     margin-left: 20%;
 }
 #categorieNav{
@@ -57,7 +57,7 @@ body{
     font-size: 1.5em;
 }
 
-#ContenuLogin, #contenuContact{
+#ContenuLogin, #contenuContact, #contenuAjout{
     display: none;
 }
 #ContenuLogin h1{
@@ -72,10 +72,11 @@ body{
 }section{
     min-height: 500px  !important ;
 }
-
+#descriptionArticle{
+    margin-left: 29%;
+}
 
 #validation{
-    
     margin-top: 25px ;
 }
 @media (max-width: 990px) {
@@ -84,6 +85,9 @@ body{
     }
     #contenu{
         margin-left: auto;
+    }
+    #descriptionArticle{
+        margin: auto;
     }
 }
 @media (max-width: 767px) {
