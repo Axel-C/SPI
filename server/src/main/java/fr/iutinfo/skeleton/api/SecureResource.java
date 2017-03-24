@@ -5,8 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 
@@ -16,9 +18,12 @@ public class SecureResource {
 
     @GET
     @Path("/who")
-    @RolesAllowed({"user"})
     public User secureWhoAmI(@Context SecurityContext context) {
-        return (User) context.getUserPrincipal();
+        if(context.getUserPrincipal().equals(User.anonymous))
+    	return (User) context.getUserPrincipal();
+        else{
+        	throw new NotAuthorizedException(Response.status(Response.Status.UNAUTHORIZED).build());
+        }
     }
 
     @GET
