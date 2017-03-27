@@ -15,18 +15,20 @@ public class Maintenance {
 	private int idUser; // Id de l'utilisateur
 	private String rapport;
 	private String date;
+	private String porte;
 
 	public Maintenance() {
 
 	}
 
-	public Maintenance(String type, int idM, int idPro, int idUser, String rapport, String date) {
+	public Maintenance(String type, int idM, int idPro, int idUser, String rapport, String date,String porte) {
 		this.type = type;
 		this.idM = idM;
 		this.idPro = idPro;
 		this.idUser = idUser;
 		this.rapport = rapport;
 		this.date = date;
+		this.porte=porte;
 	}
 
 	public String getType() {
@@ -123,6 +125,7 @@ public class Maintenance {
       this.setIdUser(dto.getIdUser());
       this.setRapport(dto.getRapport());
       this.setType(dto.getType());
+      this.setPorte(dto.getPorte());
     }
 
     public MaintenanceDto convertToDto() {
@@ -133,7 +136,16 @@ public class Maintenance {
         dto.setIdUser(this.getIdUser());
         dto.setRapport(this.getRapport());
         dto.setType(this.getType());
+        dto.setPorte(this.getPorte());
         return dto;
     }
+
+	public String getPorte() {
+		return porte;
+	}
+
+	public void setPorte(String porte) {
+		this.porte = porte;
+	}
 
 }

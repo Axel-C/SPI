@@ -8,11 +8,12 @@ public class MaintenanceDto {
 	private int idUser; 
 	private String rapport;
 	private String date;
+	private String porte;
 	
 	@Override
 	public String toString() {
 		return "MaintenanceDto [type=" + type + ", idM=" + idM + ", idPro=" + idPro + ", idUser=" + idUser
-				+ ", rapport=" + rapport + ", date=" + date + "]";
+				+ ", rapport=" + rapport + ", date=" + date + ", porte=" + porte + "]";
 	}
 	public String getType() {
 		return type;
@@ -49,6 +50,12 @@ public class MaintenanceDto {
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+	public String getPorte() {
+		return porte;
+	}
+	public void setPorte(String porte) {
+		this.porte = porte;
 	}
 
 	
