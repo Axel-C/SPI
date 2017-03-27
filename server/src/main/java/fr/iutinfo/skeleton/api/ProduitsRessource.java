@@ -4,6 +4,7 @@ import java.net.URI;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -16,6 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 
 import org.slf4j.Logger;
@@ -38,11 +40,11 @@ public class ProduitsRessource {
 	 * Une ressource doit avoir un constructeur vide (sans argument... du coup)
 	 */
 	public ProduitsRessource() throws SQLException {
-	//	dao.dropProduitsTable();
+		// dao.dropProduitsTable();
 		logger.debug("TABLE produits PAS DROPPED");
 		if (!BDDFactory.tableExist("produits"))
 			dao.createProduitsTable();
-			dao.insert(new Produits("click", 0, "reference", 0, "description", "categorie", ""));
+		dao.insert(new Produits("click", 0, "reference", 0, "description", "categorie", ""));
 	}
 
 	/**
@@ -71,12 +73,16 @@ public class ProduitsRessource {
 	 * @return une ArrayList contenant tous les produits
 	 */
 	@GET
-	public List<Produits> getProduits() {
+	public List<Produits> getProduits(@Context SecurityContext context) {
+		User u = (User) context.getUserPrincipal();
 		
 		List<Produits> jack = new ArrayList<Produits>(dao.all());
-		jack.forEach(item->{
-			logger.debug("lambda ID = "+item.getIdp());
-		});
+		if(u.isAnonymous()){
+			jack = jack.stream().map(p->{
+				p.setPrix(0f);
+				return p;
+			}).collect(Collectors.toList());
+		}
 		return jack;
 	}
 
@@ -97,14 +103,14 @@ public class ProduitsRessource {
 			return dao.findByIdp(id);
 		}
 	}
-	
+
 	@GET
 	@Path("/categorie/{categorie}")
-	@Produces({"application/json", "application/xml"})
-	public List<Produits> getProduitByCategorie(@PathParam("categorie") String categorie){
+	@Produces({ "application/json", "application/xml" })
+	public List<Produits> getProduitByCategorie(@PathParam("categorie") String categorie) {
 		return dao.findByCategorie(categorie);
 	}
-	
+
 	private int getCpt() {
 		return cpt++;
 	}
@@ -118,16 +124,14 @@ public class ProduitsRessource {
 	 * @return un code de retour HTTP, pas de contenu cependant. Si l'id
 	 *         n'existe pas on renvoie 404
 	 */
-/*	@PUT
-	@Path("/{id}")
-	public Response modifyProduits(@PathParam("id") Integer id, Produits prod) {
-		if () {
-			throw new NotFoundException();
-		} else {
-			products.put(id, prod);
-			return Response.status(Response.Status.NO_CONTENT).build();
-		}
-	}*/
+	/*
+	 * @PUT
+	 * 
+	 * @Path("/{id}") public Response modifyProduits(@PathParam("id") Integer
+	 * id, Produits prod) { if () { throw new NotFoundException(); } else {
+	 * products.put(id, prod); return
+	 * Response.status(Response.Status.NO_CONTENT).build(); } }
+	 */
 
 	/**
 	 * 

@@ -51,6 +51,15 @@ public class AuthFilter implements ContainerRequestFilter {
         }
         return user;
     }
+    
+    private User loadUserFromEmail(String email){
+    	UserDao dao = BDDFactory.getDbi().open(UserDao.class);
+    	User user = dao.findByEmail(email);
+    	if(user == null){
+    		user = User.getAnonymousUser();
+    	}
+    	return user;
+    }
 
     private void checkLoginPassword(String[] loginPassword) {
         if (loginPassword == null || loginPassword.length != 2) {
