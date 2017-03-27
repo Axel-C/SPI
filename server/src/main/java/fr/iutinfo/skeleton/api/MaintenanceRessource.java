@@ -65,7 +65,7 @@ public class MaintenanceRessource {
 	
 	
 	@POST
-	@Path("/addPorte}")
+	@Path("/addPorte")
 	public Response createMaintenancePorte(Maintenance mnt) {
 		if (dao.all().contains(mnt))
 			return Response.status(Response.Status.CONFLICT).build();

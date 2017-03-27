@@ -8,12 +8,20 @@ public class MaintenanceDto {
 	private int idUser; 
 	private String rapport;
 	private String date;
-	private String porte;
+	private String numPorte;
+	
+	public String getNumPorte() {
+		return numPorte;
+	}
+	public void setNumPorte(String numPorte) {
+		this.numPorte = numPorte;
+	}
+
 	
 	@Override
 	public String toString() {
 		return "MaintenanceDto [type=" + type + ", idM=" + idM + ", idPro=" + idPro + ", idUser=" + idUser
-				+ ", rapport=" + rapport + ", date=" + date + ", porte=" + porte + "]";
+				+ ", rapport=" + rapport + ", date=" + date + ", numPorte=" + numPorte + "]";
 	}
 	public String getType() {
 		return type;
@@ -51,12 +59,7 @@ public class MaintenanceDto {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	public String getPorte() {
-		return porte;
-	}
-	public void setPorte(String porte) {
-		this.porte = porte;
-	}
+
 
 	
 }

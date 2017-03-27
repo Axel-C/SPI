@@ -15,20 +15,20 @@ public class Maintenance {
 	private int idUser; // Id de l'utilisateur
 	private String rapport;
 	private String date;
-	private String porte;
+	private String numPorte;
 
 	public Maintenance() {
 
 	}
 
-	public Maintenance(String type, int idM, int idPro, int idUser, String rapport, String date,String porte) {
+	public Maintenance(String type, int idM, int idPro, int idUser, String rapport, String date,String numPorte) {
 		this.type = type;
 		this.idM = idM;
 		this.idPro = idPro;
 		this.idUser = idUser;
 		this.rapport = rapport;
 		this.date = date;
-		this.porte=porte;
+		this.numPorte=numPorte;
 	}
 
 	public String getType() {
@@ -82,7 +82,7 @@ public class Maintenance {
 	@Override
 	public String toString() {
 		return "Maintenance [type=" + type + ", idM=" + idM + ", idPro=" + idPro + ", idUser=" + idUser + ", rapport="
-				+ rapport + ", date=" + date + "]";
+				+ rapport + ", date=" + date + ", numnumPorte="+numPorte+"]";
 	}
 
 	@Override
@@ -125,7 +125,7 @@ public class Maintenance {
       this.setIdUser(dto.getIdUser());
       this.setRapport(dto.getRapport());
       this.setType(dto.getType());
-      this.setPorte(dto.getPorte());
+      this.setnumPorte(dto.getnumPorte());
     }
 
     public MaintenanceDto convertToDto() {
@@ -136,16 +136,16 @@ public class Maintenance {
         dto.setIdUser(this.getIdUser());
         dto.setRapport(this.getRapport());
         dto.setType(this.getType());
-        dto.setPorte(this.getPorte());
+        dto.setNumPorte(this.getnumPorte());
         return dto;
     }
 
-	public String getPorte() {
-		return porte;
+	public String getnumPorte() {
+		return numPorte;
 	}
 
-	public void setPorte(String porte) {
-		this.porte = porte;
+	public void setnumPorte(String numPorte) {
+		this.numPorte = numPorte;
 	}
 
 }
