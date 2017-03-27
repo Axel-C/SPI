@@ -24,11 +24,11 @@ public interface MaintenanceDao {
     
     @SqlQuery("select * from Maintenance where idUser = :idUser")
     @RegisterMapperFactory(BeanMapperFactory.class)
-    Maintenance findByidUser(@Bind("idUser") int idUser);
+    List<Maintenance> findByidUser(@Bind("idUser") int idUser);
 
     @SqlQuery("select * from Maintenance where idPro = :idPro")
     @RegisterMapperFactory(BeanMapperFactory.class)
-    Maintenance findByIdPro(@Bind("idPro") int idPro);
+    List<Maintenance> findByIdPro(@Bind("idPro") int idPro);
     
     @SqlUpdate("drop table if exists Maintenance")
     void dropMaintenanceTable();
