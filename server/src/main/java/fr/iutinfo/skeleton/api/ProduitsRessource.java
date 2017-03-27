@@ -67,7 +67,7 @@ public class ProduitsRessource {
 				URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + produits.getIdp()).build();
 				return Response.created(instanceURI).build();
 			}
-		}else{
+		} else {
 			return Response.status(Response.Status.FORBIDDEN).build();
 		}
 	}
@@ -103,18 +103,30 @@ public class ProduitsRessource {
 	@GET
 	@Path("/{id}")
 	@Produces({ "application/json", "application/xml" })
-	public Produits getProduit(@PathParam("id") Integer id) {
-		if (dao.findByIdp(id) == null) {
-			throw new NotFoundException();
-		} else {
-			return dao.findByIdp(id);
+	public Produits getProduit(@PathParam("id") Integer id, @Context SecurityContext context) {
+		if (!((User) context.getUserPrincipal()).isAnonymous()) {
+			if (dao.findByIdp(id) == null) {
+				throw new NotFoundException();
+			} else {
+				return dao.findByIdp(id);
+			}
+		}else{
+			Produits p = dao.findByIdp(id);
+			if(p == null)
+				throw new NotFoundException();
+			else{
+				p.setPrix(0f);
+				return p;
+			}
+			
 		}
 	}
 
 	@GET
 	@Path("/categorie/{categorie}")
 	@Produces({ "application/json", "application/xml" })
-	public List<Produits> getProduitByCategorie(@PathParam("categorie") String categorie, @Context SecurityContext context) {
+	public List<Produits> getProduitByCategorie(@PathParam("categorie") String categorie,
+			@Context SecurityContext context) {
 		List<Produits> jack = dao.findByCategorie(categorie);
 		User u = (User) context.getUserPrincipal();
 		if (u.isAnonymous()) {
@@ -143,8 +155,8 @@ public class ProduitsRessource {
 	 */
 	/*
 	 * @PUT
-	 * @Path("/{id}")
-	 * public Response modifyProduits(@PathParam("id") Integer
+	 * 
+	 * @Path("/{id}") public Response modifyProduits(@PathParam("id") Integer
 	 * id, Produits prod) { if () { throw new NotFoundException(); } else {
 	 * products.put(id, prod); return
 	 * Response.status(Response.Status.NO_CONTENT).build(); } }
