@@ -4,6 +4,7 @@ $(document).ready(function(){
     var telephone = localStorage.getItem('telephone');
     var alias = localStorage.getItem('alias');
     var numeroSiret = localStorage.getItem('numeroSiret');
+    var idMec = localStorage.getItem('idMec');
         
     $('#btnConnection').click(function(){
         afficherContenu('#ContenuLogin');        
@@ -33,7 +34,7 @@ $(document).ready(function(){
                 login = $("#login").val();
                 mdp = $("#password").val();
                 afficherContenu('#contenu');   
-                mettreContenueLogin($("#login").val(), $("#password").val(), data.telephone, data.alias, data.numeroSiret);
+                mettreContenueLogin($("#login").val(), $("#password").val(), data.telephone, data.alias, data.numSiret, data.id);
            },
            error : function(jqXHR, textStatus, errorThrown) {
                 $('#ContenuLogin .panel-warning').show();
@@ -42,7 +43,7 @@ $(document).ready(function(){
            }
          });
     });
-    var mettreContenueLogin = function(login, mdp, telephone, alias, numeroSiret){
+    var mettreContenueLogin = function(login, mdp, telephone, alias, numeroSiret, idM){
         $('#navProfil').empty();
         $('#navProfil').append('<a id="btnProfil" href="#">'+login+"</a><button id='deconnection' type='button'>"+
             "<span class='glyphicon glyphicon-log-out' aria-hidden='true'></span>");
@@ -51,6 +52,7 @@ $(document).ready(function(){
         localStorage.setItem('telephone', telephone);
         localStorage.setItem('alias', alias);
         localStorage.setItem('numeroSiret', numeroSiret);
+        localStorage.setItem('idMec', idM);
          $('#btnProfil').click(function(){
             afficherContenu('#contenuCompte');        
         });
@@ -287,7 +289,7 @@ $(document).ready(function(){
             }
             console.log(user.role);
             afficherContenu('#contenu');   
-            mettreContenueLogin(login, mdp);
+            mettreContenueLogin(login, mdp, telephone, alias, numeroSiret, idMec);
             $('#contenuCompte input[name=email]').val(login);
         } ,
         error :  function( xhr, status, errorThrown){
@@ -355,7 +357,7 @@ $(document).ready(function(){
         }else{
         
         $.ajax({
-                url : "v1/user",
+                url : "v1/user/" + idMec,
                 type : "PUT" ,
                dataType : "json" ,
                beforeSend : function(req) {
