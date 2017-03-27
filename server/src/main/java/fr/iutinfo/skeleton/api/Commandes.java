@@ -109,7 +109,7 @@ public class Commandes {
 		CommandeDto dto =new CommandeDto();
 		dto.setId(this.getId());
 		dto.setIdc(this.getIdc());
-		dto.setIdp(dto.getIdp());
+		dto.setIdp(this.getIdp());
 		dto.setPrixTotal(this.getPrixTotal());
 		return dto;
 	}

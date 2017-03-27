@@ -37,7 +37,7 @@ body{
 #categorie>ul{
     margin-top: 10px;
 }
-#contenu, #ContenuLogin, #contenuContact, #contenuAjout , #contenuCompte , #creerCompte{
+#contenu, #ContenuLogin, #contenuContact, #contenuAjout , #contenuCompte{
     margin-left: 20%;
 }
 #categorieNav, .panel-warning{
@@ -55,7 +55,10 @@ body{
     line-height: 34px;
     font-size: 1.5em;
 }
-#ContenuLogin, #contenuContact, #contenuAjout , #contenuCompte , #creerCompte, .creerCompte, .ajouterArticle{
+.ajouterArticle{
+    display:none;
+}
+#ContenuLogin, #contenuContact, #contenuAjout , #contenuCompte{
     display: none;
 }
 #ContenuLogin h1{
@@ -73,9 +76,7 @@ body{
 #descriptionArticle{
     margin-left: 29%;
 }
-#deconnection{
-    margin-left : 15px;
-}
+
 #validation{
     margin-top: 25px ;
 }
