@@ -1,6 +1,9 @@
 package fr.iutinfo.skeleton.api;
 
+import static fr.iutinfo.skeleton.api.BDDFactory.tableExist;
+
 import java.net.URI;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -27,15 +30,20 @@ import javax.ws.rs.core.UriInfo;
 @Consumes(MediaType.APPLICATION_JSON)
 public class MaintenanceRessource {
 	private static int cpt = 0;
-
+	private MaintenanceDao dao = BDDFactory.getDbi().open(MaintenanceDao.class);	
+	
 	@Context
 	public UriInfo uriInfo;
 
-	public MaintenanceRessource() {
+	public MaintenanceRessource() throws SQLException{
+		if (!tableExist("Maintenance")) {
+			dao.createMaintenanceTable();
+			//dao.insert(new Maintenance("t", 1, 1, 1, "test", "08/01/2015"));
+		}
 	}
 
-	// Hashmap pour stocker les différents utilisateurs
-	private MaintenanceDao dao = BDDFactory.getDbi().open(MaintenanceDao.class);	
+	
+	
 	
 	/**
 	 * Méthode gérant les requètes POST/

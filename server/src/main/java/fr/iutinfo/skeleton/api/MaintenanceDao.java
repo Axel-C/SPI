@@ -7,12 +7,14 @@ import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 import java.util.List;
 
 public interface MaintenanceDao {
-	@SqlUpdate("create table Maintenance(idM integer primry key autoincrement,idUser integer,"
-			+ "idPro integer, date text,type text,effectue boolean , rapport text, Constraint fk_Maintenance1 foreign key(idUser) references User(id), Constraint fk_Maintenance2 foreign key(idPro) references Produits(idp))")
+	@SqlUpdate("create table Maintenance(idM integer primary key autoincrement,idUser integer,"
+			+ "idPro integer, date text,type text, rapport text,"
+			+ " Constraint fk_Maintenance1 foreign key(idUser) references users(id),"
+			+ " Constraint fk_Maintenance2 foreign key(idPro) references produits(idp))")
 	void createMaintenanceTable();
 	
-    @SqlUpdate("insert into Maintenance (date, type, effectue, rapport) values"
-    		+ " (:date, :type, :effectue, :rapport)")
+    @SqlUpdate("insert into Maintenance (idPro,idUser ,date, type, rapport) values"
+    		+ " (:idPro, :idUser, :date, :type, :rapport)")
     @GetGeneratedKeys
     int insert(@BindBean() Maintenance Maintenance);
 
@@ -22,11 +24,11 @@ public interface MaintenanceDao {
     
     @SqlQuery("select * from Maintenance where idUser = :idUser")
     @RegisterMapperFactory(BeanMapperFactory.class)
-    Maintenance findByidUser(@Bind("idUser") int idUser);
+    List<Maintenance> findByidUser(@Bind("idUser") int idUser);
 
     @SqlQuery("select * from Maintenance where idPro = :idPro")
     @RegisterMapperFactory(BeanMapperFactory.class)
-    Maintenance findByIdPro(@Bind("idPro") int idPro);
+    List<Maintenance> findByIdPro(@Bind("idPro") int idPro);
     
     @SqlUpdate("drop table if exists Maintenance")
     void dropMaintenanceTable();
