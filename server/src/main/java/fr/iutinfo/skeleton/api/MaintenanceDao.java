@@ -14,7 +14,7 @@ public interface MaintenanceDao {
 	void createMaintenanceTable();
 	
     @SqlUpdate("insert into Maintenance (idPro,idUser ,date, type, rapport) values"
-    		+ " (:idPro, :idUser, :date, :type, :effectue, :rapport)")
+    		+ " (:idPro, :idUser, :date, :type, :rapport)")
     @GetGeneratedKeys
     int insert(@BindBean() Maintenance Maintenance);
 
