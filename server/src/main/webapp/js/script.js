@@ -288,6 +288,39 @@ $(document).ready(function () {
             if (user.role == "admin") {
                 $('.ajouterArticle').css('display', 'block');
                 $('.creerCompte').css('display', 'block');
+            } else{
+                $.ajax({
+                    url: "v1/maintenance/bu/"+idMec,
+                    type : "GET" ,
+                    dataType : "json" ,
+                    beforeSend : function(req) {
+                       const s =  btoa(login + ":" + mdp);
+                       req.setRequestHeader("Authorization", "Basic " + s);
+                    },
+                    success : function(json){
+                        var porte = JSON.parse(JSON.stringify(json));
+                        if(porte.length > 1){
+                            for(var i=0; i<porte; i++){
+                                $('#sesPortes').append('<tr><td>'+porte[i].idM+'</td>'+
+                                                   '<td>'+porte[i].type+'</td>'+
+                                                   '<td>'+porte[i].date+'</td>'+
+                                                   '<td>'+porte[i].rapport+'</td><tr>');
+
+                            }
+                        } else {
+                            $('#sesPortes').append('<tr><td>'+porte.idM+'</td>'+
+                                                   '<td>'+porte.type+'</td>'+
+                                                   '<td>'+porte.date+'</td>'+
+                                                   '<td>'+porte.rapport+'</td><tr>');
+                        }
+                        $('#sesPortes').append('<td><input class="input-group" placeholder="numero porte" type="text" name="numPorte" ></td>'+ 
+                                            '<td><input class="input-group"  placeholder="Description " type="text" name="oldPassword" ></td> '+
+                                            '<td><input class="input-group"  type="text" name="" disabled></td> ');
+                    } ,
+                    error :  function( xhr, status, errorThrown){
+                        console.info("Vous n'etes pas encore connectée");
+                    }
+                });   
             }
             console.log(user.role);
             afficherContenu('#contenu');
