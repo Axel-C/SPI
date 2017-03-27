@@ -90,6 +90,26 @@ public class MaintenanceRessource {
 			return dao.findByidM(idM);
 		}
 	}
+	@GET
+	@Path("/bu/{idUser}")
+	@Produces({ "application/json", "application/xml" })
+	public List<Maintenance> getMaintenancebyUser(@PathParam("idUser") Integer idUser) {
+		if (dao.findByidUser(idUser) == null) {
+			throw new NotFoundException();
+		} else {
+			return dao.findByidUser(idUser);
+		}
+	}
+	@GET
+	@Path("/bp/{idPro}")
+	@Produces({ "application/json", "application/xml" })
+	public List<Maintenance> getMaintenancebyProduits(@PathParam("idPro") Integer idPro) {
+		if (dao.findByIdPro(idPro) == null) {
+			throw new NotFoundException();
+		} else {
+			return dao.findByIdPro(idPro);
+		}
+	}
 
 /*	@PUT
 	@Path("/{idM}")
