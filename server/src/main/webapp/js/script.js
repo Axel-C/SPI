@@ -11,13 +11,13 @@ $(document).ready(function () {
       $.ajax({
             type : 'POST',
             contentType : 'application/json',
-            url : "v1/maintenance",
+            url : "v1/maintenance/addPorte",
             data : JSON.stringify({
                 "date" : "Pas encore eu de maintenance",
                 "idUser" : idMec,
                 "rapport" : "",
                 "type" : $('#description').val(), 
-                "idP" : $('#numPorte').val()
+                "numPorte" : $('#numPorte').val()
             }),
             success : function(data, textStatus, jqXHR) {
                 alert("Ajout de porte reussit");
@@ -50,7 +50,6 @@ $(document).ready(function () {
             beforeSend: function (req) {
                 const s = btoa($("#login").val() + ":" + $("#password").val());
                 req.setRequestHeader("Authorization", "Basic " + s);
-                console.log(s + ", " + $("#login").val() + " : " + $("#password").val());
             },
             success: function (data) {
                 login = $("#login").val();
@@ -68,7 +67,7 @@ $(document).ready(function () {
     var mettreContenueLogin = function (login, mdp, telephone, alias, numeroSiret, idM) {
         $('#navProfil').empty();
         $('#navProfil').append('<a id="btnProfil" href="#">' + login + "</a><button id='deconnection' type='button'>" +
-            "<span class='glyphicon glyphicon-log-out' aria-hidden='true'></span>");
+            "<span class='glyphicon glyphicon-log-out' aria-hidden='true'></span></button>");
         localStorage.setItem('login', login);
         localStorage.setItem('mdp', mdp);
         localStorage.setItem('telephone', telephone);
@@ -323,22 +322,45 @@ $(document).ready(function () {
                         var porte = JSON.parse(JSON.stringify(json));
                         if(porte.length > 1){
                             for(var i=0; i<porte.length; i++){
-                                $('#sesPortes').append('<tr><td>'+porte[i].idM+'</td>'+
+                                $('#sesPortes').append('<tr><td>'+porte[i].numPorte+'</td>'+
                                                    '<td>'+porte[i].type+'</td>'+
                                                    '<td>'+porte[i].date+'</td>'+
-                                                   '<td>'+porte[i].rapport+'</td><tr>');
+                                                   '<td>'+porte[i].rapport+'</td>'+
+                                                   '<td><button type="button" class="ajoutMaintenance" id="'+porte[i].idM+'"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button></td><tr>');
 
                             }
                         } else {
-                            $('#sesPortes').append('<tr><td>'+porte.idM+'</td>'+
+                            $('#sesPortes').append('<tr><td>'+porte.numPorte+'</td>'+
                                                    '<td>'+porte.type+'</td>'+
                                                    '<td>'+porte.date+'</td>'+
-                                                   '<td>'+porte.rapport+'</td><tr>');
+                                                   '<td>'+porte.rapport+'</td>'+
+                                                   '<td><button type="button" class="ajoutMaintenance" id="'+porte.idM+'"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button></td><tr>');
                         }
                         $('#sesPortes').append('<td><input class="input-group" placeholder="numero porte" type="text" id="numPorte" ></td>'+ 
                                             '<td><input class="input-group"  placeholder="Description " type="text" id="description" ></td> '+
                                             '<td><input class="input-group"  type="text" name="" disabled></td> '+
-                                            '<td><input class="input-group"  type="text" name="" disabled></td> ');
+                                            '<td><input class="input-group"  type="text" name="" disabled></td></tr>');
+                        
+                        
+                        $('.ajoutMaintenance').click(function(){
+                            $.ajax({
+                                url: "v1/maintenance/" +this.attributes.id.value,
+                                type: "GET",
+                                dataType: "json",
+                                beforeSend: function (req) {
+                                    const s = btoa(login + ":" + mdp);
+                                    req.setRequestHeader("Authorization", "Basic " + s);
+                                },
+                                success: function (json) {
+                                    
+                                },
+                                error: function (xhr, status, errorThrown) {
+                                    
+                                }
+
+
+                            });
+                        });
                     } ,
                     error :  function( xhr, status, errorThrown){
                         console.info("Vous n'etes pas encore connectée");
