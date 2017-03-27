@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-
+@Ignore
 public class SecureResourceWhoAmITest extends JerseyTest {
     private String url = "/secure/who";
     private Helper h;

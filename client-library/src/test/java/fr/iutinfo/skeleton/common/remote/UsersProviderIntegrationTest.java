@@ -6,6 +6,7 @@ import javax.ws.rs.core.Application;
 
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import fr.iutinfo.skeleton.api.Api;
@@ -14,6 +15,7 @@ import fr.iutinfo.skeleton.api.User;
 import fr.iutinfo.skeleton.api.UserDao;
 import fr.iutinfo.skeleton.common.dto.UserDto;
 
+@Ignore
 public class UsersProviderIntegrationTest extends JerseyTest {
 
     private UserDao userDao = BDDFactory.getDbi().open(UserDao.class);

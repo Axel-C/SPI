@@ -10,9 +10,10 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.internal.util.Base64;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-
+@Ignore
 public class SecureResourceByAnnotationTest extends JerseyTest {
     private Helper h;
     private String path = "/secure/byannotation";
