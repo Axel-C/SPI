@@ -112,7 +112,7 @@ public class CommandesProduitsRessource {
 		}
 	}
 
-	@GET
+	/*@GET
 	@Path("/{idp}")
 	@Produces({ "application/json", "application/xml" })
 	public CommandeProduits getCommandeProduitbyIdp(@PathParam("idp") Integer idp) {
@@ -123,7 +123,7 @@ public class CommandesProduitsRessource {
 			return dao.findByIdc(idp);
 		}
 	}
-
+*/
 	
 	/**
 	 * 
