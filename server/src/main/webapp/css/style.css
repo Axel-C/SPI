@@ -73,7 +73,9 @@ body{
 #descriptionArticle{
     margin-left: 29%;
 }
-
+#deconnection{
+    margin-left : 15px;
+}
 #validation{
     margin-top: 25px ;
 }

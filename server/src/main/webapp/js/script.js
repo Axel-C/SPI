@@ -1,6 +1,10 @@
 $(document).ready(function(){
     var login = localStorage.getItem('login');
     var mdp = localStorage.getItem('mdp');
+    var telephone = localStorage.getItem('telephone');
+    var alias = localStorage.getItem('alias');
+    var numeroSiret = localStorage.getItem('numeroSiret');
+        
     $('#btnConnection').click(function(){
         afficherContenu('#ContenuLogin');        
     });
@@ -29,7 +33,7 @@ $(document).ready(function(){
                 login = $("#login").val();
                 mdp = $("#password").val();
                 afficherContenu('#contenu');   
-                mettreContenueLogin($("#login").val(), $("#password").val());
+                mettreContenueLogin($("#login").val(), $("#password").val(), data.telephone, data.alias, data.numeroSiret);
            },
            error : function(jqXHR, textStatus, errorThrown) {
                 $('#ContenuLogin .panel-warning').show();
@@ -38,11 +42,15 @@ $(document).ready(function(){
            }
          });
     });
-    var mettreContenueLogin = function(login, mdp){
+    var mettreContenueLogin = function(login, mdp, telephone, alias, numeroSiret){
         $('#navProfil').empty();
-        $('#navProfil').append('<a id="btnProfil" href="#">'+login+"</a><a id='deconnection' href='#'>Deconnection</a>");
+        $('#navProfil').append('<a id="btnProfil" href="#">'+login+"</a><button id='deconnection' type='button'>"+
+            "<span class='glyphicon glyphicon-log-out' aria-hidden='true'></span>");
         localStorage.setItem('login', login);
         localStorage.setItem('mdp', mdp);
+        localStorage.setItem('telephone', telephone);
+        localStorage.setItem('alias', alias);
+        localStorage.setItem('numeroSiret', numeroSiret);
          $('#btnProfil').click(function(){
             afficherContenu('#contenuCompte');        
         });
