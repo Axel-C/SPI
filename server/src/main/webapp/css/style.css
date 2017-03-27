@@ -46,6 +46,10 @@ body{
 #categorieNav h2{
     color: white;
 }
+footer{
+    text-align: center;
+    line-height: 50px;
+}
 #logoNav{
     width: 75px;
     margin-top: -9px;
@@ -57,6 +61,9 @@ body{
 }
 #ContenuLogin, #contenuContact, #contenuAjout , #contenuCompte , #creerCompte, .creerCompte, .ajouterArticle{
     display: none;
+}
+.ajouterArticle{
+    margin-top: 10px;
 }
 #ContenuLogin h1{
     text-align: center ;
