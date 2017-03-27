@@ -6,6 +6,28 @@ $(document).ready(function () {
     var numeroSiret = localStorage.getItem('numeroSiret');
     var idMec = localStorage.getItem('idMec');
 
+    
+    $('#ajoutPorte').click(function(){
+      $.ajax({
+            type : 'POST',
+            contentType : 'application/json',
+            url : "v1/maintenance",
+            data : JSON.stringify({
+                "date" : "Pas encore eu de maintenance",
+                "idUser" : idMec,
+                "rapport" : "",
+                "type" : $('#description').val(), 
+                "idP" : $('#numPorte').val()
+            }),
+            success : function(data, textStatus, jqXHR) {
+                alert("Ajout de porte reussit");
+                window.location.replace("index.html");
+            },
+            error : function(jqXHR, textStatus, errorThrown) {
+                alert("Pas reussit");
+            }
+      });
+    });
     $('#btnConnection').click(function () {
         afficherContenu('#ContenuLogin');
     });
@@ -313,8 +335,8 @@ $(document).ready(function () {
                                                    '<td>'+porte.date+'</td>'+
                                                    '<td>'+porte.rapport+'</td><tr>');
                         }
-                        $('#sesPortes').append('<td><input class="input-group" placeholder="numero porte" type="text" name="numPorte" ></td>'+ 
-                                            '<td><input class="input-group"  placeholder="Description " type="text" name="oldPassword" ></td> '+
+                        $('#sesPortes').append('<td><input class="input-group" placeholder="numero porte" type="text" id="numPorte" ></td>'+ 
+                                            '<td><input class="input-group"  placeholder="Description " type="text" id="description" ></td> '+
                                             '<td><input class="input-group"  type="text" name="" disabled></td> '+
                                             '<td><input class="input-group"  type="text" name="" disabled></td> ');
                     } ,
