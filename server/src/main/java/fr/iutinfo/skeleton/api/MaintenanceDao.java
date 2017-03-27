@@ -13,8 +13,8 @@ public interface MaintenanceDao {
 			+ " Constraint fk_Maintenance2 foreign key(idPro) references produits(idp))")
 	void createMaintenanceTable();
 	
-    @SqlUpdate("insert into Maintenance (date, type, effectue, rapport) values"
-    		+ " (:date, :type, :effectue, :rapport)")
+    @SqlUpdate("insert into Maintenance (idPro,idUser ,date, type, effectue, rapport) values"
+    		+ " (:idPro, :idUser, :date, :type, :effectue, :rapport)")
     @GetGeneratedKeys
     int insert(@BindBean() Maintenance Maintenance);
 
