@@ -4,3 +4,6 @@ java:
   - ip: 51.255.131.194
     container_port: 8080
     host_port: 80
+  volume:
+  - name : data
+    path : /tmp/data
