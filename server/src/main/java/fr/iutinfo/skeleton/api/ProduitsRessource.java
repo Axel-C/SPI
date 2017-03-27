@@ -114,8 +114,18 @@ public class ProduitsRessource {
 	@GET
 	@Path("/categorie/{categorie}")
 	@Produces({ "application/json", "application/xml" })
-	public List<Produits> getProduitByCategorie(@PathParam("categorie") String categorie) {
-		return dao.findByCategorie(categorie);
+	public List<Produits> getProduitByCategorie(@PathParam("categorie") String categorie, @Context SecurityContext context) {
+		List<Produits> jack = dao.findByCategorie(categorie);
+		User u = (User) context.getUserPrincipal();
+		if (u.isAnonymous()) {
+			jack = jack.stream().map(p -> {
+				p.setPrix(0f);
+				logger.debug("LIST PRODUIT: " + p.toString());
+				return p;
+			}).collect(Collectors.toList());
+		}
+
+		return jack;
 	}
 
 	private int getCpt() {
