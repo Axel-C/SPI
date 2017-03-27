@@ -75,11 +75,11 @@ public class MaintenanceRessource {
 	@GET
 	@Path("/{idM}")
 	@Produces({ "application/json", "application/xml" })
-	public Maintenance getMaintenance(@PathParam("idM") Integer id) {
-		if (dao.all.) {
+	public Maintenance getMaintenance(@PathParam("idM") Integer idM) {
+		if (dao.findByidM(idM) == null) {
 			throw new NotFoundException();
 		} else {
-			return maintenances.get(id);
+			return dao.findByidM(idM);
 		}
 	}
 
@@ -96,16 +96,8 @@ public class MaintenanceRessource {
 */
 	@DELETE
 	@Path("/{idM}")
-	public Response deleteMaintenance(@FormParam("idM") Integer id) {
-		if (!maintenances.containsKey(id)) {
-			throw new NotFoundException();
-		} else {
-			maintenances.remove(id);
-			return Response.status(Response.Status.NO_CONTENT).build();
-		}
-	}
-
-	private int getCpt() {
-		return cpt++;
+	public Response deleteMaintenance(@FormParam("idM") Integer idM) {
+		dao.delete(idM);
+		return Response.status(Response.Status.NO_CONTENT).build();
 	}
 }
