@@ -65,6 +65,7 @@ public class UserResource {
     	}else{
     		logger.debug("UTILISATEUR UPDATE ->"+ user.toString());
     		dao.update(user);
+    		logger.debug(dao.findById(id).toString());
     		return Response.status(Response.Status.NO_CONTENT).build();
     	}
     }
