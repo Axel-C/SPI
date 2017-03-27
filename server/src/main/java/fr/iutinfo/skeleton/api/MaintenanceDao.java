@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MaintenanceDao {
 	@SqlUpdate("create table Maintenance(idM integer primary key autoincrement,idUser integer,"
-			+ "idPro integer, date text,type text, rapport text,numPort text,"
+			+ "idPro integer, date text,type text, rapport text,numPorte text,"
 			+ " Constraint fk_Maintenance1 foreign key(idUser) references users(id),"
 			+ " Constraint fk_Maintenance2 foreign key(idPro) references produits(idp))")
 	void createMaintenanceTable();
@@ -18,7 +18,7 @@ public interface MaintenanceDao {
     @GetGeneratedKeys
     int insert(@BindBean() Maintenance Maintenance);
     
-    @SqlUpdate("insert into Maintenance (idUser ,date, type, rapport,numPort) values"
+    @SqlUpdate("insert into Maintenance (idUser ,date, type, rapport,numPorte) values"
     		+ " (:idUser, :date, :type, :rapport , :numPorte)")
     @GetGeneratedKeys
     int insertPorte(@BindBean() Maintenance Maintenance);
