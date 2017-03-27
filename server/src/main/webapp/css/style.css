@@ -1,121 +1,158 @@
-body, p, h1, ul, li{
-    margin : 0;
-    padding : 0;
-    
+body,
+p,
+h1,
+ul,
+li {
+    margin: 0;
+    padding: 0;
 }
-body{
-    background-image: url(../res/texture.png) ;
+
+body {
+    background-image: url(../res/texture.png);
 }
-#carousel-example-generic{
-    background-color: white ;
+
+#carousel-example-generic {
+    background-color: white;
 }
+
 #page {
-    margin: 0 !important ;
-    margin-top: 75px !important ;
+    margin: 0 !important;
+    margin-top: 75px !important;
 }
-.item{
-    max-height: 300px ;
-    margin: auto ;
+
+.item {
+    max-height: 300px;
+    margin: auto;
 }
-.item img{
-    height: 300px ;
-    margin: auto ;
-   
+
+.item img {
+    height: 300px;
+    margin: auto;
 }
-#catalogue{
-    margin-top: 25px ;
-    border : 1px solid grey ;
-    border-radius: 5px ;
-    padding: 20px ;
+
+#catalogue {
+    margin-top: 25px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 20px;
     text-align: center;
     background-color: aliceblue;
 }
-#categorie{
-    position: fixed;  
+
+#categorie {
+    position: fixed;
     padding-left: 15px;
 }
-#categorie>ul{
+
+#categorie>ul {
     margin-top: 10px;
 }
-#contenu, #ContenuLogin, #contenuContact, #contenuAjout , #contenuCompte , #creerCompte{
+
+#contenu,
+#ContenuLogin,
+#contenuContact,
+#contenuAjout,
+#contenuCompte,
+#creerCompte {
     margin-left: 20%;
 }
-#categorieNav, .panel-warning{
+
+#categorieNav,
+.panel-warning {
     display: none;
 }
-#categorieNav h2{
+
+#categorieNav h2 {
     color: white;
 }
-footer{
+
+footer {
     text-align: center;
     line-height: 50px;
 }
-#logoNav{
+
+#logoNav {
     width: 75px;
     margin-top: -9px;
 }
-#btnConnection, #btnProfil{
+
+#btnConnection,
+#btnProfil {
     color: white;
     line-height: 34px;
     font-size: 1.5em;
 }
-#ContenuLogin, #contenuContact, #contenuAjout , #contenuCompte , #creerCompte, .creerCompte, .ajouterArticle{
+
+#ContenuLogin,
+#contenuContact,
+#contenuAjout,
+#contenuCompte,
+#creerCompte,
+.creerCompte,
+.ajouterArticle {
     display: none;
 }
-.ajouterArticle{
-    margin-top: 10px;
+
+.ajouterArticle {
+    margin-bottom: 10px;
 }
-#ContenuLogin h1{
-    text-align: center ;
+
+#ContenuLogin h1 {
+    text-align: center;
 }
-#ContenuLogin form{
-    
-    margin: auto ;
+
+#ContenuLogin form {
+    margin: auto;
 }
-#ContenuLogin label{
-   
-}section{
-    min-height: 500px  !important ;
+
+#ContenuLogin label {}
+
+section {
+    min-height: 500px !important;
 }
-#descriptionArticle{
+
+#descriptionArticle {
     margin-left: 29%;
 }
-#deconnection{
-    margin-left : 15px;
+
+#deconnection {
+    margin-left: 15px;
 }
-#validation{
-    margin-top: 25px ;
+
+#validation {
+    margin-top: 25px;
 }
+
 @media (max-width: 990px) {
     #categorie {
-    position: inherit;
+        position: inherit;
     }
-    #contenu{
+    #contenu {
         margin-left: auto;
     }
-    #descriptionArticle{
+    #descriptionArticle {
         margin: auto;
     }
 }
+
 @media (max-width: 767px) {
     #categorieNav {
         display: block;
     }
-    #categorie{
+    #categorie {
         display: none;
     }
-}article{
-    height: 33em ;
 }
 
-article img{
-    min-width: 95% ;
+article {
+    height: 42em;
+}
+
+article img {
+    min-width: 95%;
     min-height: 75%;
-    width: 95% ;
-    height:  75% ;
-    max-width:95% ;
-    max-height: 75% ;
-    
+    width: 95%;
+    height: 75%;
+    max-width: 95%;
+    max-height: 75%;
 }
-
-
