@@ -32,8 +32,7 @@ $(document).ready(function(){
                error : function(jqXHR, textStatus, errorThrown) {
                     $('#ContenuLogin .panel-warning').show();
                     $('#ContenuLogin .error').empty();    
-                    $('#ContenuLogin .error').append("<h3 class='panel-title'>Mauvais login ou mot de passe</h3>");  
-                   
+                    $('#ContenuLogin .error').append("<h3 class='panel-title'>Mauvais login ou mot de passe</h3>");
                }
              });
     });
@@ -50,7 +49,8 @@ $(document).ready(function(){
         $('section.col-md-9:visible').hide(300);
         $(div).show(300); 
     }
-    var creerArticle = function( id , name , description  , img){
+    var creerArticle = function( id , name , description  , img, prix){
+        if(prix == undefined || prix == 0){
          return $(" <article class='thumbnail col-md-4' >"+
                   "<img src='"+ img + "' class='img-thumbnail img-responsive' alt='"+ name + "'>"+
                   "<div class='caption' >"+
@@ -58,22 +58,43 @@ $(document).ready(function(){
                  "<a href='#' class='btn btn-info enSavoirPlus' id='id"+id+"'>En savoir plus</a>"+
                 "</div>"+
                    " </article>");
+        }
+         return $(" <article class='thumbnail col-md-4' >"+
+                  "<img src='"+ img + "' class='img-thumbnail img-responsive' alt='"+ name + "'>"+
+                  "<div class='caption' >"+
+                    "<h3>"+ name +"</h3>"+
+                    "<h3>"+ prix +"</h3>"+
+                 "<a href='#' class='btn btn-info enSavoirPlus' id='id"+id+"'>En savoir plus</a>"+
+                "</div>"+
+                   " </article>");
+        
     }   
-    var creerArticleDescription = function( id , name , description  , img){
-         return $(" <article class='thumbnail col-md-5' id='descriptionArticle' >"+
+    var creerArticleDescription = function( id , name , description  , img, prix){
+        if(prix == undefined || prix == 0){
+            return $(" <article class='thumbnail col-md-5' id='descriptionArticle' >"+
                   "<img src='"+ img + "' class='img-thumbnail img-responsive' alt='"+ name + "'>"+
                   "<div class='caption' >"+
                     "<h3>"+ name +"</h3>"+
                     "<p>"+description+"</p>"+
                 "</div>"+
                    " </article>");
+        } 
+        
+        return $(" <article class='thumbnail col-md-5' id='descriptionArticle' >"+
+              "<img src='"+ img + "' class='img-thumbnail img-responsive' alt='"+ name + "'>"+
+              "<div class='caption' >"+
+                "<h3>"+ name +"</h3>"+
+                "<p>"+ prix +"</p>"+
+                "<p>"+description+"</p>"+
+            "</div>"+
+               " </article>");
     }  
     var afficherArticles = function(articles){
         
         var catalogue = $('#catalogue');
         var row = $('<div class="row">');
         for(var i=1; i<=articles.length; i++){
-            row.append(creerArticle(articles[i-1].idp, articles[i-1].libelle, articles[i-1].description, articles[i-1].urlImage));
+            row.append(creerArticle(articles[i-1].idp, articles[i-1].libelle, articles[i-1].description, articles[i-1].urlImage, articles[i-1].prix));
             if(i%3 == 0){
                 catalogue.append(row);
                 var row = $('<div class="row">');
@@ -84,7 +105,7 @@ $(document).ready(function(){
     var afficherArticle = function(articles){
         var catalogue = $('#catalogue');
         var row = $('<div class="row">');
-        row.append(creerArticleDescription(articles.idp, articles.libelle, articles.description, articles.urlImage));
+        row.append(creerArticleDescription(articles.idp, articles.libelle, articles.description, articles.urlImage, articles.prix));
         catalogue.append(row);
     }
     var afficherArticlesDepart = function(articles){
@@ -92,7 +113,7 @@ $(document).ready(function(){
         var catalogue = $('#catalogue');
         var row = $('<div class="row">');
         for(var i=1; i<=articles.length; i++){
-            row.append(creerArticle(articles[i-1].idp, articles[i-1].libelle, articles[i-1].description, articles[i-1].urlImage));
+            row.append(creerArticle(articles[i-1].idp, articles[i-1].libelle, articles[i-1].description, articles[i-1].urlImage, articles[i-1].prix));
             if(categorie.indexOf(articles[i-1].categorie) == -1){
                 categorie.push(articles[i-1].categorie);   
             }
@@ -117,7 +138,6 @@ $(document).ready(function(){
         if( $('section.col-md-9:visible').attr('id') != "contenu" ){
             afficherContenu('#contenu');
         }else{
-            //$('#catalogue').hide();
             $('#catalogue').addClass('fadeInDownBig');
             setTimeout(function() { $('#catalogue').removeClass('fadeInDownBig'); } , 1000) ;
         }
@@ -127,6 +147,10 @@ $(document).ready(function(){
             url : "v1/produits/categorie/" + categorie ,
             type : "GET" ,
             dataType : "json" ,
+            beforeSend : function(req) {
+                   const s =  btoa(login + ":" + mdp);
+                   req.setRequestHeader("Authorization", "Basic " + s);
+            },
             success : function(json){
                 $('#catalogue').empty() ;
                 $('#catalogue').append($('<h1>'+ categorie +'</h1>'));
@@ -136,32 +160,32 @@ $(document).ready(function(){
                  $(this).addClass('active');
                 
             $('.enSavoirPlus').click(function(){
-            var num = $(this).attr('id').charAt('2');
-            $.ajax({
-                url : "v1/produits/"+num,
-                type : "GET" ,
-                dataType : "json" ,
-                beforeSend : function(req) {
-                    req.setRequestHeader("Authorization", "Basic " + s);
-                },
-                success : function(json){
-                    $('#catalogue').empty() ;
-                    var articles = JSON.parse(JSON.stringify(json));
-                    $('#catalogue').append($('<h1>'+ articles.libelle +'</h1>'));
-                    afficherArticle(articles);
-                    $('nav li .active').removeClass('active');
-                    $('nav li #'+articles.categorie).addClass('active');
-                } ,
-                error :  function( xhr, status, errorThrown  ){
-                    alert( "Sorry, there was a problem!" );
-                    console.log( "Error: " + errorThrown );
-                    console.log( "Status: " + status );
-                    console.dir( xhr );
-                }
+                var num = $(this).attr('id').charAt('2');
+                $.ajax({
+                    url : "v1/produits/"+num,
+                    type : "GET" ,
+                    dataType : "json" ,
+                    beforeSend : function(req) {
+                        req.setRequestHeader("Authorization", "Basic " + login +":"+mdp);
+                    },
+                    success : function(json){
+                        $('#catalogue').empty() ;
+                        var articles = JSON.parse(JSON.stringify(json));
+                        $('#catalogue').append($('<h1>'+ articles.libelle +'</h1>'));
+                        afficherArticle(articles);
+                        $('nav li .active').removeClass('active');
+                        $('nav li #'+articles.categorie).addClass('active');
+                    } ,
+                    error :  function( xhr, status, errorThrown  ){
+                        alert( "Sorry, there was a problem!" );
+                        console.log( "Error: " + errorThrown );
+                        console.log( "Status: " + status );
+                        console.dir( xhr );
+                    }
 
 
-            })
-        });
+                })
+            });
             } ,
             error :  function( xhr, status, errorThrown  ){
                 alert( "Sorry, there was a problem!" );
@@ -178,6 +202,10 @@ $(document).ready(function(){
       url: "v1/produits",
       type: "GET",
       dataType : "json",
+      beforeSend : function(req) {
+                   const s =  btoa(login + ":" + mdp);
+                   req.setRequestHeader("Authorization", "Basic " + s);
+      },
       success: function( json ) {
         $('#catalogue').empty();
         $('#catalogue').append($('<h1>Les indispensables</h1>'));
@@ -194,7 +222,8 @@ $(document).ready(function(){
                 type : "GET" ,
                 dataType : "json" ,
                 beforeSend : function(req) {
-                   req.setRequestHeader("Authorization", "Basic " + login + ":" + mdp);
+                       const s =  btoa(login + ":" + mdp);
+                       req.setRequestHeader("Authorization", "Basic " + s);
                 },
                 success : function(json){
                     $('#catalogue').empty() ;
@@ -223,6 +252,35 @@ $(document).ready(function(){
       }
     });
     
+    //Savoir si le mec c'est un user ou autre
+    
+    $.ajax({
+        url: "v1/secure/who",
+        type : "GET" ,
+        dataType : "json" ,
+        beforeSend : function(req) {
+           const s =  btoa(login + ":" + mdp);
+           req.setRequestHeader("Authorization", "Basic " + s);
+        },
+        success : function(json){
+            var user = JSON.parse(JSON.stringify(json));
+            console.log(user.role);
+            afficherContenu('#contenu');   
+            mettreContenueLogin(login, mdp);
+            
+        } ,
+        error :  function( xhr, status, errorThrown  ){
+            console.info("Vous n'etes pas encore connectée");
+        }
+
+
+    })
+    
+    
+    
+    
+    
+    
     $('#btnNouvelArticle').click(function(){
         if($('#contenuAjout input[name=nom]').val() == ""){
             alert('Aucun nom pour l\' article ');
@@ -233,7 +291,8 @@ $(document).ready(function(){
                 type : "POST" ,
                dataType : "json" ,
                beforeSend : function(req) {
-                   req.setRequestHeader("Authorization", "Basic " + login + ":" + mdp);
+                   const s =  btoa(login + ":" + mdp);
+                   req.setRequestHeader("Authorization", "Basic " + s);
                },
                headers: { 
                         'Accept': 'application/json',
