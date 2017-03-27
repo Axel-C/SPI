@@ -6,27 +6,27 @@ $(document).ready(function () {
     var numeroSiret = localStorage.getItem('numeroSiret');
     var idMec = localStorage.getItem('idMec');
 
-    
-    $('#ajoutPorte').click(function(){
-      $.ajax({
-            type : 'POST',
-            contentType : 'application/json',
-            url : "v1/maintenance/addPorte",
-            data : JSON.stringify({
-                "date" : "Pas encore eu de maintenance",
-                "idUser" : idMec,
-                "rapport" : "",
-                "type" : $('#description').val(), 
-                "numPorte" : $('#numPorte').val()
+
+    $('#ajoutPorte').click(function () {
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            url: "v1/maintenance/addPorte",
+            data: JSON.stringify({
+                "date": "Pas encore eu de maintenance",
+                "idUser": idMec,
+                "rapport": "",
+                "type": $('#description').val(),
+                "numPorte": $('#numPorte').val()
             }),
-            success : function(data, textStatus, jqXHR) {
+            success: function (data, textStatus, jqXHR) {
                 alert("Ajout de porte reussit");
                 window.location.replace("index.html");
             },
-            error : function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 alert("Pas reussit");
             }
-      });
+        });
     });
     $('#btnConnection').click(function () {
         afficherContenu('#ContenuLogin');
@@ -309,42 +309,42 @@ $(document).ready(function () {
             if (user.role == "admin") {
                 $('.ajouterArticle').css('display', 'block');
                 $('.creerCompte').css('display', 'block');
-            } else{
+            } else {
                 $.ajax({
-                    url: "v1/maintenance/bu/"+idMec,
-                    type : "GET" ,
-                    dataType : "json" ,
-                    beforeSend : function(req) {
-                       const s =  btoa(login + ":" + mdp);
-                       req.setRequestHeader("Authorization", "Basic " + s);
+                    url: "v1/maintenance/bu/" + idMec,
+                    type: "GET",
+                    dataType: "json",
+                    beforeSend: function (req) {
+                        const s = btoa(login + ":" + mdp);
+                        req.setRequestHeader("Authorization", "Basic " + s);
                     },
-                    success : function(json){
+                    success: function (json) {
                         var porte = JSON.parse(JSON.stringify(json));
-                        if(porte.length > 1){
-                            for(var i=0; i<porte.length; i++){
-                                $('#sesPortes').append('<tr><td>'+porte[i].numPorte+'</td>'+
-                                                   '<td>'+porte[i].type+'</td>'+
-                                                   '<td>'+porte[i].date+'</td>'+
-                                                   '<td>'+porte[i].rapport+'</td>'+
-                                                   '<td><button type="button" class="ajoutMaintenance" id="'+porte[i].idM+'"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button></td><tr>');
+                        if (porte.length > 1) {
+                            for (var i = 0; i < porte.length; i++) {
+                                $('#sesPortes').append('<tr><td>' + porte[i].numPorte + '</td>' +
+                                    '<td>' + porte[i].type + '</td>' +
+                                    '<td>' + porte[i].date + '</td>' +
+                                    '<td>' + porte[i].rapport + '</td>' +
+                                    '<td><button type="button" class="ajoutMaintenance" id="' + porte[i].idM + '"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button></td><tr>');
 
                             }
                         } else {
-                            $('#sesPortes').append('<tr><td>'+porte.numPorte+'</td>'+
-                                                   '<td>'+porte.type+'</td>'+
-                                                   '<td>'+porte.date+'</td>'+
-                                                   '<td>'+porte.rapport+'</td>'+
-                                                   '<td><button type="button" class="ajoutMaintenance" id="'+porte.idM+'"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button></td><tr>');
+                            $('#sesPortes').append('<tr><td>' + porte.numPorte + '</td>' +
+                                '<td>' + porte.type + '</td>' +
+                                '<td>' + porte.date + '</td>' +
+                                '<td>' + porte.rapport + '</td>' +
+                                '<td><button type="button" class="ajoutMaintenance" id="' + porte.idM + '"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span></button></td><tr>');
                         }
-                        $('#sesPortes').append('<td><input class="input-group" placeholder="numero porte" type="text" id="numPorte" ></td>'+ 
-                                            '<td><input class="input-group"  placeholder="Description " type="text" id="description" ></td> '+
-                                            '<td><input class="input-group"  type="text" name="" disabled></td> '+
-                                            '<td><input class="input-group"  type="text" name="" disabled></td></tr>');
-                        
-                        
-                        $('.ajoutMaintenance').click(function(){
+                        $('#sesPortes').append('<td><input class="input-group" placeholder="numero porte" type="text" id="numPorte" ></td>' +
+                            '<td><input class="input-group"  placeholder="Description " type="text" id="description" ></td> ' +
+                            '<td><input class="input-group"  type="text" name="" disabled></td> ' +
+                            '<td><input class="input-group"  type="text" name="" disabled></td></tr>');
+
+
+                        $('.ajoutMaintenance').click(function () {
                             $.ajax({
-                                url: "v1/maintenance/" +this.attributes.id.value,
+                                url: "v1/maintenance/" + this.attributes.id.value,
                                 type: "GET",
                                 dataType: "json",
                                 beforeSend: function (req) {
@@ -352,20 +352,20 @@ $(document).ready(function () {
                                     req.setRequestHeader("Authorization", "Basic " + s);
                                 },
                                 success: function (json) {
-                                    
+
                                 },
                                 error: function (xhr, status, errorThrown) {
-                                    
+
                                 }
 
 
                             });
                         });
-                    } ,
-                    error :  function( xhr, status, errorThrown){
+                    },
+                    error: function (xhr, status, errorThrown) {
                         console.info("Vous n'etes pas encore connectée");
                     }
-                });   
+                });
             }
             console.log(user.role);
             afficherContenu('#contenu');
@@ -469,6 +469,46 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    $('#validCompte').click(function () {
+
+        $.ajax({
+            url: "v1/user",
+            contentType: 'application/json',
+            type: "POST",
+            dataType: "json",
+            beforeSend: function (req) {
+                const s = btoa(login + ":" + mdp);
+                req.setRequestHeader("Authorization", "Basic " + s);
+            },
+            /*headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json'
+},*/
+            data: JSON.stringify({
+                "email": $('#creerCompte input[name=email]').val(),
+                "alias": $('#creerCompte input[name=nom]').val(),
+                "name": $('#creerCompte input[name=nom]').val(),
+                "numSiret": $('#creerCompte input[name=siret]').val(),
+                "telephone": $('#creerCompte input[name=telephone]').val(),
+                "password": $('#creerCompte input[name=password]').val(),
+                "role": "user"
+            }),
+
+            success: function (json) {
+                alert('ça marche');
+
+            },
+            error: function (xhr, status, errorThrown) {
+                alert("Sorry, there was a problem!");
+                console.log("Error: " + errorThrown);
+                console.log("Status: " + status);
+                console.dir(xhr);
+            }
+        });
+
+
     });
 
 

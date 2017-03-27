@@ -134,7 +134,7 @@ public class User implements Principal {
     @Override
 	public String toString() {
 		return "User [id=" + id + ", email=" + email + ", password=" + password + ", passwdHash=" + passwdHash
-				+ ", numSiret=" + numSiret + ", telephone=" + telephone + ", role=" + role + "]";
+				+ ", numSiret=" + numSiret + ", telephone=" + telephone + ", role=" + role + ", salt= "+this.salt+"]";
 	}
 
 	public String getAlias() {
