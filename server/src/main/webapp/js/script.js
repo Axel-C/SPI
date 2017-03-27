@@ -361,7 +361,7 @@ $(document).ready(function () {
             $.ajax({
                 url: "v1/user/" + idMec,
                 type: "PUT",
-                dataType: "json",
+                // dataType: "json",
                 beforeSend: function (req) {
                     const s = btoa(login + ":" + $('#contenuCompte input[name=oldPassword]').val());
                     req.setRequestHeader("Authorization", "Basic " + s);
@@ -378,7 +378,8 @@ $(document).ready(function () {
 
                 }),
 
-                success: function (json) {
+                success: function () {
+
                     alert('ça marche');
 
                 },
