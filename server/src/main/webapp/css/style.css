@@ -37,7 +37,7 @@ body{
 #categorie>ul{
     margin-top: 10px;
 }
-#contenu, #ContenuLogin, #contenuContact, #contenuAjout{
+#contenu, #ContenuLogin, #contenuContact, #contenuAjout , #contenuCompte{
     margin-left: 20%;
 }
 #categorieNav, .panel-warning{
@@ -56,7 +56,7 @@ body{
     font-size: 1.5em;
 }
 
-#ContenuLogin, #contenuContact, #contenuAjout{
+#ContenuLogin, #contenuContact, #contenuAjout , #contenuCompte{
     display: none;
 }
 #ContenuLogin h1{

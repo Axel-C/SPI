@@ -42,9 +42,9 @@ public class ProduitsRessource {
 	public ProduitsRessource() throws SQLException {
 		// dao.dropProduitsTable();
 		logger.debug("TABLE produits PAS DROPPED");
-		if (!BDDFactory.tableExist("produits"))
+		if (!BDDFactory.tableExist("produits")){
 			dao.createProduitsTable();
-		dao.insert(new Produits("click", 0, "reference", 0, "description", "categorie", ""));
+		}
 	}
 
 	/**

@@ -36,9 +36,10 @@ public class CommandeRessource {
 	 * Une ressource doit avoir un constructeur vide (sans argument... du coup)
 	 */
 	public CommandeRessource() throws SQLException{
-		if(!BDDFactory.tableExist("commandes"))
+		if(!BDDFactory.tableExist("commandes")){
 			dao.createCommandeTable();
-			dao.insert(new Commandes(0,0,0,0));
+			dao.insert(new Commandes(1,1,1,0));
+		}
 	}
 
 	/**
@@ -51,8 +52,15 @@ public class CommandeRessource {
 	 */
 	@POST
 	public Response createCommandes(Commandes commandes) throws SQLIntegrityConstraintViolationException {
+		if (dao.all().contains(commandes)){
 		dao.insert(commandes);
 		return Response.status(Response.Status.CONFLICT).build();
+		}else {
+			int id = dao.insert(commandes);
+			commandes.setIdp(id);
+			URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + commandes.getIdc()).build();
+			return Response.created(instanceURI).build();
+		}
 		
 	}
 

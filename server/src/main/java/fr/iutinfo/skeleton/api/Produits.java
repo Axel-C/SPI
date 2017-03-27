@@ -3,8 +3,6 @@ package fr.iutinfo.skeleton.api;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import fr.iutinfo.skeleton.common.dto.ProduitsDto;
-import fr.iutinfo.skeleton.common.dto.ProduitsDtoNotLogged;
-
 @XmlRootElement
 public class Produits {
 

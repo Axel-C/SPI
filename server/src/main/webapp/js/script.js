@@ -1,8 +1,11 @@
 $(document).ready(function(){
-    var login = "", mdp ="";
+    var login = localStorage.getItem('login');
+    var mdp = localStorage.getItem('mdp');
     $('#btnConnection').click(function(){
         afficherContenu('#ContenuLogin');        
     });
+    
+   
     $('#nousContacter').click(function(){
         afficherContenu('#contenuContact');
     });
@@ -29,7 +32,8 @@ $(document).ready(function(){
                error : function(jqXHR, textStatus, errorThrown) {
                     $('#ContenuLogin .panel-warning').show();
                     $('#ContenuLogin .error').empty();    
-                    $('#ContenuLogin .error').append("<h3 class='panel-title' id='"+btnProfil+"'>Mauvais login ou mot de passe</h3>");    
+                    $('#ContenuLogin .error').append("<h3 class='panel-title'>Mauvais login ou mot de passe</h3>");  
+                   
                }
              });
     });
@@ -37,7 +41,10 @@ $(document).ready(function(){
         $('#navProfil').empty();
         $('#navProfil').append('<a id="btnProfil" href="#">'+login+"</a>y");
         localStorage.setItem('login', login);
-        localStorage.getItem('mdp', mdp);
+        localStorage.setItem('mdp', mdp);
+         $('#btnProfil').click(function(){
+        afficherContenu('#contenuCompte');        
+    });
     }
     var afficherContenu = function(div){
         $('section.col-md-9:visible').hide(300);

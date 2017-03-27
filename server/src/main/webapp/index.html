@@ -17,7 +17,7 @@
     <script src="js/script.js"></script>
    
 
-    <title>SPI</title>
+    <title>Declic Fermeture</title>
       
    
   </head>
@@ -32,7 +32,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#"><img src="res/logoNav.jpg" alt="Logo" id="logoNav"/></a>
+          <a class="navbar-brand" href="index.html"><img src="res/logoNav.jpg" alt="Logo" id="logoNav"/></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <form class="navbar-form navbar-right">
@@ -73,7 +73,7 @@
             </ul>
                     <a class="btn btn-info ajouterArticle" >Ajouter un article</a>
         </section>
-        <section class="col-md-9" id="contenu" >
+        <section class="col-md-9 animated" id="contenu" >
             <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
       <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -120,22 +120,22 @@
                
             </div>
         </section>
-        <section class="col-md-9" id="ContenuLogin">
+        <section class="col-md-9 animated" id="ContenuLogin">
                 <h1>Connexion</h1>
                 <div class="panel panel-warning ">
                     <div class="panel-heading error">
                     
                     </div>
                 </div>
-                <form class="input-group" > 
-                    <label for="login" >Login</label><br>
+                <form class="input-group animated" > 
+                    <label for="login" >Adresse e-mail</label><br>
                     <input id="login" type="text" class="form-control"  placeholder="exemple@votresociete.com" aria-describedby="basic-addon3" name="login"><br>
                     <label for="password" >Mots de passe</label><br>
                     <input id="password" type="password" class="form-control" placeholder="******" aria-describedby="basic-addon3" name="password">
                     <input class=" btn btn-primary btn-lg" type="button" value="Se connecter" id="validation">
                 </form>
         </section>
-        <section class="col-md-9" id="contenuContact">
+        <section class="col-md-9 animated" id="contenuContact">
               <div  id="login">
                     <h1>Contact</h1>
                     <form class="input-group" action="" method="post">
@@ -153,7 +153,7 @@
                     </form>
               </div>
          </section> 
-        <section class="col-md-9" id="contenuAjout" >
+        <section class="col-md-9 animated" id="contenuAjout" >
             <div>
                 <h1>Nouvel Article</h1>
                 <div>
@@ -164,6 +164,20 @@
                      <label for="prix" >Prix :</label><input  class="input-group"  type="text" name ="prix"><br>
                     <label for="image" >Image :</label><input class="input-group"  type="text" name ="image"><br>
                     <input type="submit"  value="Ajouter" class="btn btn-primary" id="btnNouvelArticle">
+                    
+                    
+                </div>
+            </div>
+        </section>
+         <section class="col-md-9 animated" id="contenuCompte" >
+            <div>
+                <h1>Paramètre du compte</h1>
+                <div>
+                    <label for="email">Adresse e-mail :</label> <input class="input-group" type="text" name="email" ><br>
+                    <label for="password">Mots de passe :</label> <input class="input-group" type="password" name="password" ><br>
+                    <label for="confirmation">Confirmation :</label> <input class="input-group" type="confirmation" name="password" ><br>
+                     <input type="submit"  value="Modifier" class="btn btn-primary" id="modifCompte">
+                   
                     
                     
                 </div>
