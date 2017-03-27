@@ -63,13 +63,14 @@ public class UserResource {
     	if(dao.findById(id) == null){
     		return Response.status(Response.Status.NOT_FOUND).build();
     	}else{
+    		logger.debug("UTILISATEUR UPDATE ->"+ user.toString());
     		dao.update(user);
     		return Response.status(Response.Status.NO_CONTENT).build();
     	}
     }
 
 	@GET
-	@Path("/{name}")
+	@Path("/{id}")
 	public UserDto getUser(@PathParam("name") String name) {
 		User user = dao.findByName(name);
 		if (user == null) {
