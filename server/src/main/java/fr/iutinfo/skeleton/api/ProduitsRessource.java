@@ -42,7 +42,7 @@ public class ProduitsRessource {
 	public ProduitsRessource() throws SQLException {
 		// dao.dropProduitsTable();
 		logger.debug("TABLE produits PAS DROPPED");
-		if (!BDDFactory.tableExist("produits")){
+		if (!BDDFactory.tableExist("produits")) {
 			dao.createProduitsTable();
 		}
 	}
@@ -56,14 +56,19 @@ public class ProduitsRessource {
 	 *         existe déjà
 	 */
 	@POST
-	public Response createProduits(Produits produits) {
-		if (dao.all().contains(produits))
-			return Response.status(Response.Status.CONFLICT).build();
-		else {
-			int id = dao.insert(produits);
-			produits.setIdp(id);
-			URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + produits.getIdp()).build();
-			return Response.created(instanceURI).build();
+	public Response createProduits(Produits produits, @Context SecurityContext context) {
+		User u = (User) context.getUserPrincipal();
+		if (u.getRole().equals("admin")) {
+			if (dao.all().contains(produits))
+				return Response.status(Response.Status.CONFLICT).build();
+			else {
+				int id = dao.insert(produits);
+				produits.setIdp(id);
+				URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + produits.getIdp()).build();
+				return Response.created(instanceURI).build();
+			}
+		}else{
+			return Response.status(Response.Status.FORBIDDEN).build();
 		}
 	}
 
@@ -75,16 +80,16 @@ public class ProduitsRessource {
 	@GET
 	public List<Produits> getProduits(@Context SecurityContext context) {
 		User u = (User) context.getUserPrincipal();
-		
+
 		List<Produits> jack = new ArrayList<Produits>(dao.all());
-		if(u.isAnonymous()){
-			jack = jack.stream().map(p->{
+		if (u.isAnonymous()) {
+			jack = jack.stream().map(p -> {
 				p.setPrix(0f);
-				logger.debug("LIST PRODUIT: "+p.toString());
+				logger.debug("LIST PRODUIT: " + p.toString());
 				return p;
 			}).collect(Collectors.toList());
 		}
-		
+
 		return jack;
 	}
 
@@ -128,8 +133,8 @@ public class ProduitsRessource {
 	 */
 	/*
 	 * @PUT
-	 * 
-	 * @Path("/{id}") public Response modifyProduits(@PathParam("id") Integer
+	 * @Path("/{id}")
+	 * public Response modifyProduits(@PathParam("id") Integer
 	 * id, Produits prod) { if () { throw new NotFoundException(); } else {
 	 * products.put(id, prod); return
 	 * Response.status(Response.Status.NO_CONTENT).build(); } }

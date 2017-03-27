@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 import fr.iutinfo.skeleton.api.Helper;
 import fr.iutinfo.skeleton.api.UserDao;
 
+@Ignore
 public class LoginTest extends JerseyTest {
     final static Logger logger = LoggerFactory.getLogger(LoginTest.class);
     private Helper h;
