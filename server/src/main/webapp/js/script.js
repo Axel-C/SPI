@@ -1,10 +1,13 @@
 $(document).ready(function(){
     var login = localStorage.getItem('login');
     var mdp = localStorage.getItem('mdp');
+    var telephone = localStorage.getItem('telephone');
+    var alias = localStorage.getItem('alias');
+    var numeroSiret = localStorage.getItem('numeroSiret');
+        
     $('#btnConnection').click(function(){
         afficherContenu('#ContenuLogin');        
     });
-    
    
     $('#nousContacter').click(function(){
         afficherContenu('#contenuContact');
@@ -13,40 +16,49 @@ $(document).ready(function(){
     $('.ajouterArticle').click(function(){
        afficherContenu('#contenuAjout');
    });
-    
      $('.creerCompte').click(function(){
        afficherContenu('#creerCompte');
    });
     $('#validation').click(function(){
-             $.ajax({
-               type: "GET",
-               url: "v1/secure/who",
-               dataType: 'json',
-               beforeSend : function(req) {
-                   const s =  btoa($("#login").val() + ":" + $("#password").val());
-                   req.setRequestHeader("Authorization", "Basic " + s);
-                   console.log(s+", "+$("#login").val()+" : "+$("#password").val());
-               },
-               success: function (data) {
-                    login = $("#login").val();
-                    mdp = $("#password").val();
-                    afficherContenu('#contenu');   
-                    mettreContenueLogin($("#login").val(), $("#password").val());
-               },
-               error : function(jqXHR, textStatus, errorThrown) {
-                    $('#ContenuLogin .panel-warning').show();
-                    $('#ContenuLogin .error').empty();    
-                    $('#ContenuLogin .error').append("<h3 class='panel-title'>Mauvais login ou mot de passe</h3>");
-               }
-             });
+         $.ajax({
+           type: "GET",
+           url: "v1/secure/who",
+           dataType: 'json',
+           beforeSend : function(req) {
+               const s =  btoa($("#login").val() + ":" + $("#password").val());
+               req.setRequestHeader("Authorization", "Basic " + s);
+               console.log(s+", "+$("#login").val()+" : "+$("#password").val());
+           },
+           success: function (data) {
+                login = $("#login").val();
+                mdp = $("#password").val();
+                afficherContenu('#contenu');   
+                mettreContenueLogin($("#login").val(), $("#password").val(), data.telephone, data.alias, data.numeroSiret);
+           },
+           error : function(jqXHR, textStatus, errorThrown) {
+                $('#ContenuLogin .panel-warning').show();
+                $('#ContenuLogin .error').empty();    
+                $('#ContenuLogin .error').append("<h3 class='panel-title'>Mauvais login ou mot de passe</h3>");
+           }
+         });
     });
-    var mettreContenueLogin = function(login, mdp){
+    var mettreContenueLogin = function(login, mdp, telephone, alias, numeroSiret){
         $('#navProfil').empty();
-        $('#navProfil').append('<a id="btnProfil" href="#">'+login+"</a>y");
+        $('#navProfil').append('<a id="btnProfil" href="#">'+login+"</a><button id='deconnection' type='button'>"+
+            "<span class='glyphicon glyphicon-log-out' aria-hidden='true'></span>");
         localStorage.setItem('login', login);
         localStorage.setItem('mdp', mdp);
+        localStorage.setItem('telephone', telephone);
+        localStorage.setItem('alias', alias);
+        localStorage.setItem('numeroSiret', numeroSiret);
          $('#btnProfil').click(function(){
-        afficherContenu('#contenuCompte');        
+            afficherContenu('#contenuCompte');        
+        });
+        
+    $('#deconnection').click(function(){
+        localStorage.setItem('login', "");
+        localStorage.setItem('mdp', "");
+        window.location.replace('index.html');
     });
     }
     var afficherContenu = function(div){
