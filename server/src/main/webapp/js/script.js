@@ -4,7 +4,6 @@ $(document).ready(function(){
     $('#btnConnection').click(function(){
         afficherContenu('#ContenuLogin');        
     });
-    
    
     $('#nousContacter').click(function(){
         afficherContenu('#contenuContact');
@@ -13,40 +12,45 @@ $(document).ready(function(){
     $('.ajouterArticle').click(function(){
        afficherContenu('#contenuAjout');
    });
-    
      $('.creerCompte').click(function(){
        afficherContenu('#creerCompte');
    });
     $('#validation').click(function(){
-             $.ajax({
-               type: "GET",
-               url: "v1/secure/who",
-               dataType: 'json',
-               beforeSend : function(req) {
-                   const s =  btoa($("#login").val() + ":" + $("#password").val());
-                   req.setRequestHeader("Authorization", "Basic " + s);
-                   console.log(s+", "+$("#login").val()+" : "+$("#password").val());
-               },
-               success: function (data) {
-                    login = $("#login").val();
-                    mdp = $("#password").val();
-                    afficherContenu('#contenu');   
-                    mettreContenueLogin($("#login").val(), $("#password").val());
-               },
-               error : function(jqXHR, textStatus, errorThrown) {
-                    $('#ContenuLogin .panel-warning').show();
-                    $('#ContenuLogin .error').empty();    
-                    $('#ContenuLogin .error').append("<h3 class='panel-title'>Mauvais login ou mot de passe</h3>");
-               }
-             });
+         $.ajax({
+           type: "GET",
+           url: "v1/secure/who",
+           dataType: 'json',
+           beforeSend : function(req) {
+               const s =  btoa($("#login").val() + ":" + $("#password").val());
+               req.setRequestHeader("Authorization", "Basic " + s);
+               console.log(s+", "+$("#login").val()+" : "+$("#password").val());
+           },
+           success: function (data) {
+                login = $("#login").val();
+                mdp = $("#password").val();
+                afficherContenu('#contenu');   
+                mettreContenueLogin($("#login").val(), $("#password").val());
+           },
+           error : function(jqXHR, textStatus, errorThrown) {
+                $('#ContenuLogin .panel-warning').show();
+                $('#ContenuLogin .error').empty();    
+                $('#ContenuLogin .error').append("<h3 class='panel-title'>Mauvais login ou mot de passe</h3>");
+           }
+         });
     });
     var mettreContenueLogin = function(login, mdp){
         $('#navProfil').empty();
-        $('#navProfil').append('<a id="btnProfil" href="#">'+login+"</a>y");
+        $('#navProfil').append('<a id="btnProfil" href="#">'+login+"</a><a id='deconnection' href='#'>Deconnection</a>");
         localStorage.setItem('login', login);
         localStorage.setItem('mdp', mdp);
          $('#btnProfil').click(function(){
-        afficherContenu('#contenuCompte');        
+            afficherContenu('#contenuCompte');        
+        });
+        
+    $('#deconnection').click(function(){
+        localStorage.setItem('login', "");
+        localStorage.setItem('mdp', "");
+        window.location.replace('index.html');
     });
     }
     var afficherContenu = function(div){
