@@ -5,17 +5,13 @@ $(document).ready(function(){
         afficherContenu('#ContenuLogin');        
     });
     
-   
+    
     $('#nousContacter').click(function(){
         afficherContenu('#contenuContact');
     });
     
     $('.ajouterArticle').click(function(){
        afficherContenu('#contenuAjout');
-   });
-    
-     $('.creerCompte').click(function(){
-       afficherContenu('#creerCompte');
    });
     $('#validation').click(function(){
              $.ajax({
@@ -270,7 +266,6 @@ $(document).ready(function(){
             var user = JSON.parse(JSON.stringify(json));
             if(user.role == "admin"){
                 $('.ajouterArticle').show();
-                $('.creerCompte').show();
             }
             console.log(user.role);
             afficherContenu('#contenu');   
