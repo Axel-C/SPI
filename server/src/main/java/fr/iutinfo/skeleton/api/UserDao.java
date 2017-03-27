@@ -25,8 +25,8 @@ public interface UserDao {
 	@SqlUpdate("drop table if exists users")
 	void dropUserTable();
 	
-	@SqlUpdate("update users set name = :name, alias = :name, numSiret = :numSiret, telephone = :telephone, where id = :id")
-	void update(@BindBean() User user) ;
+	@SqlUpdate("update users set email = :email, alias = :alias, telephone = :telephone, password = :password where id = :id")
+	void update(@BindBean() User user);
 
 	@SqlUpdate("delete from users where id = :id")
 	void delete(@Bind("id") int id);

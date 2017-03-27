@@ -44,17 +44,17 @@ public class UserResource {
 	}
 
 	@POST
-	public Response createUser(UserDto dto, @Context SecurityContext context) {
-		User u = (User) context.getUserPrincipal();
-		if (u.getRole().equals("admin")) {
+	public Response createUser(UserDto dto/*, @Context SecurityContext context*/) {
+		//User u = (User) context.getUserPrincipal();
+		//if (u.getRole().equals("admin")) {
 			User user = new User();
 			user.initFromDto(dto);
 			user.resetPasswordHash();
 			int id = dao.insert(user);
 			dto.setId(id);
 			return Response.status(Response.Status.CREATED).build();
-		}else
-			return Response.status(Response.Status.FORBIDDEN).build();
+		//}else
+			//return Response.status(Response.Status.FORBIDDEN).build();
 	}
 
 	@PUT
