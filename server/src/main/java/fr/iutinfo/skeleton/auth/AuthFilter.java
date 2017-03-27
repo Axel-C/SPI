@@ -31,7 +31,7 @@ public class AuthFilter implements ContainerRequestFilter {
             String login = loginPassword[0];
             String password = loginPassword[1];
             logger.debug("login : " + login + ", password : " + password);
-            User user = loadUserFromLogin(login);
+            User user = loadUserFromEmail(login);
             if (user.isGoodPassword(password)) {
                 logger.debug("good password !");
                 containerRequest.setSecurityContext(new AppSecurityContext(user, scheme));

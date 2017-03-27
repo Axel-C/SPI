@@ -80,9 +80,11 @@ public class ProduitsRessource {
 		if(u.isAnonymous()){
 			jack = jack.stream().map(p->{
 				p.setPrix(0f);
+				logger.debug("LIST PRODUIT: "+p.toString());
 				return p;
 			}).collect(Collectors.toList());
 		}
+		
 		return jack;
 	}
 
