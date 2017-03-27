@@ -130,12 +130,14 @@ public class User implements Principal {
         return name.equals(user.name) && alias.equals(user.alias) && email.equals(user.email) && passwdHash.equals(user.getPasswdHash()) && salt.equals((user.getSalt()));
     }
 
-    @Override
-    public String toString() {
-        return id + ": " + alias + ", " + name + " <" + email + ">";
-    }
 
-    public String getAlias() {
+    @Override
+	public String toString() {
+		return "User [id=" + id + ", email=" + email + ", password=" + password + ", passwdHash=" + passwdHash
+				+ ", numSiret=" + numSiret + ", telephone=" + telephone + ", role=" + role + "]";
+	}
+
+	public String getAlias() {
         return alias;
     }
 
