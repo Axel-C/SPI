@@ -4,6 +4,7 @@ $(document).ready(function(){
     var telephone = localStorage.getItem('telephone');
     var alias = localStorage.getItem('alias');
     var numeroSiret = localStorage.getItem('numeroSiret');
+    var idMec = localStorage.getItem('idMec');
         
     $('#btnConnection').click(function(){
         afficherContenu('#ContenuLogin');        
@@ -33,7 +34,7 @@ $(document).ready(function(){
                 login = $("#login").val();
                 mdp = $("#password").val();
                 afficherContenu('#contenu');   
-                mettreContenueLogin($("#login").val(), $("#password").val(), data.telephone, data.alias, data.numeroSiret);
+                mettreContenueLogin($("#login").val(), $("#password").val(), data.telephone, data.alias, data.numSiret, data.id);
            },
            error : function(jqXHR, textStatus, errorThrown) {
                 $('#ContenuLogin .panel-warning').show();
@@ -42,7 +43,7 @@ $(document).ready(function(){
            }
          });
     });
-    var mettreContenueLogin = function(login, mdp, telephone, alias, numeroSiret){
+    var mettreContenueLogin = function(login, mdp, telephone, alias, numeroSiret, idM){
         $('#navProfil').empty();
         $('#navProfil').append('<a id="btnProfil" href="#">'+login+"</a><button id='deconnection' type='button'>"+
             "<span class='glyphicon glyphicon-log-out' aria-hidden='true'></span>");
@@ -51,6 +52,7 @@ $(document).ready(function(){
         localStorage.setItem('telephone', telephone);
         localStorage.setItem('alias', alias);
         localStorage.setItem('numeroSiret', numeroSiret);
+        localStorage.setItem('idMec', idM);
          $('#btnProfil').click(function(){
             afficherContenu('#contenuCompte');        
         });
@@ -283,11 +285,12 @@ $(document).ready(function(){
             if(user.role == "admin"){
                 $('.ajouterArticle').show();
                 $('.creerCompte').show();
+                
             }
             console.log(user.role);
             afficherContenu('#contenu');   
-            mettreContenueLogin(login, mdp);
-            
+            mettreContenueLogin(login, mdp, telephone, alias, numeroSiret, idMec);
+            $('#contenuCompte input[name=email]').val(login);
         } ,
         error :  function( xhr, status, errorThrown){
             console.info("Vous n'etes pas encore connectée");
@@ -354,11 +357,11 @@ $(document).ready(function(){
         }else{
         
         $.ajax({
-                url : "v1/produits",
+                url : "v1/user/" + idMec,
                 type : "PUT" ,
                dataType : "json" ,
                beforeSend : function(req) {
-                   const s =  btoa(login + ":" + mdp);
+                   const s =  btoa(login + ":" + $('#contenuCompte input[name=oldPassword]').val());
                    req.setRequestHeader("Authorization", "Basic " + s);
                },
                headers: { 
@@ -368,7 +371,6 @@ $(document).ready(function(){
                 data : JSON.stringify({
                           "email": $('#contenuCompte input[name=email]').val() ,
                         "password": $('#contenuCompte input[name=password]').val() ,
-                        "numSiret" : numeroSiret ,
                         "alias" : alias ,
                         "telephone" : telephone    
                        
