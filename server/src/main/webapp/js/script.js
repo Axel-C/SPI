@@ -300,7 +300,7 @@ $(document).ready(function () {
                     success : function(json){
                         var porte = JSON.parse(JSON.stringify(json));
                         if(porte.length > 1){
-                            for(var i=0; i<porte; i++){
+                            for(var i=0; i<porte.length; i++){
                                 $('#sesPortes').append('<tr><td>'+porte[i].idM+'</td>'+
                                                    '<td>'+porte[i].type+'</td>'+
                                                    '<td>'+porte[i].date+'</td>'+
@@ -315,6 +315,7 @@ $(document).ready(function () {
                         }
                         $('#sesPortes').append('<td><input class="input-group" placeholder="numero porte" type="text" name="numPorte" ></td>'+ 
                                             '<td><input class="input-group"  placeholder="Description " type="text" name="oldPassword" ></td> '+
+                                            '<td><input class="input-group"  type="text" name="" disabled></td> '+
                                             '<td><input class="input-group"  type="text" name="" disabled></td> ');
                     } ,
                     error :  function( xhr, status, errorThrown){
