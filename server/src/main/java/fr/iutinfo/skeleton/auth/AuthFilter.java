@@ -58,6 +58,7 @@ public class AuthFilter implements ContainerRequestFilter {
     	if(user == null){
     		user = User.getAnonymousUser();
     	}
+    	logger.debug("email: "+ user.toString());
     	return user;
     }
 
