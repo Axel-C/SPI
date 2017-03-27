@@ -283,11 +283,12 @@ $(document).ready(function(){
             if(user.role == "admin"){
                 $('.ajouterArticle').show();
                 $('.creerCompte').show();
+                
             }
             console.log(user.role);
             afficherContenu('#contenu');   
             mettreContenueLogin(login, mdp);
-            
+            $('#contenuCompte input[name=email]').val(login);
         } ,
         error :  function( xhr, status, errorThrown){
             console.info("Vous n'etes pas encore connectée");
@@ -354,11 +355,11 @@ $(document).ready(function(){
         }else{
         
         $.ajax({
-                url : "v1/produits",
+                url : "v1/user",
                 type : "PUT" ,
                dataType : "json" ,
                beforeSend : function(req) {
-                   const s =  btoa(login + ":" + mdp);
+                   const s =  btoa(login + ":" + $('#contenuCompte input[name=oldPassword]').val());
                    req.setRequestHeader("Authorization", "Basic " + s);
                },
                headers: { 
@@ -368,7 +369,6 @@ $(document).ready(function(){
                 data : JSON.stringify({
                           "email": $('#contenuCompte input[name=email]').val() ,
                         "password": $('#contenuCompte input[name=password]').val() ,
-                        "numSiret" : numeroSiret ,
                         "alias" : alias ,
                         "telephone" : telephone    
                        
