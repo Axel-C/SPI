@@ -55,7 +55,9 @@ body{
     line-height: 34px;
     font-size: 1.5em;
 }
-
+.ajouterArticle{
+    display:none;
+}
 #ContenuLogin, #contenuContact, #contenuAjout , #contenuCompte{
     display: none;
 }

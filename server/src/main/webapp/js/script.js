@@ -264,12 +264,15 @@ $(document).ready(function(){
         },
         success : function(json){
             var user = JSON.parse(JSON.stringify(json));
+            if(user.role == "admin"){
+                $('.ajouterArticle').show();
+            }
             console.log(user.role);
             afficherContenu('#contenu');   
             mettreContenueLogin(login, mdp);
             
         } ,
-        error :  function( xhr, status, errorThrown  ){
+        error :  function( xhr, status, errorThrown){
             console.info("Vous n'etes pas encore connectée");
         }
 
