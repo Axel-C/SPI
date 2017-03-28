@@ -29,7 +29,6 @@ import javax.ws.rs.core.UriInfo;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class MaintenanceRessource {
-	private static int cpt = 0;
 	private MaintenanceDao dao = BDDFactory.getDbi().open(MaintenanceDao.class);	
 	
 	@Context
