@@ -39,42 +39,48 @@ public class UserResource {
 		if (!tableExist("users")) {
 			logger.debug("Create table users");
 			dao.createUserTable();
-			//dao.insert(new User(0, "Margaret Thatcher", "la Dame de fer"));
+			// dao.insert(new User(0, "Margaret Thatcher", "la Dame de fer"));
 		}
 	}
 
 	@POST
-	public Response createUser(UserDto dto/*, @Context SecurityContext context*/) {
-		//User u = (User) context.getUserPrincipal();
-		//if (u.getRole().equals("admin")) {
-			User user = new User();
-			user.initFromDto(dto);
-			user.resetPasswordHash();
-			int id = dao.insert(user);
-			dto.setId(id);
-			return Response.status(Response.Status.CREATED).build();
-		//}else
-			//return Response.status(Response.Status.FORBIDDEN).build();
+	public Response createUser(
+			UserDto dto/* , @Context SecurityContext context */) {
+		// User u = (User) context.getUserPrincipal();
+		// if (u.getRole().equals("admin")) {
+		User user = new User();
+		user.initFromDto(dto);
+		user.resetPasswordHash();
+		int id = dao.insert(user);
+		dto.setId(id);
+		return Response.status(Response.Status.CREATED).build();
+		// }else
+		// return Response.status(Response.Status.FORBIDDEN).build();
 	}
 
 	@PUT
-    @Path("/{id}")
-    public Response modifyUser(@PathParam("id") Integer id, User user, @Context SecurityContext context){
-    	if(dao.findById(id) == null){
-    		return Response.status(Response.Status.NOT_FOUND).build();
-    	}else{
-    		logger.debug("UTILISATEUR UPDATE ->"+ user.toString());
-    		user.setId(id);
-    		dao.update(user);
-    		logger.debug(dao.findById(id).toString());
-    		return Response.status(Response.Status.NO_CONTENT).build();
-    	}
-    }
+	@Path("/{id}")
+	public Response modifyUser(@PathParam("id") Integer id, User user, @Context SecurityContext context) {
+		User u = (User) context.getUserPrincipal();
+		if (u.getId() == id) {
+			if (dao.findById(id) == null) {
+				return Response.status(Response.Status.NOT_FOUND).build();
+			} else {
+				logger.debug("UTILISATEUR UPDATE ->" + user.toString());
+				user.setId(id);
+				dao.update(user);
+				logger.debug(dao.findById(id).toString());
+				return Response.status(Response.Status.NO_CONTENT).build();
+			}
+		}else{
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
+	}
 
 	@GET
 	@Path("/{id}")
-	public UserDto getUser(@PathParam("name") String name) {
-		User user = dao.findByName(name);
+	public UserDto getUser(@PathParam("id") int id) {
+		User user = dao.findById(id);
 		if (user == null) {
 			throw new WebApplicationException(404);
 		}
@@ -96,10 +102,10 @@ public class UserResource {
 	@DELETE
 	@Path("/{id}")
 	public Response deleteUser(@PathParam("id") int id, @Context SecurityContext context) {
-		if(((User)context.getUserPrincipal()).getRole().equals("admin")){
+		if (((User) context.getUserPrincipal()).getRole().equals("admin")) {
 			dao.delete(id);
 			return Response.status(Response.Status.NO_CONTENT).build();
-		}else
+		} else
 			return Response.status(Response.Status.FORBIDDEN).build();
 	}
 

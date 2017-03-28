@@ -28,8 +28,6 @@ import org.slf4j.LoggerFactory;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProduitsRessource {
 	final static Logger logger = LoggerFactory.getLogger(ProduitsRessource.class);
-	private static int cpt = 0;
-
 	@Context
 	public UriInfo uriInfo;
 
@@ -84,7 +82,7 @@ public class ProduitsRessource {
 		List<Produits> jack = new ArrayList<Produits>(dao.all());
 		if (u.isAnonymous()) {
 			jack = jack.stream().map(p -> {
-				p.setPrix(0f);
+				p.setPrix(-1f);
 				logger.debug("LIST PRODUIT: " + p.toString());
 				return p;
 			}).collect(Collectors.toList());
@@ -110,15 +108,15 @@ public class ProduitsRessource {
 			} else {
 				return dao.findByIdp(id);
 			}
-		}else{
+		} else {
 			Produits p = dao.findByIdp(id);
-			if(p == null)
+			if (p == null)
 				throw new NotFoundException();
-			else{
+			else {
 				p.setPrix(0f);
 				return p;
 			}
-			
+
 		}
 	}
 
@@ -131,17 +129,13 @@ public class ProduitsRessource {
 		User u = (User) context.getUserPrincipal();
 		if (u.isAnonymous()) {
 			jack = jack.stream().map(p -> {
-				p.setPrix(0f);
+				p.setPrix(-1f);
 				logger.debug("LIST PRODUIT: " + p.toString());
 				return p;
 			}).collect(Collectors.toList());
 		}
 
 		return jack;
-	}
-
-	private int getCpt() {
-		return cpt++;
 	}
 
 	/**
@@ -171,12 +165,17 @@ public class ProduitsRessource {
 	 */
 	@DELETE
 	@Path("/{id}")
-	public Response deleteProduits(@PathParam("id") Integer id) {
-		if (dao.findByIdp(id) == null) {
-			throw new NotFoundException();
-		} else {
-			dao.delete(id);
-			return Response.status(Response.Status.NO_CONTENT).build();
+	public Response deleteProduits(@PathParam("id") Integer id, @Context SecurityContext context) {
+		User u = (User) context.getUserPrincipal();
+		if (u.getRole().equals("admin")) {
+			if (dao.findByIdp(id) == null) {
+				throw new NotFoundException();
+			} else {
+				dao.delete(id);
+				return Response.status(Response.Status.NO_CONTENT).build();
+			}
+		}else{
+			return Response.status(Response.Status.FORBIDDEN).build();
 		}
 	}
 }
