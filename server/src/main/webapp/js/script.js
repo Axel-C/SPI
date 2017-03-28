@@ -11,7 +11,7 @@ $(document).ready(function () {
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
-            url: "v1/maintenance/addPorte",
+            url: "v1/maintenance/",
             data: JSON.stringify({
                 "date": "Pas encore eu de maintenance",
                 "idUser": idMec,
@@ -31,7 +31,6 @@ $(document).ready(function () {
     $('#btnConnection').click(function () {
         afficherContenu('#ContenuLogin');
     });
-
     $('#nousContacter').click(function () {
         afficherContenu('#contenuContact');
     });
@@ -41,6 +40,9 @@ $(document).ready(function () {
     });
     $('.creerCompte').click(function () {
         afficherContenu('#creerCompte');
+    });
+    $('.ajoutMaintenance').click(function(){
+        
     });
     $('#validation').click(function () {
         $.ajax({
@@ -56,6 +58,7 @@ $(document).ready(function () {
                 mdp = $("#password").val();
                 afficherContenu('#contenu');
                 mettreContenueLogin($("#login").val(), $("#password").val(), data.telephone, data.alias, data.numSiret, data.id);
+                window.location.replace("index.html");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 $('#ContenuLogin .panel-warning').show();
@@ -89,7 +92,7 @@ $(document).ready(function () {
         $(div).show(300);
     }
     var creerArticle = function (id, name, description, img, prix) {
-        if (prix == undefined ||  prix == 0) {
+        if (prix == undefined ||  prix == -1) {
             return $(" <article class='thumbnail col-md-4' >" +
                 "<img src='" + img + "' class='img-thumbnail img-responsive' alt='" + name + "'>" +
                 "<div class='caption' >" +
@@ -109,7 +112,7 @@ $(document).ready(function () {
 
     }
     var creerArticleDescription = function (id, name, description, img, prix) {
-        if (prix == undefined ||  prix == 0) {
+        if (prix == undefined ||  prix == -1) {
             return $(" <article class='thumbnail col-md-5' id='descriptionArticle' >" +
                 "<img src='" + img + "' class='img-thumbnail img-responsive' alt='" + name + "'>" +
                 "<div class='caption' >" +
@@ -341,8 +344,12 @@ $(document).ready(function () {
                             '<td><input class="input-group"  type="text" name="" disabled></td> ' +
                             '<td><input class="input-group"  type="text" name="" disabled></td></tr>');
 
+                        $('.ajoutMaintenance').click(function(){
+                            $('#porteMaintenance').val($(this).attr('id'));
+                            $('#descritpion').show();
+                        });
 
-                        $('.ajoutMaintenance').click(function () {
+                        $('#faireMaintenance').click(function () {
                             $.ajax({
                                 url: "v1/maintenance/" + this.attributes.id.value,
                                 type: "GET",
@@ -361,6 +368,8 @@ $(document).ready(function () {
 
                             });
                         });
+                        
+                        
                     },
                     error: function (xhr, status, errorThrown) {
                         console.info("Vous n'etes pas encore connectée");
