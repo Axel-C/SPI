@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animate.css">
+
+    <script src="js/jquery-3.2.0.min.js"></script>
+    <script src="js/script.js"></script>
+
+
+    <title>Declic Fermeture</title>
+
+
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+                <a class="navbar-brand" href="index.html"><img src="res/logoNav.jpg" alt="Logo" id="logoNav" /></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <form class="navbar-form navbar-right">
+                    <div id="navProfil">
+                        <a href="#" id="btnConnection">Se connecter</a>
+                    </div>
+                    <section id="categorieNav">
+                        <hr>
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Ex: Moteur porte AX320" name="recherche">
+                            <span class="input-group-btn">
+                            <button class="btn btn-default btn-primary" type="button" id="recherche">Rechercher</button>
+                        </span>
+                        </div>
+                        <hr>
+                        <h2>Catégories </h2>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active" role="presentation"><a class="" href="index.html" id="tout">Tout</a></li>
+                        </ul>
+                        <a class="btn btn-info ajouterArticle">Ajouter un article</a>
+                        <a class="btn btn-info creerCompte">Créer un Compte</a>
+                    </section>
+                </form>
+            </div>
+            <!--/.navbar-collapse -->
+        </div>
+    </nav>
+    <div id="page" class="row" style="margin-top:100px;">
+        <section class="col-md-2 nav" id="categorie">
+            <h2>Recherche</h2>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Ex: Moteur porte AX320" name="recherche">
+                <span class="input-group-btn">
+                    <button class="btn btn-default btn-primary" type="button">Rechercher</button>
+                </span>
+            </div>
+            <h2>Catégories </h2>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active" role="presentation"><a class="" href="index.html" id="tout">Tout</a></li>
+            </ul>
+            <a class="btn btn-info ajouterArticle">Ajouter un article</a>
+            <a class="btn btn-info creerCompte">Créer un Compte</a>
+        </section>
+        <section class="col-md-9 animated" id="contenu">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    <div class="item active">
+                        <img src="res/carousel3.jpg" alt="Désolé">
+                        <div class="carousel-caption">
+
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img src="res/carousel1.jpg" alt="Désolé">
+                        <div class="carousel-caption">
+
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <img src="res/carousel2.jpg" alt="Désolé">
+                        <div class="carousel-caption">
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <div class="animated" id="catalogue">
+                <h1>Les Indispensables</h1>
+
+            </div>
+        </section>
+        <section class="col-md-9 animated" id="ContenuLogin">
+            <h1>Connexion</h1>
+            <div class="panel panel-warning ">
+                <div class="panel-heading error">
+
+                </div>
+            </div>
+            <form class="input-group animated">
+                <label for="login">Adresse e-mail</label><br>
+                <input id="login" type="text" class="form-control" placeholder="exemple@votresociete.com" aria-describedby="basic-addon3" name="login"><br>
+                <label for="password">Mots de passe</label><br>
+                <input id="password" type="password" class="form-control" placeholder="******" aria-describedby="basic-addon3" name="password">
+                <input class=" btn btn-primary btn-lg" type="button" value="Se connecter" id="validation">
+            </form>
+        </section>
+        <section class="col-md-9 animated" id="contenuContact">
+            <div id="login">
+                <h1>Contact</h1>
+                <form class="input-group" action="" method="post">
+                    <label for="nom">Nom</label>
+                    <input type="text" class="form-control" placeholder="Mon entreprise" aria-describedby="basic-addon3" name="nom"><br>
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" placeholder="monentrepise@gmail.com" aria-describedby="basic-addon3" name="email"><br>
+                    <label for="objet">Objet</label>
+                    <input type="text" class="form-control" placeholder="Commande" aria-describedby="basic-addon3" name="objet"><br>
+                    <label for="text">Message</label><br>
+                    <textarea name="text" cols=60 rows="8">
+
+                        </textarea><br>
+                    <input type="submit" class="btn btn-primary btn-lg" value="Envoyer">
+                </form>
+            </div>
+        </section>
+        <section class="col-md-9 animated" id="contenuAjout">
+            <div>
+                <h1>Nouvel Article</h1>
+                <div>
+                    <label for="nom">Nom :</label> <input class="input-group" type="text" name="nom"><br>
+                    <label for="desciption">Description :</label><br><textarea cols="35" rows="15" name="description"></textarea><br>
+                    <label for="categorie">Categorie :</label><input class="input-group" type="text" name="categorie"><br>
+                    <label for="reference">Référence :</label><input class="input-group" type="text" name="reference"><br>
+                    <label for="prix">Prix :</label><input class="input-group" type="text" name="prix"><br>
+                    <label for="image">Image :</label><input class="input-group" type="text" name="image"><br>
+                    <input type="submit" value="Ajouter" class="btn btn-primary" id="btnNouvelArticle">
+
+
+                </div>
+            </div>
+        </section>
+        <section class="col-md-9 animated" id="contenuCompte">
+            <div>
+                <h1>Paramètre du compte</h1>
+                <div>
+                    <label for="email">Adresse e-mail :</label> <input class="input-group" type="text" name="email"><br>
+                    <label for="oldPassword">Mots de passe actuel :</label> <input class="input-group" type="password" name="oldPassword"><br>
+                    <label for="password">Nouveau mots de passe :</label> <input class="input-group" type="password" name="password"><br>
+                    <label for="confirmation">Confirmation :</label> <input class="input-group" type="password" name="confirmation"><br>
+                    <input type="submit" value="Modifier" class="btn btn-primary" id="modifCompte">
+                </div>
+            </div>
+            <div>
+                <h1>Vos porte</h1>
+                <div>
+                    <table id="sesPortes" class="table">
+                        <tr>
+                            <th>Numero porte</th>
+                            <th>Description porte</th>
+                            <th>Date derniere maintenance</th>
+                            <th>Description derniere maintenance</th>
+                            <th>Maintenance</th>
+                        </tr>
+                    </table>
+                    <input type="submit" value="Ajouter" class="btn btn-primary" id="ajoutPorte">
+                </div>
+            </div>
+        </section>
+        <section class="col-md-9 animated" id="creerCompte">
+            <div>
+                <h1>Créer un compte</h1>
+                <div>
+                    <label for="email">Adresse e-mail :</label> <input class="input-group" type="text" name="email"><br>
+                    <label for="nom">Nom :</label> <input class="input-group" type="text" name="nom"><br>
+                    <label for="siret">Numero de Siret :</label> <input class="input-group" type="text" name="siret"><br>
+                    <label for="telephone">Telephone :</label> <input class="input-group" type="text" name="telephone"><br>
+                    <label for="password">Mots de passe :</label> <input class="input-group" type="password" name="password"><br>
+                    <label for="confirmation">Confirmation :</label> <input class="input-group" type="confirmation" name="password"><br>
+                    <input type="submit" value="Créer" class="btn btn-primary" id="validCompte">
+                </div>
+            </div>
+        </section>
+
+    </div>
+    <footer>
+        <p>&copy; SPI 2017, mention legal etc..<a href="#" id="nousContacter">Nous contacter</a></p>
+    </footer>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')
+
+    </script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+
+</body>
+
+</html>

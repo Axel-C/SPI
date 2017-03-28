@@ -5,14 +5,13 @@ $(document).ready(function () {
     var alias = localStorage.getItem('alias');
     var numeroSiret = localStorage.getItem('numeroSiret');
     var idMec = localStorage.getItem('idMec');
-    var role = localStorage.getItem('role');
 
 
     $('#ajoutPorte').click(function () {
         $.ajax({
             type: 'POST',
             contentType: 'application/json',
-            url: "v1/maintenance/",
+            url: "v1/maintenance/addPorte",
             data: JSON.stringify({
                 "date": "Pas encore eu de maintenance",
                 "idUser": idMec,
@@ -32,6 +31,7 @@ $(document).ready(function () {
     $('#btnConnection').click(function () {
         afficherContenu('#ContenuLogin');
     });
+
     $('#nousContacter').click(function () {
         afficherContenu('#contenuContact');
     });
@@ -41,9 +41,6 @@ $(document).ready(function () {
     });
     $('.creerCompte').click(function () {
         afficherContenu('#creerCompte');
-    });
-    $('.ajoutMaintenance').click(function () {
-
     });
     $('#validation').click(function () {
         $.ajax({
@@ -58,8 +55,7 @@ $(document).ready(function () {
                 login = $("#login").val();
                 mdp = $("#password").val();
                 afficherContenu('#contenu');
-                mettreContenueLogin($("#login").val(), $("#password").val(), data.telephone, data.alias, data.numSiret, data.id, data.role);
-                window.location.replace("index.html");
+                mettreContenueLogin($("#login").val(), $("#password").val(), data.telephone, data.alias, data.numSiret, data.id);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 $('#ContenuLogin .panel-warning').show();
@@ -68,7 +64,7 @@ $(document).ready(function () {
             }
         });
     });
-    var mettreContenueLogin = function (login, mdp, telephone, alias, numeroSiret, idM, role) {
+    var mettreContenueLogin = function (login, mdp, telephone, alias, numeroSiret, idM) {
         $('#navProfil').empty();
         $('#navProfil').append('<a id="btnProfil" href="#">' + login + "</a><button id='deconnection' type='button'>" +
             "<span class='glyphicon glyphicon-log-out' aria-hidden='true'></span></button>");
@@ -78,7 +74,6 @@ $(document).ready(function () {
         localStorage.setItem('alias', alias);
         localStorage.setItem('numeroSiret', numeroSiret);
         localStorage.setItem('idMec', idM);
-        localStorage.setItem('role', role);
         $('#btnProfil').click(function () {
             afficherContenu('#contenuCompte');
         });
@@ -86,12 +81,7 @@ $(document).ready(function () {
         $('#deconnection').click(function () {
             localStorage.setItem('login', "");
             localStorage.setItem('mdp', "");
-            localStorage.setItem('telephone', "");
-            localStorage.setItem('alias', "");
-            localStorage.setItem('numeroSiret', "");
-            localStorage.setItem('idMec', "");
-            localStorage.setItem('role', "");
-            window.location.replace('index.html', "");
+            window.location.replace('index.html');
         });
     }
     var afficherContenu = function (div) {
@@ -99,26 +89,27 @@ $(document).ready(function () {
         $(div).show(300);
     }
     var creerArticle = function (id, name, description, img, prix) {
-
-        var retour = " <article class='thumbnail col-md-4' >" +
+        if (prix == undefined ||  prix == 0) {
+            return $(" <article class='thumbnail col-md-4' >" +
+                "<img src='" + img + "' class='img-thumbnail img-responsive' alt='" + name + "'>" +
+                "<div class='caption' >" +
+                "<h3>" + name + "</h3>" +
+                "<a href='#' class='btn btn-info enSavoirPlus' id='id" + id + "'>En savoir plus</a>" +
+                "</div>" +
+                " </article>");
+        }
+        return $(" <article class='thumbnail col-md-4' >" +
             "<img src='" + img + "' class='img-thumbnail img-responsive' alt='" + name + "'>" +
             "<div class='caption' >" +
-            "<h3>" + name + "</h3>";
-        if (prix == -1) {
-            retour += "<h3>" + prix + "€ </h3>";
-        }
-        retour += "<a href='#' class='btn btn-info enSavoirPlus' id='id" + id + "'>En savoir plus</a>";
-        if (role == "admin") {
-            retour += "<a href='#' class='btn btn-danger supprimer' id='id" + id + "'>Supprimer</a>";
-
-        }
-        retour += "</div> </article>";
-
-        return $(retour);
+            "<h3>" + name + "</h3>" +
+            "<h3>" + prix + "€ </h3>" +
+            "<a href='#' class='btn btn-info enSavoirPlus' id='id" + id + "'>En savoir plus</a>" +
+            "</div>" +
+            " </article>");
 
     }
     var creerArticleDescription = function (id, name, description, img, prix) {
-        if (prix == undefined ||  prix == -1) {
+        if (prix == undefined ||  prix == 0) {
             return $(" <article class='thumbnail col-md-5' id='descriptionArticle' >" +
                 "<img src='" + img + "' class='img-thumbnail img-responsive' alt='" + name + "'>" +
                 "<div class='caption' >" +
@@ -148,10 +139,7 @@ $(document).ready(function () {
                 var row = $('<div class="row">');
             }
         }
-
         catalogue.append(row);
-
-
     }
     var afficherArticle = function (articles) {
         var catalogue = $('#catalogue');
@@ -250,7 +238,6 @@ $(document).ready(function () {
 
 
         })
-        ajouterEvent();
     };
 
     $.ajax({
@@ -354,12 +341,8 @@ $(document).ready(function () {
                             '<td><input class="input-group"  type="text" name="" disabled></td> ' +
                             '<td><input class="input-group"  type="text" name="" disabled></td></tr>');
 
-                        $('.ajoutMaintenance').click(function () {
-                            $('#porteMaintenance').val($(this).attr('id'));
-                            $('#descritpion').show();
-                        });
 
-                        $('#faireMaintenance').click(function () {
+                        $('.ajoutMaintenance').click(function () {
                             $.ajax({
                                 url: "v1/maintenance/" + this.attributes.id.value,
                                 type: "GET",
@@ -378,17 +361,15 @@ $(document).ready(function () {
 
                             });
                         });
-
-
                     },
                     error: function (xhr, status, errorThrown) {
                         console.info("Vous n'etes pas encore connectée");
                     }
                 });
             }
-
+            console.log(user.role);
             afficherContenu('#contenu');
-            mettreContenueLogin(login, mdp, telephone, alias, numeroSiret, idMec, role);
+            mettreContenueLogin(login, mdp, telephone, alias, numeroSiret, idMec);
             $('#contenuCompte input[name=email]').val(login);
         },
         error: function (xhr, status, errorThrown) {
@@ -430,7 +411,7 @@ $(document).ready(function () {
                 }),
 
                 success: function (json) {
-
+                    alert('ça marche');
 
                 },
                 /*error: function( xhr, status, errorThrown ) {
@@ -477,7 +458,7 @@ $(document).ready(function () {
 
                 success: function () {
 
-
+                    alert('ça marche');
 
                 },
                 error: function (xhr, status, errorThrown) {
@@ -516,7 +497,7 @@ $(document).ready(function () {
             }),
 
             success: function (json) {
-
+                alert('ça marche');
 
             },
             error: function (xhr, status, errorThrown) {
@@ -530,41 +511,5 @@ $(document).ready(function () {
 
     });
 
-    function ajouterEvent() {
-        $('.supprimer').click(function () {
-            var id = $(this).attr('id');
-            if (confirm('Voulez vous supprimer cet élément ?')) {
-                $.ajax({
-                    url: "v1/produits/" + id.substring(2),
-                    contentType: 'application/json',
-                    type: "DELETE",
-                    dataType: "json",
-                    beforeSend: function (req) {
-                        const s = btoa(login + ":" + mdp);
-                        req.setRequestHeader("Authorization", "Basic " + s);
-                    },
-                    /*headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
-},*/
-                    success: function (json) {
-
-
-                    },
-                    error: function (xhr, status, errorThrown) {
-                        alert("Sorry, there was a problem!");
-                        console.log("Error: " + errorThrown);
-                        console.log("Status: " + status);
-                        console.dir(xhr);
-                    }
-                });
-                window.location.replace('index.html');
-            }
-        });
-
-
-    }
-    setTimeout(ajouterEvent, 500)
-    
 
 });
