@@ -29,7 +29,7 @@ public class PorteResource {
 	public UriInfo uriInfo;
 
 	public PorteResource() throws SQLException{
-		if (!BDDFactory.tableExist("Porte")) {
+		if (!BDDFactory.tableExist("porte")) {
 			dao.createPorteTable();
 			//dao.insert(new Porte("t", 1, 1, 1, "test", "08/01/2015"));
 		}
@@ -86,7 +86,7 @@ public class PorteResource {
 		}
 	}
 	@GET
-	@Path("/bu/{idUser}")
+	@Path("/byuser/{idUser}")
 	@Produces({ "application/json", "application/xml" })
 	public List<Porte> getPortebyUser(@PathParam("idUser") Integer idUser) {
 		if (dao.findByidUser(idUser) == null) {
