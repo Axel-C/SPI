@@ -231,7 +231,7 @@ $(document).ready(function () {
                             $('nav li #' + articles.categorie).addClass('active');
                         },
                         error: function (xhr, status, errorThrown) {
-                            alert("Sorry, there was a problem!");
+                            
                             console.log("Error: " + errorThrown);
                             console.log("Status: " + status);
                             console.dir(xhr);
@@ -242,7 +242,7 @@ $(document).ready(function () {
                 });
             },
             error: function (xhr, status, errorThrown) {
-                alert("Sorry, there was a problem!");
+                
                 console.log("Error: " + errorThrown);
                 console.log("Status: " + status);
                 console.dir(xhr);
@@ -289,7 +289,7 @@ $(document).ready(function () {
                         $('nav li #' + articles.categorie).addClass('active');
                     },
                     error: function (xhr, status, errorThrown) {
-                        alert("Sorry, there was a problem!");
+                        
                         console.log("Error: " + errorThrown);
                         console.log("Status: " + status);
                         console.dir(xhr);
@@ -300,7 +300,7 @@ $(document).ready(function () {
             });
         },
         error: function (xhr, status, errorThrown) {
-            alert("Sorry, there was a problem!");
+            
             console.log("Error: " + errorThrown);
             console.log("Status: " + status);
             console.dir(xhr);
