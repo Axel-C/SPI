@@ -2,6 +2,9 @@ package fr.iutinfo.skeleton.api;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import fr.iutinfo.skeleton.common.dto.MaintenanceDto;
+import fr.iutinfo.skeleton.common.dto.PorteDto;
+
 @XmlRootElement
 public class Porte {
 	
@@ -86,6 +89,27 @@ public class Porte {
 		this.dateLastMaintenance = dateLastMaintenance;
 		this.descLastMaintenance = descLastMaintenance;
 	}
+	
+	
+	
+    public void initFromDto(PorteDto dto) {
+    	this.setDateLastMaintenance(dto.getDateLastMaintenance());
+    	this.setDescLastMaintenance(dto.getDescLastMaintenance());
+    	this.setDescription(dto.getDescription());
+    	this.setId(dto.getId());
+    	this.setIdUser(dto.getIdUser());
+
+    }
+
+    public PorteDto convertToDto() {
+    	PorteDto dto = new PorteDto();
+    	dto.setDateLastMaintenance(this.getDateLastMaintenance());
+    	dto.setDescLastMaintenance(this.getDescLastMaintenance());
+    	dto.setDescription(this.getDescription());
+    	dto.setId(this.getId());
+    	dto.setIdUser(this.getIdUser());
+        return dto;
+    }
 	
 	
 	
