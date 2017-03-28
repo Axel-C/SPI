@@ -11,7 +11,7 @@ import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
 import org.skife.jdbi.v2.tweak.BeanMapperFactory;
 
 public interface PorteDao {
-	@SqlUpdate("create table porte(id integer primary key autoincrement, idUser integer, description varchar(1024), dateLastMaintenance varchar(64), descLastMaintenance varchar(1024)"
+	@SqlUpdate("create table porte(id integer primary key autoincrement, idUser integer, description varchar(1024), dateLastMaintenance varchar(64), descLastMaintenance varchar(1024),"
 			+ "Constraint FK_Porte1 foreign key(idUser) references users(id))")
 	void createPorteTable();
 
