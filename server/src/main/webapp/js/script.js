@@ -104,7 +104,7 @@ $(document).ready(function () {
             "<img src='" + img + "' class='img-thumbnail img-responsive' alt='" + name + "'>" +
             "<div class='caption' >" +
             "<h3>" + name + "</h3>";
-        if (prix == -1) {
+        if (prix != -1) {
             retour += "<h3>" + prix + "€ </h3>";
         }
         retour += "<a href='#' class='btn btn-info enSavoirPlus' id='id" + id + "'>En savoir plus</a>";
