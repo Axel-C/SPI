@@ -4,6 +4,7 @@ import java.net.URI;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -18,6 +19,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
+
+import fr.iutinfo.skeleton.common.dto.PorteDto;
 
 @Path("/porte")
 @Produces(MediaType.APPLICATION_JSON)
@@ -64,8 +67,9 @@ public class PorteResource {
 	 * @return la liste des utilisateurs
 	 */
 	@GET
-	public List<Porte> getPortes() {
-		return new ArrayList<Porte>(dao.all());
+	public List<PorteDto> getPortes() {
+		List<Porte> portes = dao.all();
+		return portes.stream().map(Porte::convertToDto).collect(Collectors.toList());
 	}
 
 	
