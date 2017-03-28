@@ -8,20 +8,11 @@ public class MaintenanceDto {
 	private int idUser; 
 	private String rapport;
 	private String date;
-	private String numPorte;
-	
-	public String getNumPorte() {
-		return numPorte;
-	}
-	public void setNumPorte(String numPorte) {
-		this.numPorte = numPorte;
-	}
 
-	
 	@Override
 	public String toString() {
 		return "MaintenanceDto [type=" + type + ", idM=" + idM + ", idPro=" + idPro + ", idUser=" + idUser
-				+ ", rapport=" + rapport + ", date=" + date + ", numPorte=" + numPorte + "]";
+				+ ", rapport=" + rapport + ", date=" + date + "]";
 	}
 	public String getType() {
 		return type;

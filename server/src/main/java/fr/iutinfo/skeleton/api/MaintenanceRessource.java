@@ -62,22 +62,7 @@ public class MaintenanceRessource {
 			return Response.created(instanceURI).build();
 		}
 	}
-	
-	
-	@POST
-	@Path("/addPorte")
-	public Response createMaintenancePorte(Maintenance mnt) {
-		if (dao.all().contains(mnt))
-			return Response.status(Response.Status.CONFLICT).build();
-		else {
-			int id = dao.insertPorte(mnt);
-			mnt.setIdM(id);
-			URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + mnt.getIdM()).build();
-			return Response.created(instanceURI).build();
-		}
-	}
-	
-	
+		
 
 	/**
 	 * Prend en charge HTTP GET sur /maintenance
