@@ -89,7 +89,7 @@ footer {
 #contenuCompte,
 #creerCompte,
 .creerCompte,
-.ajouterArticle {
+.ajouterArticle,#descritpion {
     display: none;
 }
 
